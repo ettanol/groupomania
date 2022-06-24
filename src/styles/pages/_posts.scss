@@ -1,0 +1,18 @@
+.Posts {
+    display: grid;
+    width: 100vw;
+    min-height: 100vh ;
+    grid-template-columns: 5;
+    grid-template-rows: 10;
+    grid-template-areas: 'Members Header Header Header Header'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                'Members Posts Posts Posts Posts'
+                ;
+}

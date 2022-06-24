@@ -1,0 +1,33 @@
+.Members {
+    grid-area: Members;
+    background-color: $color-tertiary;
+    color: #fff;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    padding-top: 200px;
+    padding-left: 40px;
+}
+
+.member {
+    display: flex;
+    margin-bottom: 25px;
+    width: 80%;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    
+    &-name {
+        color: #fff;
+        font-size: 24px;
+        font-weight: 600;
+        margin-right: 10px;
+    }
+
+    &-connected {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        right: 0;
+    }
+}
+

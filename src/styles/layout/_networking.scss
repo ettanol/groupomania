@@ -1,0 +1,44 @@
+.networking {
+    grid-area: Posts;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.publish-post {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    #publish-text__area {
+        border-radius: 0px;
+        border: 1px solid black;
+        height: 200px;
+        max-width: 1000px;
+        width: 100%;
+        padding: 15px;
+        justify-content: flex-start;
+        margin: auto;
+        font-size: 20px;
+    }
+    
+    .submitPost {
+        border-radius: 10px;
+        align-self: flex-end;
+        width: 150px;
+        height: 60px;
+        margin-top: 20px;
+        margin-right: 20px;
+        font-size: 20px;
+    }
+}
+
+.post {
+    margin-top: 30px;
+    
+}
