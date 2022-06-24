@@ -31,7 +31,7 @@ const Home = () => {
                     <input type="text" name='email' id='email' placeholder='employee@groupomania.com' className='groupomania-form__input'></input>
                     <label for="password"></label>
                     <input type="text" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input'></input>
-                    <button type="submit" onClick={(e)=> {sendRequest(e)}} className="submit-button">Envoyer</button>
+                    <Link to="/posts" onClick={()=> sendRequest()} className="submit-button">Envoyer</Link>
                 </form>
                 : null
             }
@@ -46,7 +46,7 @@ const Home = () => {
                     <input type="text" name='email' id='email' placeholder='employee@groupomania.com' className='groupomania-form__input'></input>
                     <label for="password"></label>
                     <input type="text" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input'></input>
-                    <Link to="/posts" onClick={()=> sendRequest()} className="submit-button">Envoyer</Link>
+                    <button type="submit" onClick={(e)=> {sendRequest(e)}} className="submit-button">Envoyer</button>
                 </form>
                 : null
             }
