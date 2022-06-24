@@ -1,13 +1,14 @@
 import { useState } from "react"
 
 import '../styles/Home.css'
+import logo from '../assets/icon-left-font.png'
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
     
   return (
     <div className="Header">
-        <img src="../images/jud-mackrill-Of_m3hMsoAA-unsplash-min.jpg" className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
+        <img src={logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
         <div className="profile-image" onClick={() =>
         setIsOpen(isOpen ? false : true)
     } alt="profil utilisateur"/>

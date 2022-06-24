@@ -86,6 +86,10 @@ input {
   font-size: 16px;
 }
 
+.groupomania-logo {
+  height: 15px;
+}
+
 .Members {
   -ms-grid-row: 1;
   -ms-grid-row-span: 10;
@@ -129,10 +133,9 @@ input {
 
 .networking {
   -ms-grid-row: 2;
-  -ms-grid-row-span: 9;
   -ms-grid-column: 2;
   -ms-grid-column-span: 4;
-  grid-area: Posts;
+  grid-area: AddPost;
   margin: 0 auto;
   width: 100%;
   max-width: 1000px;
@@ -161,7 +164,7 @@ input {
           flex-direction: column;
 }
 
-.publish-post #publish-text__area {
+.publish-post .publish-text__area {
   border-radius: 0px;
   border: 1px solid black;
   height: 200px;
@@ -186,8 +189,55 @@ input {
   font-size: 20px;
 }
 
-.post {
-  margin-top: 30px;
+.publications {
+  padding: 50px;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 8;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 4;
+  grid-area: Publications;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.publication {
+  position: relative;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-height: 100px;
+  max-width: 1000px;
+  border: 1px solid black;
+  padding: 15px;
+  margin-bottom: 100px;
+}
+
+.publication-value {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 100%;
+}
+
+.user {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #FFD7D7;
+  text-align: end;
+  padding-right: 20px;
+  font-size: 16px;
 }
 
 .groupomania-form {
@@ -300,6 +350,6 @@ input {
       grid-template-columns: 5;
   -ms-grid-rows: 10;
       grid-template-rows: 10;
-      grid-template-areas: 'Members Header Header Header Header' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts' 'Members Posts Posts Posts Posts';
+      grid-template-areas: 'Members Header Header Header Header' 'Members AddPost AddPost AddPost AddPost' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications' 'Members Publications Publications Publications Publications';
 }
 /*# sourceMappingURL=Home.css.map */

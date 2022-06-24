@@ -1,35 +1,35 @@
 import { useState } from "react"
 
+import posts from "../assets/posts"
+
 const Networking = () => {
     const [input, setInput] = useState("")
-    const addPost = () => {
-        return(
-            <div className="post">
-                {input}
-            </div>
-        )
-    }
-    const PublishPost = () => {
-        return(
-            <form className="publish-post">
-                <input id="publish-text__area" name="post" placeholder="Une idée à partager ?" onChange={(e) => setInput(e.target.value)}/>
-                <button type="submit" 
-                    // onClick={(e) => {
-                    // e.preventDefault()
-                    // addPost()}} 
-                    className="submitPost" 
-                    onSubmit={() => {
-                        console.log({input})
-                        addPost()
-                        setInput("")
-                    }}>Envoyer</button>
-            </form>
-        )
+    const handleChange = (e) => {
+        setInput(e.target.value)
     }
   return (
     <div className="networking">
-        <PublishPost />
-
+        <form className="publish-post"
+            onSubmit={(e) => {
+                e.preventDefault()
+                console.log(input)
+                posts.push(
+                    {
+                        _id : posts.length + 1,
+                        value: input,
+                        user: "John Doe",
+                    }
+                )
+                setInput("")
+            }}>
+            <input type="text" className="publish-text__area" name="post" placeholder="Une idée à partager ?" value={input} maxLength="250" onChange={handleChange}/>
+            <button type="submit" 
+                // onClick={(e) => {
+                // e.preventDefault()
+                // addPost()}} 
+                className="submitPost" 
+                >Envoyer</button>
+        </form>
     </div>
   )
 }
