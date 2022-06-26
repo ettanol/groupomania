@@ -10,13 +10,82 @@ input {
   border-radius: 50px;
 }
 
-.Header {
+.modify-button {
+  position: absolute;
+  bottom: -50px;
+  right: 20px;
+  margin-top: 10px;
+  margin-right: 15px;
+  border-radius: 10px;
+  height: 30px;
+  width: 80px;
+  font-size: 16px;
+  bottom: -50px;
+  right: 90px;
+}
+
+.delete-button {
+  position: absolute;
+  bottom: -50px;
+  right: 20px;
+  margin-top: 10px;
+  margin-right: 15px;
+  border-radius: 10px;
+  height: 30px;
+  width: 80px;
+  font-size: 16px;
+  bottom: -50px;
+  right: 0px;
+}
+
+.modal-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 20;
+}
+
+.modal-modify {
+  background-color: #fff;
+  border: 1px solid #4E5166;
+  border-radius: 20px;
+  width: 500px;
+  height: 200px;
+  z-index: 21;
+}
+
+.modal-modify .publication-value {
+  border-radius: 20px 20px 20px 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-close {
+  color: red;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+}
+
+header {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   -ms-grid-column-span: 4;
   grid-area: Header;
-  -webkit-box-shadow: 1px 5px 10px #333;
-          box-shadow: 1px 5px 10px #333;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -26,8 +95,9 @@ input {
   z-index: 2;
 }
 
-.Header img {
+header img {
   margin: auto;
+  max-height: 100px;
 }
 
 .profile-image {
@@ -84,10 +154,6 @@ input {
   height: 40px;
   padding: 10px 30px;
   font-size: 16px;
-}
-
-.groupomania-logo {
-  height: 15px;
 }
 
 .Members {
@@ -165,17 +231,15 @@ input {
 }
 
 .publish-post .publish-text__area {
-  border-radius: 0px;
-  border: 1px solid black;
+  border-radius: 20px;
+  border: 1px solid #4E5166;
   height: 200px;
   max-width: 1000px;
   width: 100%;
+  resize: none;
   padding: 15px;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  margin: auto;
-  font-size: 20px;
+  font-size: 24px;
+  word-wrap: break-word;
 }
 
 .publish-post .submitPost {
@@ -186,11 +250,13 @@ input {
   height: 60px;
   margin-top: 20px;
   margin-right: 20px;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .publications {
-  padding: 50px;
+  width: 100%;
+  padding-top: 50px;
   -ms-grid-row: 3;
   -ms-grid-row-span: 8;
   -ms-grid-column: 2;
@@ -214,30 +280,51 @@ input {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  min-height: 100px;
   max-width: 1000px;
-  border: 1px solid black;
-  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #4E5166;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
   margin-bottom: 100px;
 }
 
 .publication-value {
+  word-wrap: break-word;
+  padding: 15px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  min-height: 50px;
   width: 100%;
 }
 
 .user {
-  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 30px;
+  height: 50px;
   background-color: #FFD7D7;
+  border-radius: 0 0 10px 10px;
   text-align: end;
   padding-right: 20px;
-  font-size: 16px;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    max-width: 100vw;
+  }
+  header {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  header img {
+    justify-self: flex-start;
+  }
+  .publication {
+    width: 300px;
+  }
 }
 
 .groupomania-form {

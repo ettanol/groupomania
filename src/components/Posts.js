@@ -3,7 +3,7 @@ import '../styles/Home.css'
 import Header from './Header'
 import Members from './Members'
 import Networking from './Networking'
-import Publications from './Publications'
+// import Publications from './Publications'
 
 function Posts() {
   return (
@@ -11,7 +11,7 @@ function Posts() {
       <Header />
       <Members />
       <Networking />
-      <Publications />
+      {/* <Publications /> */}
     </div>
   )
 }

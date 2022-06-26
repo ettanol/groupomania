@@ -1,12 +1,12 @@
-.Header {
+header {
     grid-area: Header;
-    box-shadow: 1px 5px 10px #333;
     display: flex;
     align-items: center;
     z-index: 2;
 
     img {
         margin: auto;
+        max-height: 100px;
     }
 }
 
@@ -61,8 +61,4 @@
         padding: 10px 30px;
         font-size: 16px;
     }
-}
-
-.groupomania-logo {
-    height: 15px;
 }

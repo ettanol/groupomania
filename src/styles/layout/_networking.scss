@@ -16,15 +16,15 @@
     flex-direction: column;
     
     .publish-text__area {
-        border-radius: 0px;
-        border: 1px solid black;
+        border-radius: 20px;
+        border: 1px solid $color-tertiary;
         height: 200px;
         max-width: 1000px;
         width: 100%;
+        resize: none;
         padding: 15px;
-        justify-content: flex-start;
-        margin: auto;
-        font-size: 20px;
+        font-size: 24px;
+        word-wrap: break-word;
     }
     
     .submitPost {
@@ -34,14 +34,50 @@
         height: 60px;
         margin-top: 20px;
         margin-right: 20px;
-        font-size: 20px;
+        font-size: 24px;
+        font-weight: 600;
     }
 }
 
 .publications {
-    padding: 50px;
+    width: 100%;
+    padding-top: 50px;
     grid-area: Publications;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.publication {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    max-width: 1000px;
+    background-color: #fff;
+    border: 1px solid $color-tertiary;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 100px;
+
+    &-value {
+        word-wrap: break-word;
+        padding: 15px;
+        height: fit-content;
+        min-height: 50px;
+        width: 100%;
+    }
+}
+
+$user-height : 50px;
+.user {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: $user-height;
+    background-color: $color-secondary;
+    border-radius: 0 0 10px 10px;
+    text-align: end;
+    padding-right: 20px;
+    font-size: 20px;
 }

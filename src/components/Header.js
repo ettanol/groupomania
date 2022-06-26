@@ -7,7 +7,7 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
     
   return (
-    <div className="Header">
+    <header>
         <img src={logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
         <div className="profile-image" onClick={() =>
         setIsOpen(isOpen ? false : true)
@@ -21,7 +21,7 @@ const Header = () => {
             </div> 
         : null
         }
-    </div>
+    </header>
   )
 }
 

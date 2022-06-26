@@ -1,0 +1,39 @@
+.modal {
+    &-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+    }
+    
+    &-modify {
+        background-color: #fff;
+        border: 1px solid $color-tertiary;
+        border-radius: 20px;
+        width: 500px;
+        height: 200px;
+        z-index: 21;
+    
+        .publication-value {
+            border-radius: 20px 20px 20px 20px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &-close {
+        color: red;
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        top: 100px;
+        right: 100px;
+    }
+}
+
