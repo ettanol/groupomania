@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { FaCross } from 'react-icons/fa'
+import { FaWindowClose } from 'react-icons/fa'
 
 const Networking = () => {
     const [input, setInput] = useState("")
     const [showModal, setShowModal] = useState(false)
+    const [post, setPost] = useState("")
 
     const [posts, setPosts] = useState(
         [
@@ -34,6 +35,23 @@ const Networking = () => {
             setPosts([...posts, post])
         }
     }
+    const Modal = () => {
+            if(showModal)  {
+                return(
+                <div className="modal-screen">
+                    <FaWindowClose className = "modal-close" onClick={() => setShowModal(false)}/>
+                    <div className="modal-modify">
+                        <textarea className="publication-value">{post.value}</textarea>
+                        <button type="button" className="modify-button"
+                        onClick={() => {
+                            setShowModal(false)
+                            setPost("")
+                        }
+                        }>Modifier</button>
+                    </div>
+                </div>)
+            }
+        }
   return (
     <div className="networking">
         <form className="publish-post"
@@ -46,6 +64,7 @@ const Networking = () => {
             <button type="submit" 
                 className="submitPost">Envoyer</button>
         </form>
+        <Modal />
         <div className="publications">{
             posts.map( post => {
             return (
@@ -53,32 +72,15 @@ const Networking = () => {
                     <div className="publication-value">{post.value}</div>
                     <div className="user">{post.user}</div>
                     <button type="button" className="modify-button"
-                    onClick={ (post) => {
-                        setShowModal(true)
-                    }}
+                    onClick={ () => setShowModal(true) }
                     >Modifier</button>
                     <button type="button" className="delete-button"
                     onClick={(e) => {
                         e.target.closest('.publication').remove()
                     }}>Supprimer</button>
-                {
-                    showModal ?
-                    <div className="modal-screen">
-                        <div className="modal-modify">
-                            <FaCross className = "modal-close" onClick={setShowModal(false)}/>
-                            <textarea className="publication-value" value={post.value}></textarea>
-                            <button type="button" className="modify-button"
-                            onClick={() => {
-                                setShowModal(false)
-                            }
-                            }>Modifier</button>
-                        </div>
-                    </div> : null
-                    }
                     </div>
             )}
             )
-            
         }
         </div>
     </div>
