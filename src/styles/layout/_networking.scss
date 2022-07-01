@@ -37,6 +37,27 @@
         font-size: 24px;
         font-weight: 600;
     }
+    
+    .image_button {
+        background-color: red;
+        color: white;
+        font-size: 24px;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include modify-button();
+        bottom: 0px;
+        right: 180px;
+        width: fit-content;
+        height: 60px;
+    }
+
+    input[type="file"] {
+        position: absolute;
+        right: 180px;
+        opacity: 0;
+    }
 }
 
 .publications {

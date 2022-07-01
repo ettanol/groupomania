@@ -38,6 +38,19 @@ input {
   right: 0px;
 }
 
+.thumbs {
+  position: absolute;
+  bottom: -50px;
+  left: 0px;
+  width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .modal-screen {
   position: fixed;
   top: 0;
@@ -259,6 +272,43 @@ header img {
   margin-right: 20px;
   font-size: 24px;
   font-weight: 600;
+}
+
+.publish-post .image_button {
+  background-color: red;
+  color: white;
+  font-size: 24px;
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: -50px;
+  right: 20px;
+  margin-top: 10px;
+  margin-right: 15px;
+  border-radius: 10px;
+  height: 30px;
+  width: 80px;
+  font-size: 16px;
+  bottom: 0px;
+  right: 180px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 60px;
+}
+
+.publish-post input[type="file"] {
+  position: absolute;
+  right: 180px;
+  opacity: 0;
 }
 
 .publications {
