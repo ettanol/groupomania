@@ -1,7 +1,9 @@
 import { useState } from "react"
+import React from "react"
 import { FaWindowClose,
             FaThumbsUp,
             FaThumbsDown } from 'react-icons/fa'
+import axios from "axios"
 
 const Modal = ({ post, setShowModal, onEditPost }) => {
     const [modifiedPost, setModifiedPost] = useState(post)
@@ -61,21 +63,12 @@ const Networking = () => {
                 _id : 1,
                 value: "Bienvenue sur le forum de partage de votre entreprise",
                 user : "John Doe",
-                likes: 2,
+                imageUrl : "https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+                likes: 0,
                 dislikes: 0,
-                usersLiked: ["John Doe", "Colonel Moutarde"],
+                usersLiked: [],
                 usersDisliked: [],
                 timeOfUpload: 1,
-            },
-            {
-                _id : 2,
-                value: "Wow, super cool de pouvoir discuter avec vous",
-                user : "Colonel Moutarde",
-                likes: 2,
-                dislikes: 0,
-                usersLiked: ["John Doe", "Colonel Moutarde"],
-                usersDisliked: [],
-                timeOfUpload: 2,
             },
         ]
     )
@@ -84,19 +77,71 @@ const Networking = () => {
         setInput(e.target.value)
     }
 
+    const Form = () => {
+        return (
+            <form className="publish-post"
+            onSubmit={(e) => {
+                e.preventDefault()
+                addPost()
+                setInput("")
+            }}>
+            <textarea type="text" className="publish-text__area" name="post" placeholder="Une idée à partager ?" value={input} maxLength="250" onChange={handleChange}/>
+            <label htmlFor="image_button" className="image_button">Ajouter une image</label>
+            <input type="file" id="image_button" accept=".png, .jpg, .jpeg, .gif" />
+            <button type="submit" 
+                className="submitPost">Envoyer</button>
+        </form>
+        )
+    }
+
+    const Publications = () => {
+        return (
+            <div className="publications">
+            {
+                posts.map( post => {
+                    return (
+                        <div className="publication" key={post._id}>
+                            <div className="publication_container">
+                                <div className="publication_value">{post.value}</div>
+                                <div className="publication_image__container">
+                                    <div className="publication_image"></div>
+                                </div>
+                            </div>
+                            <div className="user">{post.user}</div>
+                            <Thumbs like={post.likes} dislike={post.dislikes}/>
+                            <button type="button" className="modify-button"
+                            onClick={ () => {setShowModal(true)
+                                                setPost(post)} }
+                            >Modifier</button>
+                            <button type="button" className="delete-button"
+                            onClick={(e) => {
+                                e.target.closest('.publication').remove()
+                            }}>Supprimer</button>
+                        </div>
+                )}
+                ).sort(post => -(post.timeOfUpload))
+            }
+        </div>
+        )
+    }
+
     const addPost = (post) => {
-        if(input !== "" || input !== " ") {
-            post = {
-                _id : posts.length + 1,
+        if(input !== "") {
+            axios
+            .post('http://localhost:3000/api/posts', {
                 value: input,
                 user: "John Doe",
+                imageUrl: "",
                 likes: 0,
                 dislikes: 0,
                 usersLiked: [],
                 usersDisliked: [],
                 timeOfUpload: new Date(),
-            }
-            setPosts([...posts, post])
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+        } else {
+            alert("vous ne pouvez pas envoyer de message vide")
         }
     }
 
@@ -109,40 +154,9 @@ const Networking = () => {
     }
   return (
     <div className="networking">
-        <form className="publish-post"
-            onSubmit={(e) => {
-                e.preventDefault()
-                addPost()
-                setInput("")
-            }}>
-            <textarea type="text" className="publish-text__area" name="post" placeholder="Une idée à partager ?" value={input} maxLength="250" onChange={handleChange}/>
-            <label htmlFor="image_button" className="image_button">Ajouter une image</label>
-            <input type="file" id="image_button" accept=".png, .jpg, .jpeg, .gif" />
-            <button type="submit" 
-                className="submitPost">Envoyer</button>
-        </form>
+        <Form />
         {showModal && <Modal post={post} setShowModal={setShowModal} onEditPost={onEditPost}/>} 
-        <div className="publications">
-            {
-                posts.map( post => {
-                    return (
-                        <div className="publication" key={post._id}>
-                        <div className="publication-value">{post.value}</div>
-                        <div className="user">{post.user}</div>
-                        <Thumbs like={post.likes} dislike={post.dislikes}/>
-                        <button type="button" className="modify-button"
-                        onClick={ () => {setShowModal(true)
-                                            setPost(post)} }
-                        >Modifier</button>
-                        <button type="button" className="delete-button"
-                        onClick={(e) => {
-                            e.target.closest('.publication').remove()
-                        }}>Supprimer</button>
-                        </div>
-                )}
-                ).sort(post => -(post.timeOfUpload))
-            }
-        </div>
+        <Publications />
     </div>
   )
 }

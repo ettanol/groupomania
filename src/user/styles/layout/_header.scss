@@ -1,5 +1,7 @@
+$header-height: 100px;
 header {
-    grid-area: Header;
+    height: $header-height;
+    width: 100%;
     display: flex;
     align-items: center;
     z-index: 2;
@@ -34,6 +36,7 @@ header {
         background-color: $color-secondary;
         color: #333;
         border-radius: 10px;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -54,6 +57,13 @@ header {
     }
 
     &-logout {
+        cursor: pointer;
+        border-radius: 30px;
+        background-color: #fd2d01;
+        color: #fff;
+        text-align: center;
+        vertical-align: middle;
+        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         position: absolute;
         bottom: 10%;

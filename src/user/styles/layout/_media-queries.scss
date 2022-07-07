@@ -15,3 +15,18 @@
         width: 300px;
     }
 }
+
+@media (max-width: 465px) {
+    .none {
+        display: none;
+    }
+
+    .button-toggler {
+        display: flex;
+    }
+
+    .Posts {
+        display: flex;
+        flex-direction: column;
+    }
+}

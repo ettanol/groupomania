@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-filename-extension */
 import { useState } from "react"
+import React from "react"
 
 import '../styles/Home.css'
 import logo from '../assets/icon-left-font.png'
+import { Link } from "react-router-dom"
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -17,7 +20,7 @@ const Header = () => {
             <div className="profile-card">
                 <h1 className="profile-name">John Doe</h1>
                 <p className="profile-profession">web-developer</p>
-                <button className="profile-logout">Déconnexion</button>
+                <Link to="/" className="profile-logout">Déconnexion</Link>
             </div> 
         : null
         }

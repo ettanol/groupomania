@@ -1,5 +1,9 @@
 .Members {
-    grid-area: Members;
+    position: fixed;
+    width: 30%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: $color-tertiary;
     color: #fff;
     left: 0;

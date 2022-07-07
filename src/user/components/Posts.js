@@ -1,11 +1,12 @@
 import '../styles/Home.css'
+import React from 'react'
 
 import Header from './Header'
 import Members from './Members'
 import Networking from './Networking'
 // import Publications from './Publications'
 
-function Posts() {
+const Posts = () => {
   return (
     <div className="Posts">
       <Header />
