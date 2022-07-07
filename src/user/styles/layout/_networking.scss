@@ -1,12 +1,14 @@
 .networking {
+    position: absolute;
     top: $header-height;
-    margin: 0 auto;
-    width: 70%;
-    max-width: 1000px;
+    right: 0;
+    width: 100vw - $members-width;
+    height: fit-content;
     padding: 50px 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid red;
 }
 
 .publish-post {

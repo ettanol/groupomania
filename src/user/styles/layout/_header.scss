@@ -1,10 +1,13 @@
 $header-height: 100px;
 header {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: $header-height;
     width: 100%;
     display: flex;
     align-items: center;
-    z-index: 2;
+    z-index: 5;
 
     img {
         margin: auto;

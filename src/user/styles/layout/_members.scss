@@ -1,6 +1,8 @@
+$members-width: 25vw;
+
 .Members {
     position: fixed;
-    width: 30%;
+    width: $members-width;
     height: 100vh;
     display: flex;
     flex-direction: column;

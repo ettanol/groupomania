@@ -119,7 +119,7 @@ const Networking = () => {
                             }}>Supprimer</button>
                         </div>
                 )}
-                ).sort(post => -(post.timeOfUpload))
+                )
             }
         </div>
         )
@@ -130,13 +130,7 @@ const Networking = () => {
             axios
             .post('http://localhost:3000/api/posts', {
                 value: input,
-                user: "John Doe",
-                imageUrl: "",
-                likes: 0,
-                dislikes: 0,
-                usersLiked: [],
-                usersDisliked: [],
-                timeOfUpload: new Date(),
+                imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
             })
             .then(res => console.log(res))
             .catch(err => console.log(err))
