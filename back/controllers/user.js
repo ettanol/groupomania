@@ -104,3 +104,9 @@ exports.login= async (req, res, next) => {
     })
     .catch(error => res.status(500).json({error}))
 }
+
+exports.getUserAccount = async (req, res, next) => {//get the specific object from DB
+    User.findOne({ userId: req.params.userId})
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(404).json({ error}))
+}
