@@ -16,23 +16,17 @@ const Networking = () => {
     const [post, setPost] = useState("")
 
     const [posts, setPosts] = useState(
-        [
-            {
-                _id : 1,
-                value: "Bienvenue sur le forum de partage de votre entreprise",
-                user : "John Doe",
-                imageUrl : "https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-                likes: 0,
-                dislikes: 0,
-                usersLiked: [],
-                usersDisliked: [],
-                timeOfUpload: 1,
-            },
-        ]
+        []
     )
 
-    useEffect(async () => {
-        Publications()
+    useEffect( () => {
+        axios
+            .get('http://localhost:5000/api/posts/',{
+            headers: {
+                authorization: userInfo[0]
+            }})
+            .then(posts => setPosts(posts))
+            .catch(error => console.log(error))
     }, [])
 
     const userInfoString = localStorage.getItem('token')
@@ -41,41 +35,37 @@ const Networking = () => {
     const handleChange = (e) => {
         setInput(e.target.value)
     }
+    
+    const DisplayPosts = (posts) => {
+        console.log(posts)
+        posts.map( post => {
+            return (<div className="publication" key={post._id}>
+                <div className="publication_container">
+                    <div className="publication_value">{post.value}</div>
+                    <div className="publication_image__container">
+                        <div className="publication_image">{post.imageUrl}</div>
+                    </div>
+                </div>
+                <div className="user">{post.user}</div>
+                <Thumbs like={post.likes} dislike={post.dislikes}/>
+                <button type="button" className="modify-button"
+                onClick={ () => {setShowModal(true)
+                                    setPost(post)} }
+                >Modifier</button>
+                <button type="button" className="delete-button"
+                onClick={(e) => {
+                    e.target.closest('.publication').remove()
+                }}>Supprimer</button>
+                </div> 
+            )
+        })
+    }
 
     const Publications = () => {
         return (
             <div className="publications">
-            { axios
-            .get('http://localhost:5000/api/posts/',{
-            headers: {
-                authorization: userInfo[0]
-            }})
-            .then(posts => {
-                console.log(posts.data)
-                posts.data.map( post => {
-                    return (
-                    <div className="publication" key={post._id}>
-                    <div className="publication_container">
-                        <div className="publication_value">{post.value}</div>
-                        <div className="publication_image__container">
-                            <div className="publication_image"></div>
-                        </div>
-                    </div>
-                    <div className="user">{post.user}</div>
-                    <Thumbs like={post.likes} dislike={post.dislikes}/>
-                    <button type="button" className="modify-button"
-                    onClick={ () => {setShowModal(true)
-                                        setPost(post)} }
-                    >Modifier</button>
-                    <button type="button" className="delete-button"
-                    onClick={(e) => {
-                        e.target.closest('.publication').remove()
-                    }}>Supprimer</button>
-                    </div> 
-                    )
-                })
-            })
-            }</div>
+                <DisplayPosts posts={posts}/>
+            </div>
         )}
 
     const addPost = () => {
@@ -129,5 +119,7 @@ const Networking = () => {
     </div>
   )
 }
+
+
 
 export default Networking
