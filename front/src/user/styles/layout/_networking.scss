@@ -8,7 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid red;
 }
 
 .publish-post {
@@ -67,6 +66,7 @@
 
 .publications {
     width: 100%;
+    height: fit-content;
     padding-top: 50px;
     grid-area: Publications;
     display: flex;

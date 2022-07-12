@@ -1,4 +1,6 @@
 import axios from 'axios'
+let userInfoString = localStorage.getItem('userInfo')
+let userInfo = JSON.parse(userInfoString)
 // import React from 'react'
 // // import { setShowModal, setPost } from './Networking'
 // import Thumbs from "./Thumbs"
@@ -31,7 +33,7 @@ const Register = (email, password) => {
     })
     .then(res => {
       if(res.status === 200) {
-        const tokenString = JSON.stringify([res.data.token, res.data.userId])
+        let tokenString = JSON.stringify([res.data.userId, res.data.token])
         localStorage.setItem('userInfo', tokenString)
         console.log(res.data.userId)
         window.location = '/posts'
@@ -42,9 +44,13 @@ const Register = (email, password) => {
   // PUT/PATCH REQUEST
   const getUserAccount = (userId) => {
     instance
-    .get('/auth/user/:userId', {params : {
-      userId: userId
-    }})
+    .get('/auth/user/', {params : {
+      userId
+    }},{
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        authorization: userInfo[1]
+      }})
     .then(res => console.log(res))
     .catch(err => console.error(err))
   }

@@ -297,7 +297,6 @@ header img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border: 1px solid red;
 }
 
 .publish-post {
@@ -379,6 +378,9 @@ header img {
 
 .publications {
   width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   padding-top: 50px;
   grid-area: Publications;
   display: -webkit-box;

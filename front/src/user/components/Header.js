@@ -9,15 +9,15 @@ import { Link } from "react-router-dom"
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
-    const userInfoString = localStorage.getItem('userInfo')
-    const userInfo = JSON.parse(userInfoString)
+    let userInfoString = localStorage.getItem('userInfo')
+    let userInfo = JSON.parse(userInfoString)
     
   return (
     <header>
         <img src={logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
         <div className="profile-image" onClick={async () =>{
         setIsOpen(isOpen ? false : true)
-        getUserAccount(userInfo[1])
+        getUserAccount(userInfo[0])
     }} alt="profil utilisateur"/>
         {
         isOpen ? 
