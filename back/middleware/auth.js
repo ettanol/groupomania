@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config()
 
 module.exports = async (req, res, next) => {
         try {
-            const token = req.headers.authorization
+            const token = req.headers.Authorization
             const decodedToken = JWT.verify(token, process.env.JWT_SECRET) //verifies if the token is correct
             const userId = decodedToken.userId
             req.auth = { userId } //creates a params to verify the userId

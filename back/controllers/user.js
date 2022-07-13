@@ -106,7 +106,7 @@ exports.login= async (req, res, next) => {
 }
 
 exports.getUserAccount = async (req, res, next) => {//get the specific user from DB
-    const token = req.headers.authorization
+    const token = req.headers.Authorization
     const decodedToken = JWT.verify(token, process.env.JWT_SECRET) //verifies if the token is correct
     const email = decodedToken.email
     if (email === req.params.email){

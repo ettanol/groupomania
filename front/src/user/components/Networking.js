@@ -28,7 +28,7 @@ const Networking = () => {
         axios
         .get('http://localhost:5000/api/posts/',{
         headers: {
-            authorization: userInfo[1]
+            Authorization: userInfo[1]
         }})
         .then(posts => {
             setIsLoaded(true)

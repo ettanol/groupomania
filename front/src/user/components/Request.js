@@ -5,8 +5,6 @@ let userInfo = JSON.parse(userInfoString)
 // // import { setShowModal, setPost } from './Networking'
 // import Thumbs from "./Thumbs"
 
-// AXIOS GLOBALS
-axios.defaults.headers.authorization = ''
 
 const instance = axios.create({
     baseURL: 'http://localhost:5000/api',
@@ -34,7 +32,6 @@ const Register = (email, password) => {
       if(res.status === 200) {
         let userInfo = JSON.stringify([res.data.email, res.data.token])
         localStorage.setItem('userInfo', userInfo)
-        console.log(res.data.email)
         window.location = '/posts'
       }})
     .catch(err => console.error(err))
@@ -47,8 +44,7 @@ const Register = (email, password) => {
       email
     }},{
       headers: {
-        Accept: 'application/json, text/plain, */*',
-        authorization: userInfo[1]
+        Authorization: userInfo[1]
       }})
     .then(res => console.log(res))
     .catch(err => console.error(err))

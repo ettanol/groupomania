@@ -14,7 +14,7 @@ const Form = () => {
                 value: input
             }, {
                 headers: {
-                    authorization: userInfo[1]
+                    Authorization: userInfo[1]
                 }}
             )
             .then(res => console.log(res))
