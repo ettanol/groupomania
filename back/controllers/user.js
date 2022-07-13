@@ -88,9 +88,9 @@ exports.login= async (req, res, next) => {
                     timeOfBlock = 0
                     databaseUpdate(user, attempts, blocks, timeOfBlock)
                     res.status(200).json({ //if the password is correct
-                    userId : user._id,
+                    email : user.email,
                     token: JWT.sign( // create a token which expires every 24h
-                    { userId: user._id},
+                    { email: user.email},
                     process.env.JWT_SECRET,
                     { expiresIn: '24h'}
                     )
@@ -105,8 +105,13 @@ exports.login= async (req, res, next) => {
     .catch(error => res.status(500).json({error}))
 }
 
-exports.getUserAccount = async (req, res, next) => {//get the specific object from DB
-    User.findOne({ userId: req.params.userId})
-    .then(user => res.status(200).json(user))
-    .catch(error => res.status(404).json({ error}))
+exports.getUserAccount = async (req, res, next) => {//get the specific user from DB
+    const token = req.headers.authorization
+    const decodedToken = JWT.verify(token, process.env.JWT_SECRET) //verifies if the token is correct
+    const email = decodedToken.email
+    if (email === req.params.email){
+        User.findOne({ email: req.params.email})
+        .then(user => res.status(200).json(user))
+        .catch(error => res.status(404).json({ error}))
+    }
 }

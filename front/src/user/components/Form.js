@@ -4,18 +4,17 @@ import axios from "axios"
 
 const Form = () => {
     const [input, setInput] = useState("")
-    const userInfoString = localStorage.getItem('token')
+    const userInfoString = localStorage.getItem('userInfo')
     const userInfo = JSON.parse(userInfoString)
 
     const addPost = () => {
         if(input !== "") {
             axios
             .post('http://localhost:5000/api/posts', {
-                value: input,
-                imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+                value: input
             }, {
                 headers: {
-                    authorization: userInfo[0]
+                    authorization: userInfo[1]
                 }}
             )
             .then(res => console.log(res))

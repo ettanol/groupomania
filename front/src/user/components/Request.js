@@ -10,7 +10,6 @@ axios.defaults.headers.authorization = ''
 
 const instance = axios.create({
     baseURL: 'http://localhost:5000/api',
-    timeout: 2000,
 })
 
 // GET REQUEST
@@ -33,19 +32,19 @@ const Register = (email, password) => {
     })
     .then(res => {
       if(res.status === 200) {
-        let tokenString = JSON.stringify([res.data.userId, res.data.token])
-        localStorage.setItem('userInfo', tokenString)
-        console.log(res.data.userId)
+        let userInfo = JSON.stringify([res.data.email, res.data.token])
+        localStorage.setItem('userInfo', userInfo)
+        console.log(res.data.email)
         window.location = '/posts'
       }})
     .catch(err => console.error(err))
   }
   
   // PUT/PATCH REQUEST
-  const getUserAccount = (userId) => {
+  const getUserAccount = (email) => {
     instance
     .get('/auth/user/', {params : {
-      userId
+      email
     }},{
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -87,7 +86,7 @@ const Register = (email, password) => {
   // SIMULTANEOUS DATA
   const addPost = () => {
     instance.post('/posts/')
-    .then(res => console.log(res))
+    .then(res => JSON.stringify(res))
     .catch(err => console.log(err))
   }
 
