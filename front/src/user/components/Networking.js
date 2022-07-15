@@ -16,6 +16,7 @@ const Networking = () => {
     const [post, setPost] = useState("")
     const [posts, setPosts] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
+    const [error, setError] = useState(false)
 
     let userInfoString = localStorage.getItem('userInfo')
     let userInfo = JSON.parse(userInfoString)
@@ -26,15 +27,21 @@ const Networking = () => {
 
     const fetchPosts = () => {
         axios
-        .get('http://localhost:5000/api/posts/',{
+        .get('http://localhost:5000/api/posts',{
         headers: {
-            Authorization: userInfo[1]
+            authorization: userInfo[1]
         }})
         .then(posts => {
             setIsLoaded(true)
             setPosts(posts.data)
         })
-        .catch(error => console.log(error))
+        .catch(error => setError(true))
+    }
+
+    const ShowPosts = () => {
+        if(isLoaded) { return (<DisplayPosts/>) }
+        else if(error){return (<div><p>Nous rencontrons des problèmes, veuillez nous en excuser</p></div>)}
+        else {return (<div className="loading">Loading...</div>)}
     }
     
     const DisplayPosts = () => {
@@ -67,10 +74,7 @@ const Networking = () => {
     const Publications = () => {
         return (
             <div className="publications">
-                {
-                    isLoaded ? <DisplayPosts/> 
-                    : <div className="loading">Loading...</div>
-                }
+                <ShowPosts />
             </div>
                 )}
 

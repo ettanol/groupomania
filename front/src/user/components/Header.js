@@ -1,16 +1,38 @@
 /* eslint-disable react/jsx-filename-extension */
-import { useState } from "react"
-import React from "react"
-import { getUserAccount } from './Request'
+import { React, useState, useEffect } from "react"
+import axios from "axios"
 
-import '../styles/Home.css'
+// import '../styles/Home.css'
 import logo from '../assets/icon-left-font.png'
 import { Link } from "react-router-dom"
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [user, setUser] = useState("")
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [error, setError] = useState(false)
+
     let userInfoString = localStorage.getItem('userInfo')
     let userInfo = JSON.parse(userInfoString)
+
+    useEffect(() => {
+      getUserAccount()
+    }, [])
+    
+
+    const getUserAccount = (email) => {
+        axios
+          .get(`http://localhost:5000/api/auth/user${email}`,{
+            headers: {
+                authorization: userInfo[1]
+            }
+          })
+          .then(user => {
+              setIsLoaded(true)
+              setUser(user.data)
+          })
+          .catch(error => setError(true))
+    }
     
   return (
     <header>

@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import logo from '../assets/icon-left-font.png'
 import React from 'react'
-import { Login,
-        Register } from './Request'
+import axios from 'axios'
+// import  login from './Request'
+// import register from './Request'
 
 import '../styles/Home.css'
 
@@ -11,8 +12,39 @@ import '../styles/Home.css'
 const Home = () => {
     const [isSignInOpen, setSignInOpen] = useState(false)
     const [isSignUpOpen, setSignUpOpen] = useState(false)
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [profession, setProfession] = useState('')
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const login = (email, password) => {
+        axios.post('http://localhost:5000/api/auth/login',
+        {
+            email: email,
+            password: password
+        })
+        .then(res => {
+          if(res.status === 200) {
+            let userInfo = JSON.stringify([res.data.email, res.data.token])
+            localStorage.setItem('userInfo', userInfo)
+            window.location = '/posts'
+          }})
+        .catch(err => console.error(err))
+      }
+
+    const register = (firstName, lastName, profession,  email, password) => {
+    axios.post('http://localhost:5000/api/auth/signup',
+    {   
+        firstName: firstName,
+        lastName: lastName,
+        profession: profession,
+        email: email,
+        password: password
+    })
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
+    }
 
   return (
     <div className="welcome__page">
@@ -32,16 +64,17 @@ const Home = () => {
             }
             }> Connexion </button>
             { isSignInOpen ?
-                <form className='groupomania-form' onSubmit={e => {
-                    e.preventDefault()
-                    Login(email, password)}}>
+            <form className='groupomania-form' onSubmit={e =>{ 
+                e.preventDefault()
+                login(email, password)}}>
                     <label htmlFor="email"></label>
-                    <input type="text" name='email' id='email' placeholder='employee@groupomania.com' className='groupomania-form__input'
-                    onChange={e => setEmail(e.target.value)} value={email}></input>
+                    <input type="text" name='email' id='email' placeholder='prénom.nom@groupomania.fr' className='groupomania-form__input'
+                    onChange={e => setEmail(e.target.value)}></input>
                     <label htmlFor="password"></label>
-                    <input type="text" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)} value={password}></input>
-                    <button type="submit" className="submit-button">Envoyer</button>
+                    <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)}></input>
+                    <button type="submit" className="submit-button" >Envoyer</button>
                 </form>
+                
                 : null
             }
             <button className="sign-up" 
@@ -55,16 +88,23 @@ const Home = () => {
             }
             }> Inscription </button>
             { isSignUpOpen ?
-                <form className='groupomania-form' onSubmit={e =>{ 
+            <form className='groupomania-form' onSubmit={e => {
                 e.preventDefault()
-                Register(email, password)}}>
-                    <label htmlFor="email"></label>
-                    <input type="text" name='email' id='email' placeholder='employee@groupomania.com' className='groupomania-form__input'
-                    onChange={e => setEmail(e.target.value)}></input>
-                    <label htmlFor="password"></label>
-                    <input type="text" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)}></input>
-                    <button type="submit" className="submit-button" >Envoyer</button>
-                </form>
+                setEmail(`${firstName}.${lastName}@groupomania.fr`)
+                register(firstName, lastName, profession, email, password)
+                login(email, password)}}>
+                <label htmlFor="firstName"></label>
+                <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'
+                onChange={e => setFirstName(e.target.value)} value={firstName}></input>
+                <label htmlFor="lastName"></label>
+                <input type="text" name='lastName' id='lastName' placeholder='nom' className='groupomania-form__input'
+                onChange={e => setLastName(e.target.value)} value={lastName}></input>
+                <input type="text" name='profession' id='profession' placeholder='profession' className='groupomania-form__input'
+                onChange={e => setProfession(e.target.value)} value={profession}></input>
+                <label htmlFor="password"></label>
+                <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)} value={password}></input>
+                <button type="submit" className="submit-button">Envoyer</button>
+            </form>
                 : null
             }
         </div>

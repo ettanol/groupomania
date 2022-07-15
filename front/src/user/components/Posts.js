@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import React from 'react'
+import React  from 'react'
 
 import Header from './Header'
 import Members from './Members'
@@ -8,12 +8,12 @@ import Networking from './Networking'
 
 const Posts = () => {
   return (
-    <div className="Posts">
-      <Header />
-      <Members />
-      <Networking />
-      {/* <Publications /> */}
-    </div>
+      <div className="Posts">
+        <Header />
+        <Members />
+        <Networking />
+        {/* <Publications /> */}
+      </div> 
   )
 }
 

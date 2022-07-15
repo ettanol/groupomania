@@ -592,7 +592,8 @@ header img {
 .connexion-form button {
   height: 100px;
   width: 55%;
-  font-size: 50px;
+  font-size: 3rem;
+  padding: 5px;
 }
 
 .connexion-form .submit-button {

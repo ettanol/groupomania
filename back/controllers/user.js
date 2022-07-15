@@ -20,6 +20,9 @@ exports.signup = async (req, res, next) => {
         await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
         .then(hash => { //get the hash and put it in the user object
         const user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            profession: req.body.profession,
             email: req.body.email,
             isConnected : true,
             password: hash,
@@ -105,13 +108,21 @@ exports.login= async (req, res, next) => {
     .catch(error => res.status(500).json({error}))
 }
 
+exports.getAllPosts = async (req, res, next) => { // get all object
+    User.find()
+    .then(users => res.status(200).json(users))
+    .catch(error => res.status(400).json({ error }))
+}
+
 exports.getUserAccount = async (req, res, next) => {//get the specific user from DB
     const token = req.headers.Authorization
     const decodedToken = JWT.verify(token, process.env.JWT_SECRET) //verifies if the token is correct
-    const email = decodedToken.email
-    if (email === req.params.email){
+    const email = req.params.email
+    const decodedEmail = JWT.verify(email, process.env.JWT_SECRET)
+    if (decodedToken && decodedEmail){
         User.findOne({ email: req.params.email})
         .then(user => res.status(200).json(user))
         .catch(error => res.status(404).json({ error}))
     }
 }
+

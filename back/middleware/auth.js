@@ -3,12 +3,12 @@ const dotenv = require('dotenv').config()
 
 module.exports = async (req, res, next) => {
         try {
-            const token = req.headers.Authorization
+            const token = req.headers.authorization
             const decodedToken = JWT.verify(token, process.env.JWT_SECRET) //verifies if the token is correct
-            const userId = decodedToken.userId
-            req.auth = { userId } //creates a params to verify the userId
-            if (req.body.userId && req.body.userId !== userId) {
-            res.status(403).json({error: new Error("Id utilisateur invalide")})
+            const email = decodedToken.email
+            req.auth = { email } //creates a params to verify the email
+            if (req.body.email && req.body.email !== email) {
+            res.status(403).json({error: new Error("Email utilisateur invalide")})
             } else {
             next()
             }
