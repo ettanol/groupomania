@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import { React, useState, useEffect } from "react"
+import React, {useState, useEffect } from "react"
 import axios from "axios"
 
 // import '../styles/Home.css'
@@ -16,15 +16,15 @@ const Header = () => {
     let userInfo = JSON.parse(userInfoString)
 
     useEffect(() => {
-      getUserAccount()
+      getUserAccount(userInfo.email)
     }, [])
     
 
     const getUserAccount = (email) => {
         axios
-          .get(`http://localhost:5000/api/auth/user${email}`,{
+          .get(`http://localhost:5000/api/auth/user/${email}`,{
             headers: {
-                authorization: userInfo[1]
+                authorization: userInfo.token
             }
           })
           .then(user => {
@@ -39,13 +39,13 @@ const Header = () => {
         <img src={logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
         <div className="profile-image" onClick={async () =>{
         setIsOpen(isOpen ? false : true)
-        getUserAccount(userInfo[0])
+        // getUserAccount(userInfo[0])
     }} alt="profil utilisateur"/>
         {
         isOpen ? 
             <div className="profile-card">
-                <h1 className="profile-name">John Doe</h1>
-                <p className="profile-profession">web-developer</p>
+                <h1 className="profile-name">{userInfo.firstName} {userInfo.lastName}</h1>
+                <p className="profile-profession">{userInfo.profession}</p>
                 <Link to="/" className="profile-logout">Déconnexion</Link>
             </div> 
         : null

@@ -3,7 +3,7 @@ const fs = require('fs')
 const posts = require('../models/posts')
 
 exports.addPost = async (req, res, next) => {
-    const PostObject = JSON.parse(req.body) //get the req sent from the front
+    let PostObject = req.body //get the req sent from the front
     delete PostObject._id //deletes the id automatically created (to link the object to the userId)
     if(PostObject.value.includes("<" || "javascript" || "script")
     ) {
@@ -11,9 +11,10 @@ exports.addPost = async (req, res, next) => {
     }
     const post = new Post({ // creates a new object
         _id: Post.length,
+        user: PostObject.user,
         value: PostObject.value,
         timeOfUpload: Date.now(),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
         likes: 0,
         dislikes: 0,
         usersLiked: [],

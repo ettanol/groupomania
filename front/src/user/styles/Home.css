@@ -311,17 +311,6 @@ header img {
           flex-direction: column;
 }
 
-.publish-post .publish-text__area {
-  border-radius: 20px;
-  height: 200px;
-  max-width: 1000px;
-  width: 100%;
-  resize: none;
-  padding: 15px;
-  font-size: 24px;
-  word-wrap: break-word;
-}
-
 .publish-post .submitPost {
   border-radius: 10px;
   -ms-flex-item-align: end;
@@ -370,6 +359,50 @@ header img {
 
 .publish-post .image_button:hover {
   background-color: rgba(253, 45, 1, 0.6);
+}
+
+.publish-post .form-input {
+  position: relative;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.publish-post .form-input .publish-text__area {
+  position: relative;
+  left: 0;
+  justify-self: flex-start;
+  border-radius: 15px 0px 0px 15px;
+  height: 200px;
+  width: 100%;
+  resize: none;
+  padding: 15px;
+  font-size: 24px;
+  word-wrap: break-word;
+}
+
+.publish-post .form-input .modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.publish-post .publish-image {
+  position: relative;
+  right: 0px;
+  height: 100%;
+  width: auto;
+  border-radius: 0 15px 15px 0;
+}
+
+.publish-post .image_replacement {
+  position: relative;
+  right: 0;
+  height: 100%;
+  width: 150px;
+  border-radius: 0 15px 15px 0;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .publish-post input[type="file"] {

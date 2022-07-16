@@ -12,6 +12,8 @@ import '../styles/Home.css'
 const Home = () => {
     const [isSignInOpen, setSignInOpen] = useState(false)
     const [isSignUpOpen, setSignUpOpen] = useState(false)
+    const [isRegistered, setIsRegistered] = useState(false)
+
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [profession, setProfession] = useState('')
@@ -26,7 +28,7 @@ const Home = () => {
         })
         .then(res => {
           if(res.status === 200) {
-            let userInfo = JSON.stringify([res.data.email, res.data.token])
+            let userInfo = JSON.stringify(res.data)
             localStorage.setItem('userInfo', userInfo)
             window.location = '/posts'
           }})
@@ -42,7 +44,11 @@ const Home = () => {
         email: email,
         password: password
     })
-    .then(res => console.log(res))
+    .then(res => {
+        setIsRegistered(true)
+        console.log(res)
+
+    })
     .catch(err => console.error(err))
     }
 
@@ -92,7 +98,10 @@ const Home = () => {
                 e.preventDefault()
                 setEmail(`${firstName}.${lastName}@groupomania.fr`)
                 register(firstName, lastName, profession, email, password)
-                login(email, password)}}>
+                if(isRegistered){
+                login(email, password)
+                }
+            }}>
                 <label htmlFor="firstName"></label>
                 <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'
                 onChange={e => setFirstName(e.target.value)} value={firstName}></input>
