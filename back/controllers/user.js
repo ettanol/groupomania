@@ -6,6 +6,7 @@ const dotenv = require('dotenv').config()
 
 const User = require('../models/user')
 
+
 exports.signup = async (req, res, next) => {
     const passwordSchema = new passwordValidator()
     passwordSchema
@@ -24,6 +25,7 @@ exports.signup = async (req, res, next) => {
             lastName: req.body.lastName,
             profession: req.body.profession,
             email: req.body.email,
+            profileImageUrl : `${req.protocol}://${req.get('host')}/images/user.png`,
             isConnected : true,
             password: hash,
             numberOfAttempts: 0,
@@ -89,17 +91,19 @@ exports.login= async (req, res, next) => {
                     attempts = 0
                     blocks = 0
                     timeOfBlock = 0
+                    user.isConnected = true
                     databaseUpdate(user, attempts, blocks, timeOfBlock)
                     res.status(200).json({ //if the password is correct
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    profession: user.profession,
-                    email : user.email,
-                    token: JWT.sign( // create a token which expires every 24h
-                    { email: user.email},
-                    process.env.JWT_SECRET,
-                    { expiresIn: '24h'}
-                    )
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        profession: user.profession,
+                        userId : user._id,
+                        token: JWT.sign( // create a token which expires every 24h
+                        { userId: user._id},
+                        process.env.JWT_SECRET,
+                        { expiresIn: '24h'}
+                        )
                     })
                 }
             } else {
@@ -107,6 +111,58 @@ exports.login= async (req, res, next) => {
             }
         })
         .catch(error => res.status(500).json({error}))
+    })
+    .catch(error => res.status(500).json({error}))
+}
+
+exports.logout= async (req, res, next) => {
+    User.findOne({ email: req.body.email }) //checks if the email given exists in the DB
+    .then(user => {
+        if(!user) {
+            return res.status(401).json({error: 'Utilisateur non trouvé'})
+        }
+        user.isConnected = false
+        User.updateOne({ email: req.body.email }, { user }) //updates DB
+        .then(() => res.status(200).json({message: 'Utilisateur déconnecté'}))
+        .catch(error => res.status(400).json({ error }))
+    })
+    .catch(error => res.status(500).json(new Error("erreur serveur")))
+}
+
+exports.updateProfile = async (req, res, next) => {
+    User.findOne({ email: req.params.email}) //gets the Post that will be modified from DB
+    .then(async user => {
+        const filename = user.profileImageUrl.split('/images/')[1]
+        if (user.profileImageUrl !== '' && fs.existsSync(`images/${filename}`) && req.file){ //if the file already exists and a file is added in the request
+            fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
+        }
+        const passwordSchema = new passwordValidator()
+        passwordSchema
+        .is().min(8, 'le mot de passe doit contenir 8 caractères minimum') // Minimum length 8
+        .is().max(100, 'le mot de passe doit contenir 100 caractères maximum') // Maximum length 100
+        .has().uppercase(1, 'le mot de passe doit contenir au moins une majuscule') // Must have uppercase letters
+        .has().lowercase(1, 'le mot de passe doit contenir au moins une minuscule') // Must have lowercase letters
+        .has().digits(2, 'le mot de passe doit contenir au moins deux chiffres') // Must have at least 2 digits
+        .has().not().spaces() // Should not have spaces
+        .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
+        if(req.body.password !== "" && passwordSchema.validate(req.body.password)){
+            await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
+            .then(hash => { //get the hash and put it in the user object
+            user.password = hash
+            })
+            .catch(error => res.status(400).json({ error }))
+
+        }
+        const UserObject = req.file ? { //if a file is added
+            ...JSON.parse(req.body),
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
+        } : { ...req.body} //else just get the modified info from request
+        if(UserObject.value.includes("<" || "javascript" || "script")) {
+        return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added
+        }
+        User.updateOne({ _id: req.params.id}, { ...UserObject, _id: req.params.id}) //updates DB
+        .then(() => res.status(200).json({message: 'profile modifiée'}))
+        .catch(error => res.status(400).json({ error }))
     })
     .catch(error => res.status(500).json({error}))
 }

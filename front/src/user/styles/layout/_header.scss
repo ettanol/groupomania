@@ -1,6 +1,6 @@
 $header-height: 100px;
 header {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: $header-height;
@@ -17,25 +17,27 @@ header {
 
 .profile {
     $image-height : 75px;
-    $right-space : 30px;
+    $margin : 30px;
+    $card-width : 225px;
+    $card-height: 300px;
     &-image {
         position: absolute;
+        top: $margin+ 10px;
+        right: ($card-width / 2) + $margin - $image-height / 2;
         border-radius: 50%;
         height: $image-height;
         width: $image-height;
         background-color: #bbb;
-        top: 30px;
-        right: $image-height + $right-space;
         z-index: 11;
     }
 
     &-card {
         position: absolute;
-        top: 10px;
-        right: $right-space;
+        top: $margin;
+        right: $margin;
         z-index: 10;
-        height: 4 * $image-height;
-        width: 3 * $image-height;
+        height: $card-height;
+        width: $card-width;
         background-color: $color-secondary;
         color: #333;
         border-radius: 10px;
@@ -59,6 +61,47 @@ header {
         margin-bottom: 5px;
     }
 
+    &-modification {
+        // position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .profile-image {
+            position: absolute;
+            z-index: 10000;
+            top: 10px;
+            right: $card-width/ 2 - $card-height / 8;
+            background-position: 50% 50%;
+        }
+
+        label {
+            z-index: 1000;
+        }
+
+        .back_button {
+            position: absolute;
+            top: -($card-height /4);
+            right: 10px;
+            border: none;
+            background-color: $color-primary;
+            color: #fff;
+            font-size: 12px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    &-modify {
+        @include modify-button();
+    }
+
+    &-validate {
+        @include modify-button();
+    }
+
     &-logout {
         cursor: pointer;
         border-radius: 30px;
@@ -68,10 +111,10 @@ header {
         vertical-align: middle;
         box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
-        position: absolute;
         bottom: 10%;
         height: 40px;
         padding: 10px 30px;
+        margin: 10px;
         font-size: 16px;
     }
 }

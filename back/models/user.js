@@ -12,14 +12,14 @@ const userSchema = mongoose.Schema({
     profession: {
         type: String,
     },
-    userId: {
-        type: String,
-    },
     email : {
         type: String,
         required : true,
         unique : true, //users can't add the same adress to the server
     }, 
+    profileImageUrl : {
+        type: String,
+    },
     isConnected : {
         type: Boolean,
     },

@@ -30,7 +30,7 @@ const login = (email, password) => {
   })
   .then(res => {
     if(res.status === 200) {
-      let userInfo = JSON.stringify([res.data.email, res.data.token])
+      let userInfo = JSON.stringify([res.data.userId, res.data.token])
       localStorage.setItem('userInfo', userInfo)
       window.location = '/posts'
     }})

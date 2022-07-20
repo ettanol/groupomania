@@ -17,6 +17,6 @@ router.route('/').get(auth, getAllPosts)
 router.route('/:id').put(auth, multer, updatePost)
                     .get(auth, getOnePost)
                     .delete(auth, multer, deletePost)
-router.route('/:id/like').post(auth, likeOnePost)
+router.route('/like/:id').post(auth, likeOnePost)
 
 module.exports = router
