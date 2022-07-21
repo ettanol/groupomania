@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import Proptypes from 'prop-types'
 import { FaWindowClose } from 'react-icons/fa'
@@ -16,6 +16,11 @@ const Form = ({ postsList, displayPosts }) => {
     
     let userInfoString = localStorage.getItem('userInfo')
     let userInfo = JSON.parse(userInfoString)
+
+    useEffect(() => {
+        displayPosts()
+    }, [posts])
+    
     
     const addPost = () => {
         let formData = new FormData()
@@ -33,7 +38,6 @@ const Form = ({ postsList, displayPosts }) => {
                 .then(res => {
                 postsList.push(res.data.post)
                 setPosts(postsList)
-                displayPosts()
             })
             .catch(err => console.log(err))
         } else {
@@ -59,7 +63,7 @@ const Form = ({ postsList, displayPosts }) => {
                     >
                         <img
                             className="publish-image"
-                            alt="votre image"
+                            alt="votre sélection"
                             src={src}
                         />
                         {isMouseInside && (

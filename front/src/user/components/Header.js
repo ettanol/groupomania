@@ -2,7 +2,6 @@ import React, {useState, useContext } from "react"
 import axios from "axios"
 
 import logo from '../assets/icon-left-font.png'
-import { Link } from "react-router-dom"
 import { UserContext } from "../Context/User"
 
 const Header = () => {
@@ -39,7 +38,6 @@ const Header = () => {
         formData.append('image', image)
     }
     formData.append('password', newPassword)
-    console.log(formData)
     axios.put(`http://localhost:5000/api/auth/user/${user.email}`,
     formData, 
     {

@@ -62,5 +62,17 @@
         right: 100px;
     }
 
+    &-member {
+        position: absolute;
+        top: 400px;
+        left: 20px;
+        height: fit-content;
+        width: 230px;
+        padding: 5px;
+        background-color: $color-tertiary;
+        border: 1px solid #666;
+        border-radius: 10px;
+        z-index: 30;
+    }
 }
 

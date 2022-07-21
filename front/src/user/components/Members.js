@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
+import { FaWindowClose } from 'react-icons/fa'
+import { UserContext } from "../Context/User"
 
 let userInfoString = localStorage.getItem('userInfo')
 let userInfo = JSON.parse(userInfoString)
 
 const Members = () => {
+  const { user } = useContext(UserContext)
   const [members, setMembers] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-
-  const toggleMembers = () => {
-    console.log("show/hide")
-  }
+  const [showUserInfo, setShowUserInfo] = useState(false)
 
   useEffect(() => {
     getAllMembers()
@@ -32,6 +32,7 @@ const Members = () => {
         memberInfo = {firstName: member.firstName, 
                       lastName: member.lastName,
                       isConnected: member.isConnected,
+                      profession: member.profession,
                       _id: member._id,
                     }
         members.push(memberInfo)
@@ -42,26 +43,43 @@ const Members = () => {
     .catch(error => console.log(error))
     }
 
-  return (
-    <div className="Members" onClick={toggleMembers}>
+  if(isLoaded){
+    return (
+    <div className="Members">
       <div className='button-toggler'>
         <div className='button-toggler__bar'></div>
         <div className='button-toggler__bar'></div>
         <div className='button-toggler__bar'></div>
       </div>
         <ul>
-            {
-            isLoaded ?
-            members.map(member => (
-                <li className='member' key={member._id}>
-                    <p className='member-name'>{member.firstName} {member.lastName}</p>
-                    <button className='member-connected' style={{backgroundColor : member.isConnected ? "green" : "red" }}></button>
+            {members.map(member => (
+                <li className='member' key={member._id} onMouseEnter={(e) => {
+                  setShowUserInfo(true) 
+                  // ShowUser(e.target.innerText)
+                }} onMouseLeave={() => {setShowUserInfo(false)}}>
+                  <p className='member-name'>{member.firstName} {member.lastName}</p>
+                  <button className='member-connected' style={{backgroundColor : member.isConnected ? "green" : "red" }}></button>
+                  {showUserInfo && (
+                    <div className='modal-member'> 
+                      <p className='member-name'>{member.firstName} {member.lastName}</p>
+                      {/* <p className='member-profession'>{member.profession}</p> */}
+                    </div>
+                  )}
+                  {showUserInfo && user.email === "admin@groupomania.fr" && (
+                            <FaWindowClose
+                                className="modal-close"
+                                onClick={() => {
+                                  console.log("delete")
+                                }}
+                            />
+                  )}
                 </li>
-            )) : null
-            }
+            ))
+          }
         </ul>
     </div>
-  )
+    )
+  }
 }
 
 export default Members

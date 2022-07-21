@@ -15,15 +15,15 @@ const Thumbs = ({ post, likes, dislikes}) => {
     const [dislike, setDislike] = useState(dislikes)
 
     useEffect(() => {
-      likeFn(user, post, likeClicked, dislikeClicked)
+      likeFn(post, likeClicked, dislikeClicked)
     }, [likeClicked, dislikeClicked])
 
-    const likeFn = (user, post, likeClicked, dislikeClicked) => {
+    const likeFn = (post, likeClicked, dislikeClicked) => {
     let likeValue = 0
-    if(likeClicked && !post.usersLiked.includes(user._id)){
+    if(likeClicked){
         likeValue = 1
     } 
-    if(dislikeClicked && !post.usersDisliked.includes(user._id)) {
+    if(dislikeClicked) {
         likeValue = -1
     }
     axios.post(`http://localhost:5000/api/posts/like/${post._id}`,
@@ -35,7 +35,7 @@ const Thumbs = ({ post, likes, dislikes}) => {
             authorization: userInfo.token
         }
     })
-    .then((res) => console.log(res))
+    .then((res) => console.log(res.data))
     .catch(error =>console.log(error))
 }
     

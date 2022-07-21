@@ -122,7 +122,7 @@ exports.logout= async (req, res, next) => {
             return res.status(401).json({error: 'Utilisateur non trouvé'})
         }
         user.isConnected = false
-        User.updateOne({ email: req.body.email }, { user }) //updates DB
+        User.updateOne({ email: req.body.email }, user ) //updates DB
         .then(() => res.status(200).json({message: 'Utilisateur déconnecté'}))
         .catch(error => res.status(400).json({ error }))
     })
@@ -151,7 +151,6 @@ exports.updateProfile = async (req, res, next) => {
             user.password = hash
             })
             .catch(error => res.status(400).json({ error }))
-
         }
         const UserObject = req.file ? { //if a file is added
             ...JSON.parse(req.body),

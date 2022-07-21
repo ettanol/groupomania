@@ -17,7 +17,7 @@ const Networking = () => {
     const [post, setPost] = useState("")
     const [posts, setPosts] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
-    const [authorized, setAuthorized] = useState(false)
+    const [postsListCreated, setPostsListCreated] = useState(false)
     const [error, setError] = useState(false)
 
     let userInfoString = localStorage.getItem('userInfo')
@@ -25,10 +25,11 @@ const Networking = () => {
 
     useEffect( () => {
         fetchPosts()
+        displayPosts()
     }, [])
 
     useEffect (() => {
-        DisplayPosts()
+        displayPosts()
     }, [posts])
 
     const fetchPosts = () => {
@@ -39,6 +40,7 @@ const Networking = () => {
         }})
         .then(posts => {
             setIsLoaded(true)
+            posts.data.sort(post => -(post.timeOfUpload))
             setPosts(posts.data)
         })
         .catch(error => setError(true))
@@ -83,49 +85,51 @@ const Networking = () => {
             .then(() => console.log("post supprimé") )
             .catch(error => console.log(error))
     }
+    
+    const displayPosts = () => {
+        if(isLoaded){  
+        const postsList = posts.map( post => {
+            let fullUserName = user.firstName + ' ' + user.lastName 
+            return (
+                <div className="publication" key={post._id}>
+                    <div className="publication_container">
+                        <div className="publication_value">{post.value}</div>
+                        <div className="publication_image__container">
+                            <img src={post.imageUrl} className="publication_image" alt="publication"/>
+                        </div>
+                    </div>
+                    <div className="user">{post.user}</div>
+                    <Thumbs post={post} likes={post.likes} dislikes={post.dislikes}/>
+                    {
+                    post.user === fullUserName || user.email === "admin@groupomania.fr"? 
+                        <div className="post-buttons">
+                            <button type="button" className="modify-button"
+                            onClick={ () => {
+                                setShowModal(true)
+                                setPost(post)
+                                getPost(post)
+                            }}>Modifier</button>
+                            <button type="button" className="delete-button"
+                            onClick={(e) => {
+                                e.target.closest('.publication').remove()
+                                deletePost(post)
+                            }}>Supprimer</button>
+                        </div>                          
+                    : null
+                }
+                </div>
+            )
+        })
+        setPostsListCreated(true)
+        return postsList
+    }
+}
 
     const ShowPosts = () => {
-        if(isLoaded) { return (<DisplayPosts/>) }
+        if(postsListCreated){ return (<>{displayPosts()}</>) }
         else if(error){return (<div><p>Nous rencontrons des problèmes, veuillez nous en excuser</p></div>)}
         else {return (<div className="loading">Loading...</div>)}
     }
-    
-    const DisplayPosts = () => {
-        if(isLoaded){
-            const displayPosts = posts.map( post => {
-                let fullUserName = user.firstName + ' ' + user.lastName 
-                return (
-                    <div className="publication" key={post._id}>
-                        <div className="publication_container">
-                            <div className="publication_value">{post.value}</div>
-                            <div className="publication_image__container">
-                                <img src={post.imageUrl} className="publication_image" alt="publication"/>
-                            </div>
-                        </div>
-                        <div className="user">{post.user}</div>
-                        <Thumbs post={post} likes={post.likes} dislikes={post.dislikes}/>
-                        {
-                        post.user === fullUserName ? 
-                            <div className="post-buttons">
-                                <button type="button" className="modify-button"
-                                onClick={ () => {
-                                    setShowModal(true)
-                                    setPost(post)
-                                    getPost(post)
-                                }}>Modifier</button>
-                                <button type="button" className="delete-button"
-                                onClick={(e) => {
-                                    e.target.closest('.publication').remove()
-                                    deletePost(post)
-                                }}>Supprimer</button>
-                            </div>                          
-                        : null
-                        }
-                    </div>
-                )
-            }) 
-            return (displayPosts)
-    }}
 
     const Publications = () => {
         return (
@@ -145,7 +149,7 @@ const Networking = () => {
 
     return (
         <div className="networking">
-        <Form postsList={posts} isLoaded={isLoaded} DisplayPosts={DisplayPosts}/>
+        <Form postsList={posts} isLoaded={isLoaded} displayPosts={displayPosts}/>
         {showModal && <Modal post={post} setShowModal={setShowModal} onEditPost={onEditPost}/>} 
         <Publications />
     </div>
