@@ -4,7 +4,7 @@ import Proptypes from 'prop-types'
 import { FaWindowClose } from 'react-icons/fa'
 import { UserContext } from "../Context/User"
 
-const Form = ({ postsList, displayPosts }) => {
+const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
     const { user } = useContext(UserContext)
     const [input, setInput] = useState("")
     const [image, setImage] = useState({})
@@ -18,7 +18,9 @@ const Form = ({ postsList, displayPosts }) => {
     let userInfo = JSON.parse(userInfoString)
 
     useEffect(() => {
-        displayPosts()
+        fetchPosts()
+        displayPosts(posts)
+        ShowPosts()
     }, [posts])
     
     
@@ -38,6 +40,7 @@ const Form = ({ postsList, displayPosts }) => {
                 .then(res => {
                 postsList.push(res.data.post)
                 setPosts(postsList)
+                setSrc(src)
             })
             .catch(err => console.log(err))
         } else {
@@ -79,22 +82,23 @@ const Form = ({ postsList, displayPosts }) => {
                 ) : (
                     <div className="image_replacement" alt="remplacement"></div>
                 )}
-
         </div>
-        <label htmlFor="image_button" className="image_button">Ajouter une image</label>
-        <input type="file" id="image_button" accept=".png, .jpg, .jpeg, .gif" 
-            onChange={async e => {
-                if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
-                    setImageSelected(true)
-                    setImage(e.target.files[0])
-                    setSrc(URL.createObjectURL(e.target.files[0]))
-                } else {
-                    setImageSelected(false)
-                    setImage({})
-                }
-            }}/>
-        <button type="submit" 
-            className="submitPost">Envoyer</button>
+        <div className="form-buttons">
+            <label htmlFor="image_button" className="image_button">Ajouter une image</label>
+            <input type="file" id="image_button" accept=".png, .jpg, .jpeg, .gif" 
+                onChange={async e => {
+                    if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
+                        setImageSelected(true)
+                        setImage(e.target.files[0])
+                        setSrc(URL.createObjectURL(e.target.files[0]))
+                    } else {
+                        setImageSelected(false)
+                        setImage({})
+                    }
+                }}/>
+            <button type="submit" 
+                className="submitPost">Envoyer</button>
+        </div>
     </form>
     )
 }

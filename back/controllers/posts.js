@@ -35,9 +35,10 @@ exports.updatePost = async (req, res, next)=> {
             if (fs.existsSync(`images/${filename}`) && req.file){ //if the file already exists and a file is added in the request
                 fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
             }
-        }
-        const PostObject = req.file ? { //if a file is added
-            ...JSON.parse(req.body),
+        }        
+        const PostObject = req.file ? 
+        { //if a file is added
+            ...req.body,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
         } : { ...req.body} //else just get the modified info from request
         if(PostObject.value.includes("<" || "javascript" || "script")

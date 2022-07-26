@@ -10,7 +10,7 @@ $members-width: 25vw;
     color: #fff;
     left: 0;
     top: 0;
-    z-index: 3;
+    z-index: 10;
     padding-top: 200px;
     padding-left: 40px;
 }
@@ -31,10 +31,13 @@ $members-width: 25vw;
     }
 
     &-connected {
-        width: 20px;
-        height: 20px;
+        position: relative;
+        width: 15px;
+        height: 15px;
         border-radius: 50%;
-        right: 0;
+        right: -5px;
+        top: 15px;
+        z-index: 20;
     }
 
     &-profession {
@@ -47,6 +50,14 @@ $members-width: 25vw;
     .modal-close {
         top: 0;
         right: 0;
+    }
+
+    .profile-image {
+        position: absolute;
+        right: 0;
+        top: -5px;
+        height: 50px;
+        width: 50px;
     }
 }
 

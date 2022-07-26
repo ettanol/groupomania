@@ -20,6 +20,7 @@ button {
   vertical-align: middle;
   -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
           box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1);
+  margin: 0px 5px;
 }
 
 button:hover {
@@ -172,6 +173,10 @@ input[type="file"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -181,17 +186,80 @@ input[type="file"] {
   z-index: 20;
 }
 
-.modal-modify {
+.modal-screen .modal-modify {
+  height: 400px;
+  width: 400px;
+  position: relative;
+  border-radius: 20px;
+}
+
+.modal-screen .cropping-tool {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px solid red;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 40;
+}
+
+.modal-screen .cropping-circle {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0);
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 40;
+}
+
+.modal-screen .modal-selection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  z-index: 20;
+  overflow: scroll;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.modal-content {
+  width: 500px;
+  min-height: 300px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  z-index: 21;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal-content .modal-modify {
   position: relative;
   background-color: #fff;
   border: 1px solid #666;
   border-radius: 20px;
-  width: 500px;
-  height: 200px;
-  z-index: 21;
+  width: 100%;
+  min-height: 200px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
-.modal-modify .publication-value {
+.modal-content .modal-modify .publication-value {
   padding: 10px;
   border-radius: 20px 20px 20px 20px;
   width: 100%;
@@ -199,30 +267,50 @@ input[type="file"] {
   border: none;
 }
 
-.modal-modify .modify-button {
-  position: absolute;
-  bottom: -50px;
-  right: 0;
-}
-
-.modal-modify .image_button {
-  height: 30px;
-  position: absolute;
-  bottom: -50px;
-  right: 100px;
+.modal-content .form-buttons {
+  width: 100%;
   padding: 5px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
-.modal .modal-publish-image {
+.modal-content .form-buttons .image_button {
+  margin: 0 0 0 10px;
+}
+
+.modal-content .form-buttons .modify-button {
   position: relative;
-  right: 0px;
+  top: 0;
+  right: 0;
+  height: 100%;
+  margin: 0 0 0 10px;
+}
+
+.modal-content .modal-publish-image {
+  position: relative;
   height: 100%;
   width: auto;
-  border-radius: 0 15px 15px 0;
   border-radius: 15px;
   max-height: 250px;
-  max-width: 250px;
+  max-width: auto;
+  margin-top: 10px;
   right: 0;
+  top: 0;
+}
+
+.modal-content .modal-publish-image .modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #FD2D01;
+  height: 10px;
+  width: auto;
+  z-index: 40;
 }
 
 .modal-close {
@@ -236,7 +324,7 @@ input[type="file"] {
 
 .modal-member {
   position: absolute;
-  top: 400px;
+  top: 0px;
   left: 20px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -266,7 +354,6 @@ header {
 
 header img {
   margin: auto;
-  max-height: 100px;
 }
 
 .profile-image {
@@ -335,14 +422,14 @@ header img {
 
 .profile-modification .profile-image {
   position: absolute;
-  z-index: 10000;
+  z-index: 15;
   top: 10px;
   right: 75px;
   background-position: 50% 50%;
 }
 
 .profile-modification label {
-  z-index: 1000;
+  z-index: 15;
 }
 
 .profile-modification .back_button {
@@ -407,7 +494,7 @@ header img {
   color: #fff;
   left: 0;
   top: 0;
-  z-index: 3;
+  z-index: 10;
   padding-top: 200px;
   padding-left: 40px;
 }
@@ -434,10 +521,13 @@ header img {
 }
 
 .member-connected {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  right: 0;
+  right: -5px;
+  top: 15px;
+  z-index: 20;
 }
 
 .member-profession {
@@ -450,6 +540,14 @@ header img {
 .member .modal-close {
   top: 0;
   right: 0;
+}
+
+.member .profile-image {
+  position: absolute;
+  right: 0;
+  top: -5px;
+  height: 50px;
+  width: 50px;
 }
 
 .networking {
@@ -487,12 +585,8 @@ header img {
 
 .publish-post .submitPost {
   border-radius: 10px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
   width: 150px;
   height: 60px;
-  margin-top: 20px;
-  margin-right: 20px;
   font-size: 24px;
   font-weight: 600;
 }
@@ -524,12 +618,26 @@ header img {
   right: 20px;
 }
 
+.publish-post .form-buttons {
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .publish-post .publish-image {
-  position: relative;
-  right: 0px;
   height: 100%;
   width: auto;
-  border-radius: 0 15px 15px 0;
+}
+
+.publish-post .image_button {
+  margin: 0;
 }
 
 .publish-post .image_replacement {
@@ -670,30 +778,6 @@ header img {
   }
 }
 
-.groupomania-form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 100%;
-  height: 400px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.groupomania-form__input {
-  padding-left: 20px;
-  width: 60%;
-  height: 60px;
-  font-size: large;
-  margin-bottom: 20px;
-  border: 1px solid #333;
-}
-
 .welcome__page {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -714,7 +798,7 @@ header img {
 .groupomania-logo {
   height: auto;
   width: auto;
-  max-width: 70%;
+  max-height: 100px;
   top: 50px;
   z-index: 10;
 }
@@ -736,9 +820,8 @@ header img {
 }
 
 .connexion-form {
-  height: 60vh;
+  height: 100vh;
   width: 50vw;
-  margin-top: 20vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -749,9 +832,56 @@ header img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.connexion-form .sign-in-form, .connexion-form .sign-up-form {
+  height: 50vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 50px;
+}
+
+.connexion-form .groupomania-form {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.connexion-form .groupomania-form__input {
+  padding-left: 20px;
+  width: 60%;
+  height: 60px;
+  font-size: large;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  border: 1px solid #333;
 }
 
 .connexion-form button {

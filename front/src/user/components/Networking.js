@@ -10,6 +10,7 @@ import Modal from "./Modal"
 import Thumbs from "./Thumbs"
 import Form from './Form'
 import { UserContext } from "../Context/User"
+// let socket = new WebSocket("ws://javascript.info")
 
 const Networking = () => {
     const { user } = useContext(UserContext)
@@ -25,11 +26,11 @@ const Networking = () => {
 
     useEffect( () => {
         fetchPosts()
-        displayPosts()
+        displayPosts(posts)
     }, [])
 
     useEffect (() => {
-        displayPosts()
+        displayPosts(posts)
     }, [posts])
 
     const fetchPosts = () => {
@@ -59,9 +60,12 @@ const Networking = () => {
     }
 
     const updatePost = (post) => {
+        let formData = new FormData()
+        if(post.image){ formData.append('image', post.image)}
+        formData.append('value', post.value)
         axios
         .put(`http://localhost:5000/api/posts/${post._id}`,
-            post,
+            formData,
             {headers: {
                 authorization: userInfo.token
             }})
@@ -85,8 +89,11 @@ const Networking = () => {
             .then(() => console.log("post supprimé") )
             .catch(error => console.log(error))
     }
-    
-    const displayPosts = () => {
+        
+    const displayPosts = (posts) => {
+        setPostsListCreated(false)
+        console.log(posts)
+        setPosts(posts)
         if(isLoaded){  
         const postsList = posts.map( post => {
             let fullUserName = user.firstName + ' ' + user.lastName 
@@ -126,7 +133,7 @@ const Networking = () => {
 }
 
     const ShowPosts = () => {
-        if(postsListCreated){ return (<>{displayPosts()}</>) }
+        if(postsListCreated){ return (<>{displayPosts(posts)}</>) }
         else if(error){return (<div><p>Nous rencontrons des problèmes, veuillez nous en excuser</p></div>)}
         else {return (<div className="loading">Loading...</div>)}
     }
@@ -134,22 +141,23 @@ const Networking = () => {
     const Publications = () => {
         return (
             <div className="publications">
-                <ShowPosts />
+                <ShowPosts/>
             </div>
-                )}
+                )
+    }
 
     const onEditPost = (post) => {
-        const index = posts.findIndex(p => p._id === post._id)
+        const index = posts.findIndex(p => p._id === post._id) //get the index of the post to modify
         if (index !== -1){
-        posts[index] = post
-        setPosts(posts)
-        updatePost(post)
+            posts[index] = post //modify the post with the new post
+            setPosts(posts)
+            updatePost(post) //update the db
         }
     }
 
     return (
         <div className="networking">
-        <Form postsList={posts} isLoaded={isLoaded} displayPosts={displayPosts}/>
+        <Form postsList={posts} isLoaded={isLoaded} fetchPosts={fetchPosts} displayPosts={displayPosts} ShowPosts={ShowPosts}/>
         {showModal && <Modal post={post} setShowModal={setShowModal} onEditPost={onEditPost}/>} 
         <Publications />
     </div>

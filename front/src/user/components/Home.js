@@ -12,7 +12,6 @@ import '../styles/Home.css'
 const Home = () => {
     const [isSignInOpen, setSignInOpen] = useState(false)
     const [isSignUpOpen, setSignUpOpen] = useState(false)
-    const [isRegistered, setIsRegistered] = useState(false)
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -45,9 +44,7 @@ const Home = () => {
         password: password
     })
     .then(res => {
-        setIsRegistered(true)
-        console.log(res)
-
+        login(email, password)
     })
     .catch(err => console.error(err))
     }
@@ -59,63 +56,64 @@ const Home = () => {
             <div className="groupomania-showcase__image"></div>
         </div>
         <div className="connexion-form">
-            <button className="sign-in" 
-            style={{
-                backgroundColor: isSignInOpen? '#FD2D01' : '#FFD7D7',
-                color : isSignInOpen ? "#fff" : "#4E5166"
-            }}
-            onClick={() => {
-                setSignInOpen(true)
-                setSignUpOpen(false)
-            }
-            }> Connexion </button>
-            { isSignInOpen ?
-            <form className='groupomania-form' onSubmit={e =>{ 
-                e.preventDefault()
-                login(email, password)}}>
-                    <label htmlFor="email"></label>
-                    <input type="text" name='email' id='email' placeholder='prénom.nom@groupomania.fr' className='groupomania-form__input'
-                    onChange={e => setEmail(e.target.value)}></input>
-                    <label htmlFor="password"></label>
-                    <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)}></input>
-                    <button type="submit" className="submit-button" >Envoyer</button>
-                </form>
-                
-                : null
-            }
-            <button className="sign-up" 
-            style={{
-                backgroundColor: isSignUpOpen? '#FD2D01' : '#FFD7D7',
-                color : isSignUpOpen ? "#fff" : "#4E5166"
-            }}
-            onClick={() => {
-                setSignUpOpen(true)
-                setSignInOpen(false)
-            }
-            }> Inscription </button>
-            { isSignUpOpen ?
-            <form className='groupomania-form' onSubmit={e => {
-                e.preventDefault()
-                setEmail(`${firstName}.${lastName}@groupomania.fr`)
-                register(firstName, lastName, profession, email, password)
-                if(isRegistered){
-                login(email, password)
+            <div className='sign-in-form'>
+                { isSignInOpen ?
+                <form className='groupomania-form' onSubmit={e =>{ 
+                    e.preventDefault()
+                    login(email, password)}}>
+                        <label htmlFor="email"></label>
+                        <input type="text" name='email' id='email' placeholder='prénom.nom@groupomania.fr' className='groupomania-form__input'
+                        onChange={e => setEmail(e.target.value)}></input>
+                        <label htmlFor="password"></label>
+                        <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)}></input>
+                        <button type="submit" className="submit-button" >Envoyer</button>
+                    </form>
+                    
+                    : 
+                    <button className="sign-in" 
+                    style={{
+                    backgroundColor: isSignInOpen? '#FD2D01' : '#FFD7D7',
+                    color : isSignInOpen ? "#fff" : "#4E5166"
+                    }}
+                    onClick={() => {
+                        setSignInOpen(true)
+                        setSignUpOpen(false)
+                    }
+                    }> Connexion </button>
                 }
-            }}>
-                <label htmlFor="firstName"></label>
-                <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'
-                onChange={e => setFirstName(e.target.value)} value={firstName}></input>
-                <label htmlFor="lastName"></label>
-                <input type="text" name='lastName' id='lastName' placeholder='nom' className='groupomania-form__input'
-                onChange={e => setLastName(e.target.value)} value={lastName}></input>
-                <input type="text" name='profession' id='profession' placeholder='profession' className='groupomania-form__input'
-                onChange={e => setProfession(e.target.value)} value={profession}></input>
-                <label htmlFor="password"></label>
-                <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)} value={password}></input>
-                <button type="submit" className="submit-button">Envoyer</button>
-            </form>
-                : null
-            }
+            </div>
+            <div className='sign-in-form'>
+                { isSignUpOpen ?
+                <form className='groupomania-form' onSubmit={e => {
+                    e.preventDefault()
+                    setEmail(`${firstName}.${lastName}@groupomania.fr`)
+                    register(firstName, lastName, profession, email, password)
+                }}>
+                    <label htmlFor="firstName"></label>
+                    <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'
+                    onChange={e => setFirstName(e.target.value)} value={firstName}></input>
+                    <label htmlFor="lastName"></label>
+                    <input type="text" name='lastName' id='lastName' placeholder='nom' className='groupomania-form__input'
+                    onChange={e => setLastName(e.target.value)} value={lastName}></input>
+                    <input type="text" name='profession' id='profession' placeholder='profession' className='groupomania-form__input'
+                    onChange={e => setProfession(e.target.value)} value={profession}></input>
+                    <label htmlFor="password"></label>
+                    <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)} value={password}></input>
+                    <button type="submit" className="submit-button">Envoyer</button>
+                </form>
+                    :                 
+                <button className="sign-up" 
+                style={{
+                    backgroundColor: isSignUpOpen? '#FD2D01' : '#FFD7D7',
+                    color : isSignUpOpen ? "#fff" : "#4E5166"
+                }}
+                onClick={() => {
+                    setSignUpOpen(true)
+                    setSignInOpen(false)
+                }
+                }> Inscription </button>
+                }
+            </div>
         </div>
     </div>
   )

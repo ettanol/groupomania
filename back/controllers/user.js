@@ -132,10 +132,12 @@ exports.logout= async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
     User.findOne({ email: req.params.email}) //gets the Post that will be modified from DB
     .then(async user => {
-        const filename = user.profileImageUrl.split('/images/')[1]
-        if (user.profileImageUrl !== '' && fs.existsSync(`images/${filename}`) && req.file){ //if the file already exists and a file is added in the request
-            fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
-        }
+        if(user.imageUrl !== ''){
+            const filename = user.profileImageUrl.split('/images/')[1]
+            if (fs.existsSync(`images/${filename}`) && req.file){ //if the file already exists and a file is added in the request
+                fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
+            }
+        }    
         const passwordSchema = new passwordValidator()
         passwordSchema
         .is().min(8, 'le mot de passe doit contenir 8 caractères minimum') // Minimum length 8
@@ -153,14 +155,14 @@ exports.updateProfile = async (req, res, next) => {
             .catch(error => res.status(400).json({ error }))
         }
         const UserObject = req.file ? { //if a file is added
-            ...JSON.parse(req.body),
+            ...req.body,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
         } : { ...req.body} //else just get the modified info from request
         if(UserObject.value.includes("<" || "javascript" || "script")) {
         return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added
         }
         User.updateOne({ _id: req.params.id}, { ...UserObject, _id: req.params.id}) //updates DB
-        .then(() => res.status(200).json({message: 'profile modifiée'}))
+        .then(() => res.status(200).json({message: 'profil modifiée'}))
         .catch(error => res.status(400).json({ error }))
     })
     .catch(error => res.status(500).json({error}))

@@ -3,11 +3,13 @@ import axios from "axios"
 
 import logo from '../assets/icon-left-font.png'
 import { UserContext } from "../Context/User"
+import Profile from "./Profile"
 
 const Header = () => {
   const { user } = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)
   const [modify, setModify] = useState(false)
+  const [imageModal, setImageModal] = useState(false)
   const [profileSelected, setProfileSelected] = useState(false)
   const [image, setImage] = useState({})
   const [src, setSrc] = useState(user.profileImageUrl)
@@ -34,10 +36,8 @@ const Header = () => {
 
   const updateProfile = () => {
     let formData = new FormData()
-    if(profileSelected){
-        formData.append('image', image)
-    }
-    formData.append('password', newPassword)
+    profileSelected && formData.append('image', image)
+    newPassword && formData.append('password', newPassword)
     axios.put(`http://localhost:5000/api/auth/user/${user.email}`,
     formData, 
     {
@@ -54,9 +54,9 @@ const Header = () => {
   return (
     <header>
         <img src={logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
-        {!modify && <img className="profile-image" onClick={async () =>{
+        {!modify && <img className="profile-image" onClick={() =>{
         setIsOpen(isOpen ? false : true)
-    }} alt="profil utilisateur" src={image}/>}
+    }} alt="profil utilisateur" src={src}/>}
         {
         isOpen ? 
             <div className="profile-card">
@@ -68,7 +68,7 @@ const Header = () => {
               }}>
                 <button type="button" onClick={() => {setModify(false)}} className="back_button">Retour</button>
                 <label htmlFor="profile-image" className="profile-image" style={{backgroundImage: `url(${src})`}}/>
-                <input type="file" id="profile-image" accept=".png, .jpg, .jpeg, .gif" 
+                <input type="file" id="profile-image" accept=".png, .jpg, .jpeg, .gif" onClick={() => setImageModal(true)}
                     onChange={async e => {
                       if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
                         setProfileSelected(true)
@@ -79,6 +79,7 @@ const Header = () => {
                           setImage({})
                       }
                 }}/>
+                {imageModal && <Profile image={image} src={src}/>}
                 <label htmlFor="password">Changez de mot de passe?</label>
                 <input type="text" id="password" placeholder="mot de passe" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
                 <button type="submit" className="profile-validate">Valider</button>

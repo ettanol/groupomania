@@ -33,6 +33,7 @@ const Members = () => {
                       lastName: member.lastName,
                       isConnected: member.isConnected,
                       profession: member.profession,
+                      image: member.profileImageUrl,
                       _id: member._id,
                     }
         members.push(memberInfo)
@@ -44,6 +45,25 @@ const Members = () => {
     }
 
   if(isLoaded){
+      const showUser = (member) => {
+        if(showUserInfo) {
+          return(
+          <div className='modal-member'> 
+            <p className='member-name'>{member.firstName} {member.lastName}</p>
+            {/* <p className='member-profession'>{member.profession}</p> */}
+          </div>
+        )}
+        if(showUserInfo && user.email === "admin@groupomania.fr"){
+          return (
+          <FaWindowClose
+              className="modal-close"
+              onClick={() => {
+                console.log("delete")
+              }}
+          />
+        )}
+      }
+
     return (
     <div className="Members">
       <div className='button-toggler'>
@@ -53,26 +73,14 @@ const Members = () => {
       </div>
         <ul>
             {members.map(member => (
-                <li className='member' key={member._id} onMouseEnter={(e) => {
-                  setShowUserInfo(true) 
-                  // ShowUser(e.target.innerText)
+                <li className='member' key={member._id} onMouseEnter={() => {
+                  console.log(member)
+                  setShowUserInfo(true)
+                  showUser(member)
                 }} onMouseLeave={() => {setShowUserInfo(false)}}>
                   <p className='member-name'>{member.firstName} {member.lastName}</p>
+                  <img className='profile-image' alt='profile' src={member.image}/>
                   <button className='member-connected' style={{backgroundColor : member.isConnected ? "green" : "red" }}></button>
-                  {showUserInfo && (
-                    <div className='modal-member'> 
-                      <p className='member-name'>{member.firstName} {member.lastName}</p>
-                      {/* <p className='member-profession'>{member.profession}</p> */}
-                    </div>
-                  )}
-                  {showUserInfo && user.email === "admin@groupomania.fr" && (
-                            <FaWindowClose
-                                className="modal-close"
-                                onClick={() => {
-                                  console.log("delete")
-                                }}
-                            />
-                  )}
                 </li>
             ))
           }
