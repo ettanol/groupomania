@@ -79,7 +79,7 @@ const Header = () => {
                           setImage({})
                       }
                 }}/>
-                {imageModal && <Profile image={image} src={src}/>}
+                {/* {imageModal && <Profile image={image} src={src}/>} */}
                 <label htmlFor="password">Changez de mot de passe?</label>
                 <input type="text" id="password" placeholder="mot de passe" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
                 <button type="submit" className="profile-validate">Valider</button>

@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
         required : true,
         unique : true, //users can't add the same adress to the server
     }, 
+    isAdmin: {
+        type: Boolean,
+    },
     profileImageUrl : {
         type: String,
     },

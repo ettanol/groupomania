@@ -59,5 +59,18 @@ $members-width: 25vw;
         height: 50px;
         width: 50px;
     }
+    
+    .modal-member {
+        position: absolute;
+        top: 0px;
+        left: 20px;
+        height: fit-content;
+        width: 230px;
+        padding: 5px;
+        background-color: $color-tertiary;
+        border: 1px solid #666;
+        border-radius: 10px;
+        z-index: 30;
+    }
 }
 

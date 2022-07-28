@@ -8,13 +8,18 @@ let userInfo = JSON.parse(userInfoString)
 
 const Members = () => {
   const { user } = useContext(UserContext)
+  const [member, setMember] = useState([])
   const [members, setMembers] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-  const [showUserInfo, setShowUserInfo] = useState(false)
+  const [showUserInfo, setShowUserInfo] = useState("")
 
   useEffect(() => {
     getAllMembers()
   }, [])
+
+  // useEffect(() => {
+  //   ShowModal(member)
+  // }, [showUserInfo])
   
 
   const getAllMembers = () => {
@@ -44,17 +49,19 @@ const Members = () => {
     .catch(error => console.log(error))
     }
 
-  if(isLoaded){
+    const ShowModal = (member) => {if (showUserInfo !== ""){ return (<>{showUser(member)}</>)}}
+
       const showUser = (member) => {
-        if(showUserInfo) {
+        if(showUserInfo === member._id) {
+          console.log("ok")
           return(
           <div className='modal-member'> 
             <p className='member-name'>{member.firstName} {member.lastName}</p>
-            {/* <p className='member-profession'>{member.profession}</p> */}
+            <p className='member-profession'>{member.profession}</p>
           </div>
         )}
-        if(showUserInfo && user.email === "admin@groupomania.fr"){
-          return (
+        if(showUserInfo && user.isAdmin){
+          return ( 
           <FaWindowClose
               className="modal-close"
               onClick={() => {
@@ -74,10 +81,11 @@ const Members = () => {
         <ul>
             {members.map(member => (
                 <li className='member' key={member._id} onMouseEnter={() => {
-                  console.log(member)
-                  setShowUserInfo(true)
-                  showUser(member)
-                }} onMouseLeave={() => {setShowUserInfo(false)}}>
+                  setMember(member)
+                  setShowUserInfo(member._id)
+                  // showModal(member)
+                }} onMouseLeave={() => {setShowUserInfo("")}}>
+                  {showUserInfo !== "" && <ShowModal/>}
                   <p className='member-name'>{member.firstName} {member.lastName}</p>
                   <img className='profile-image' alt='profile' src={member.image}/>
                   <button className='member-connected' style={{backgroundColor : member.isConnected ? "green" : "red" }}></button>
@@ -88,6 +96,5 @@ const Members = () => {
     </div>
     )
   }
-}
 
 export default Members

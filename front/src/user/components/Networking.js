@@ -108,7 +108,7 @@ const Networking = () => {
                     <div className="user">{post.user}</div>
                     <Thumbs post={post} likes={post.likes} dislikes={post.dislikes}/>
                     {
-                    post.user === fullUserName || user.email === "admin@groupomania.fr"? 
+                    post.user === fullUserName || user.isAdmin? 
                         <div className="post-buttons">
                             <button type="button" className="modify-button"
                             onClick={ () => {

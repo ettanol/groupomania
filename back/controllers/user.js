@@ -3,6 +3,7 @@ const JWT = require('jsonwebtoken')
 const passwordValidator = require('password-validator')
 const { set } = require('../app')
 const dotenv = require('dotenv').config()
+const fs = require('fs')
 
 const User = require('../models/user')
 
@@ -26,6 +27,7 @@ exports.signup = async (req, res, next) => {
             profession: req.body.profession,
             email: req.body.email,
             profileImageUrl : `${req.protocol}://${req.get('host')}/images/user.png`,
+            isAdmin: false,
             isConnected : true,
             password: hash,
             numberOfAttempts: 0,
@@ -134,7 +136,7 @@ exports.updateProfile = async (req, res, next) => {
     .then(async user => {
         if(user.imageUrl !== ''){
             const filename = user.profileImageUrl.split('/images/')[1]
-            if (fs.existsSync(`images/${filename}`) && req.file){ //if the file already exists and a file is added in the request
+            if (fs.existsSync(`images/${filename}`) && req.file && filename !== "user.png"){ //if the file already exists and a file is added in the request
                 fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
             }
         }    
@@ -147,7 +149,7 @@ exports.updateProfile = async (req, res, next) => {
         .has().digits(2, 'le mot de passe doit contenir au moins deux chiffres') // Must have at least 2 digits
         .has().not().spaces() // Should not have spaces
         .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
-        if(req.body.password !== "" && passwordSchema.validate(req.body.password)){
+        if(req.body.password && passwordSchema.validate(req.body.password)){
             await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
             .then(hash => { //get the hash and put it in the user object
             user.password = hash
@@ -156,12 +158,9 @@ exports.updateProfile = async (req, res, next) => {
         }
         const UserObject = req.file ? { //if a file is added
             ...req.body,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
+            profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
         } : { ...req.body} //else just get the modified info from request
-        if(UserObject.value.includes("<" || "javascript" || "script")) {
-        return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added
-        }
-        User.updateOne({ _id: req.params.id}, { ...UserObject, _id: req.params.id}) //updates DB
+        User.updateOne({ email: req.params.email}, { ...UserObject}) //updates DB
         .then(() => res.status(200).json({message: 'profil modifiée'}))
         .catch(error => res.status(400).json({ error }))
     })
