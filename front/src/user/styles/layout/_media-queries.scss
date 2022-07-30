@@ -1,28 +1,174 @@
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
+    header {
+        display: flex;
+        justify-content: space-around;
+        padding-left: 100px;
 
-    body {
-        max-width: 100vw;
+        .groupomania-logo{
+            margin: 0;
+            top: 0;
+            position: relative;
+            height: 70px;
+        }
+
+        .profile-image{
+            position: relative;
+            margin: 10px;
+            top: 0px;
+            right: 0px;
+            border-radius: 50%;
+            height: 75px;
+            width: 75px;
+            background-color: #bbb;
+        }
+
+        .profile-card {
+            top: 10px;
+        }
     }
 
-    header {
-        justify-content: space-around;
-        img{
-            justify-self: flex-start;
+    .Members {
+        min-width: 100px;
+        width: fit-content;
+        padding: 100px 0 0 0;
+        z-index: 40;
+
+        .member {
+            padding: 20px 0;
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .member-name {
+            display: none;
+        }
+
+        .member-profile {
+            left: 0;
+            margin: 10px auto;
+        }
+        
+        .profile-image {
+            left: 0;
+            margin: 10px auto;
+        }
+
+        .member-connected {
+            right: 0%;
+            top: 30px;
+        }
+
+        .profile-card {
+            text-align: center;
+            height: fit-content;
+            padding: 10px;
+        }
+
+        .modal-member {
+            left: 90%;
+            top: -20px;
+            height: fit-content;
+            padding: 20px;
+
+            .member-name {
+                display: block;
+            }
+        }
+    }
+
+    .networking {
+        align-items: center;
+        padding: 50px 20px;
+
+        .form-input {
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            height: fit-content;
+            border-radius: 20px;
+            
+            .publish-text__area {
+                margin-bottom: 5px;
+                min-height: 150px;
+                border: none;
+                border-radius: 20px;
+            }
+            .publish-image {
+                height: 150px;
+                width: auto;
+                position: relative;
+                border-radius: 20px;
+            }
+        }
+
+        .form-buttons {
+            justify-content: center;
+
+            button {
+                width: 46%;
+            }
         }
     }
 
     .publication {
-        width: 300px;
+        width: 100%;
     }
 }
 
-@media (max-width: 465px) {
-    .none {
-        display: none;
+@media screen and (max-width: 465px) {
+    html {
+        width: 100vw;
+    }
+
+    body {
+        padding: 10px;
+        width: 100vw;
+        overflow-x: hidden;
+    }
+
+    .groupomania-logo {
+        position: relative;
+        height: 60px;
+        top: 0px;
+        right: 0px;
+        margin: 0;
+    }
+
+    header {
+        .profile-image {
+            display: none;
+        }
+    }
+
+    .publish-post {
+        padding: 0 10px;
+    }
+
+    
+    .profile-card {
+        width: 200px;
+        height: 150px;
+        justify-content: flex-end;
+        top: 90px;
+        left: 0;
+    }
+
+        .profile-image {
+        position: relative;
+        top: 0;
+    }
+
+    .networking{
+        width: 100%;
     }
 
     .button-toggler {
         display: flex;
+        justify-content: space-between;
+        flex-direction: column;
     }
 
     .Posts {

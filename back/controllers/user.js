@@ -21,9 +21,12 @@ exports.signup = async (req, res, next) => {
     if(passwordSchema.validate(req.body.password)){
         await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
         .then(hash => { //get the hash and put it in the user object
+            let firstLetter = (name) => {return (name[0].toUpperCase())}
+            let firstName = firstLetter(req.body.firstName) + req.body.firstName.slice(1,)
+            let lastName = firstLetter(req.body.lastName) + req.body.lastName.slice(1,)
         const user = new User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            firstName: firstName,
+            lastName: lastName,
             profession: req.body.profession,
             email: req.body.email,
             profileImageUrl : `${req.protocol}://${req.get('host')}/images/user.png`,
@@ -149,17 +152,18 @@ exports.updateProfile = async (req, res, next) => {
         .has().digits(2, 'le mot de passe doit contenir au moins deux chiffres') // Must have at least 2 digits
         .has().not().spaces() // Should not have spaces
         .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
+        let hashedPassword = ""
         if(req.body.password && passwordSchema.validate(req.body.password)){
             await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
             .then(hash => { //get the hash and put it in the user object
-            user.password = hash
+                return hashedPassword = hash
             })
             .catch(error => res.status(400).json({ error }))
         }
         const UserObject = req.file ? { //if a file is added
-            ...req.body,
+            password: hashedPassword,
             profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
-        } : { ...req.body} //else just get the modified info from request
+        } : { password: hashedPassword } //else just get the modified info from request
         User.updateOne({ email: req.params.email}, { ...UserObject}) //updates DB
         .then(() => res.status(200).json({message: 'profil modifiée'}))
         .catch(error => res.status(400).json({ error }))
@@ -179,3 +183,19 @@ exports.getUserAccount = async (req, res, next) => {//get the specific user from
     .catch(error => res.status(404).json({ error}))
 }
 
+exports.deleteAccount = async(req, res, next) => {
+    User.findOne({_id: req.params._id})
+    .then(user =>{if(user.profileImageUrl !== '' || user.profileImageUrl !== "user.png"){
+        const filename = user.profileImageUrl.split('/images/')[1]
+        if (fs.existsSync(`images/${filename}`)){
+            fs.unlink(`images/${filename}`, (err) => {
+                if (err) throw err;
+            })
+        }
+    }
+    User.deleteOne({ _id: req.params._id}) //deletes the object from DB
+    .then(()=> res.status(200).json({ message: 'Utilisateur supprimé!' }))
+    .catch(error => res.status(400).json(new Error))
+    })
+    .catch(error => res.status(404).json({error}))
+}

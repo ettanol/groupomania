@@ -2,6 +2,7 @@ $members-width: 25vw;
 
 .Members {
     position: fixed;
+    overflow-y: scroll;
     width: $members-width;
     min-height: 100vh;
     display: flex;
@@ -11,15 +12,14 @@ $members-width: 25vw;
     left: 0;
     top: 0;
     z-index: 10;
-    padding-top: 200px;
-    padding-left: 40px;
+    padding: 200px 15px;
 }
 
 .member {
     position: relative;
     display: flex;
     margin-bottom: 25px;
-    width: 80%;
+    width: 100%;
     justify-content: space-between;
     flex-wrap: wrap-reverse;
     
@@ -28,20 +28,23 @@ $members-width: 25vw;
         font-size: 24px;
         font-weight: 600;
         margin-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 80%;
     }
 
     &-connected {
-        position: relative;
+        position: absolute;
         width: 15px;
         height: 15px;
         border-radius: 50%;
         right: -5px;
-        top: 15px;
-        z-index: 20;
+        top: 30px;
+        z-index: 70;
     }
 
     &-profession {
-        color: #fff;
+        color: $color-secondary;
         font-size: 24px;
         font-weight: 600;
         margin-right: 10px;
@@ -52,25 +55,31 @@ $members-width: 25vw;
         right: 0;
     }
 
-    .profile-image {
-        position: absolute;
+    .member-profile{
+        width: fit-content;
+        height: 100%;
         right: 0;
-        top: -5px;
+        position: relative;
+    }
+    
+    .member-profile-image {
         height: 50px;
         width: 50px;
-    }
+        border-radius: 50%;
+        top: -5px;
+    }    
     
     .modal-member {
         position: absolute;
-        top: 0px;
-        left: 20px;
+        top: -70px;
+        right: 70px;
         height: fit-content;
-        width: 230px;
-        padding: 5px;
+        width: 270px;
+        padding: 30px;
         background-color: $color-tertiary;
         border: 1px solid #666;
         border-radius: 10px;
-        z-index: 30;
+        z-index: 60;
     }
 }
 

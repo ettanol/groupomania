@@ -12,6 +12,10 @@ header {
     img {
         margin: auto;
     }
+
+    .profile-card {
+        position: absolute;
+    }
 }
 
 .profile {
@@ -27,15 +31,15 @@ header {
         height: $image-height;
         width: $image-height;
         background-color: #bbb;
-        z-index: 11;
+        z-index: 60;
     }
 
     &-card {
-        position: absolute;
+        position: relative;
         top: $margin;
         right: $margin;
-        z-index: 10;
-        height: $card-height;
+        z-index: 50;
+        height: fit-content;
         width: $card-width;
         background-color: $color-secondary;
         color: #333;
@@ -44,7 +48,7 @@ header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 1.75 * $image-height;
+        padding: 1.5*$image-height 10px 10px 10px;
     }
     
     &-name {
@@ -60,29 +64,34 @@ header {
         margin-bottom: 5px;
     }
 
+    .profile-image {
+        position: absolute;
+        z-index: 15;
+        top: 10px;
+        right: $card-width/ 2 - $card-height / 8;
+        background-position: 50% 50%;
+        background-size: cover;
+    }
+    
     &-modification {
-        // position: relative;
-        height: 100%;
+        height: fit-content;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        .profile-image {
-            position: absolute;
-            z-index: 15;
-            top: 10px;
-            right: $card-width/ 2 - $card-height / 8;
-            background-position: 50% 50%;
-        }
-
-        label {
-            z-index: 15;
+        label{ 
+            &.profile-image {
+                position: absolute;
+                z-index: 70;
+                right: $card-width/ 2 - $card-height / 8;
+                top: 10px;
+            }
         }
 
         .back_button {
             position: absolute;
-            top: -($card-height /4);
+            top: 20px;
             right: 10px;
             border: none;
             background-color: $color-primary;

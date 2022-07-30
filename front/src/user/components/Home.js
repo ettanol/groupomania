@@ -86,7 +86,8 @@ const Home = () => {
                 { isSignUpOpen ?
                 <form className='groupomania-form' onSubmit={e => {
                     e.preventDefault()
-                    setEmail(`${firstName}.${lastName}@groupomania.fr`)
+                    // setEmail(`${firstName}.${lastName}@groupomania.fr`)
+                    setEmail("admin@groupomania.fr")
                     register(firstName, lastName, profession, email, password)
                 }}>
                     <label htmlFor="firstName"></label>

@@ -3,12 +3,24 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  z-index: 0;
 }
 
 body {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #FD2D01;
+  height: 100px;
 }
 
 button {
@@ -28,27 +40,35 @@ button:hover {
 }
 
 .button-toggler {
-  position: fixed;
-  top: 100px;
-  left: 100px;
+  position: absolute;
+  cursor: pointer;
+  top: 40px;
+  left: 25px;
   display: none;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   height: 30px;
-  width: 50px;
-  z-index: 2;
+  width: 40px;
+  z-index: 50;
 }
 
 .button-toggler__bar {
-  border: 1px solid red;
+  position: absolute;
   width: 100%;
-  height: 3px;
+  height: 5px;
   background-color: #4E5166;
+  border-radius: 20%;
+  border: 1px solid #f4F4F4;
+}
+
+.button-toggler__bar:nth-child(1) {
+  top: 5px;
+}
+
+.button-toggler__bar:nth-child(2) {
+  top: 15px;
+}
+
+.button-toggler__bar:nth-child(3) {
+  top: 25px;
 }
 
 input {
@@ -322,21 +342,6 @@ input[type="file"] {
   right: 100px;
 }
 
-.modal-member {
-  position: absolute;
-  top: 0px;
-  left: 20px;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  width: 230px;
-  padding: 5px;
-  background-color: #4E5166;
-  border: 1px solid #666;
-  border-radius: 10px;
-  z-index: 30;
-}
-
 header {
   position: relative;
   top: 0;
@@ -356,6 +361,10 @@ header img {
   margin: auto;
 }
 
+header .profile-card {
+  position: absolute;
+}
+
 .profile-image {
   position: absolute;
   top: 40px;
@@ -364,15 +373,17 @@ header img {
   height: 75px;
   width: 75px;
   background-color: #bbb;
-  z-index: 11;
+  z-index: 60;
 }
 
 .profile-card {
-  position: absolute;
+  position: relative;
   top: 30px;
   right: 30px;
-  z-index: 10;
-  height: 300px;
+  z-index: 50;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   width: 225px;
   background-color: #FFD7D7;
   color: #333;
@@ -389,7 +400,7 @@ header img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 131.25px;
+  padding: 112.5px 10px 10px 10px;
 }
 
 .profile-name {
@@ -405,8 +416,19 @@ header img {
   margin-bottom: 5px;
 }
 
+.profile .profile-image {
+  position: absolute;
+  z-index: 15;
+  top: 10px;
+  right: 75px;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
 .profile-modification {
-  height: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -420,21 +442,16 @@ header img {
           align-items: center;
 }
 
-.profile-modification .profile-image {
+.profile-modification label.profile-image {
   position: absolute;
-  z-index: 15;
-  top: 10px;
+  z-index: 70;
   right: 75px;
-  background-position: 50% 50%;
-}
-
-.profile-modification label {
-  z-index: 15;
+  top: 10px;
 }
 
 .profile-modification .back_button {
   position: absolute;
-  top: -75px;
+  top: 20px;
   right: 10px;
   border: none;
   background-color: #FD2D01;
@@ -481,6 +498,7 @@ header img {
 
 .Members {
   position: fixed;
+  overflow-y: scroll;
   width: 25vw;
   min-height: 100vh;
   display: -webkit-box;
@@ -495,8 +513,7 @@ header img {
   left: 0;
   top: 0;
   z-index: 10;
-  padding-top: 200px;
-  padding-left: 40px;
+  padding: 200px 15px;
 }
 
 .member {
@@ -505,7 +522,7 @@ header img {
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 25px;
-  width: 80%;
+  width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -518,20 +535,23 @@ header img {
   font-size: 24px;
   font-weight: 600;
   margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%;
 }
 
 .member-connected {
-  position: relative;
+  position: absolute;
   width: 15px;
   height: 15px;
   border-radius: 50%;
   right: -5px;
-  top: 15px;
-  z-index: 20;
+  top: 30px;
+  z-index: 70;
 }
 
 .member-profession {
-  color: #fff;
+  color: #FFD7D7;
   font-size: 24px;
   font-weight: 600;
   margin-right: 10px;
@@ -542,16 +562,44 @@ header img {
   right: 0;
 }
 
-.member .profile-image {
-  position: absolute;
+.member .member-profile {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 100%;
   right: 0;
-  top: -5px;
+  position: relative;
+}
+
+.member .member-profile-image {
   height: 50px;
   width: 50px;
+  border-radius: 50%;
+  top: -5px;
+}
+
+.member .modal-member {
+  position: absolute;
+  top: -70px;
+  right: 70px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 270px;
+  padding: 30px;
+  background-color: #4E5166;
+  border: 1px solid #666;
+  border-radius: 10px;
+  z-index: 60;
 }
 
 .networking {
   position: absolute;
+  overflow-y: scroll;
+  scrollbar-base-color: #F4F4F4;
+  scrollbar-color: #FD2D01;
+  scrollbar-width: 5px;
+  scrollbar-gutter: auto;
   top: 100px;
   right: 0;
   width: 75vw;
@@ -629,6 +677,7 @@ header img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: 10px;
 }
 
 .publish-post .publish-image {
@@ -691,43 +740,39 @@ header img {
   height: -moz-fit-content;
   height: fit-content;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .publication_value {
   min-height: 50px;
   width: 100%;
   word-wrap: break-word;
+  padding-bottom: 10px;
 }
 
 .publication_image__container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 100px;
-  border-radius: 0 10px 0 0;
+  position: relative;
+  max-height: 250px;
+  width: auto;
   z-index: 2;
 }
 
 .publication_image__container .publication_image {
   height: 100%;
+  max-height: 250px;
   width: 100%;
-  background-image: url("../assets/photo-1509909756405-be0199881695.webp");
-  background-position: 0% 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   opacity: 0.6;
   z-index: 3;
-}
-
-.publication_image__container .publication_image::after {
-  content: "";
-  display: block;
-  z-index: 5;
-  background: -webkit-gradient(linear, left top, right top, from(white), color-stop(50%, rgba(0, 0, 0, 0)));
-  background: linear-gradient(90deg, white 0%, rgba(0, 0, 0, 0) 50%);
-  height: 100%;
-  width: 100%;
+  border-radius: 10px;
 }
 
 .user {
@@ -738,44 +783,8 @@ header img {
   background-color: #FFD7D7;
   border-radius: 0 0 10px 10px;
   text-align: end;
-  padding-right: 20px;
+  padding: 10px 20px;
   font-size: 20px;
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    max-width: 100vw;
-  }
-  header {
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
-  header img {
-    justify-self: flex-start;
-  }
-  .publication {
-    width: 300px;
-  }
-}
-
-@media (max-width: 465px) {
-  .none {
-    display: none;
-  }
-  .button-toggler {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  .Posts {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
 }
 
 .welcome__page {
@@ -909,5 +918,198 @@ header img {
   display: flex;
   width: 100vw;
   min-height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 992px) {
+  header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    padding-left: 100px;
+  }
+  header .groupomania-logo {
+    margin: 0;
+    top: 0;
+    position: relative;
+    height: 70px;
+  }
+  header .profile-image {
+    position: relative;
+    margin: 10px;
+    top: 0px;
+    right: 0px;
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    background-color: #bbb;
+  }
+  header .profile-card {
+    top: 10px;
+  }
+  .Members {
+    min-width: 100px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 100px 0 0 0;
+    z-index: 40;
+  }
+  .Members .member {
+    padding: 20px 0;
+    width: 100%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .Members .member-name {
+    display: none;
+  }
+  .Members .member-profile {
+    left: 0;
+    margin: 10px auto;
+  }
+  .Members .profile-image {
+    left: 0;
+    margin: 10px auto;
+  }
+  .Members .member-connected {
+    right: 0%;
+    top: 30px;
+  }
+  .Members .profile-card {
+    text-align: center;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 10px;
+  }
+  .Members .modal-member {
+    left: 90%;
+    top: -20px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 20px;
+  }
+  .Members .modal-member .member-name {
+    display: block;
+  }
+  .networking {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 50px 20px;
+  }
+  .networking .form-input {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #fff;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    border-radius: 20px;
+  }
+  .networking .form-input .publish-text__area {
+    margin-bottom: 5px;
+    min-height: 150px;
+    border: none;
+    border-radius: 20px;
+  }
+  .networking .form-input .publish-image {
+    height: 150px;
+    width: auto;
+    position: relative;
+    border-radius: 20px;
+  }
+  .networking .form-buttons {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .networking .form-buttons button {
+    width: 46%;
+  }
+  .publication {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 465px) {
+  html {
+    width: 100vw;
+  }
+  body {
+    padding: 10px;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  .groupomania-logo {
+    position: relative;
+    height: 60px;
+    top: 0px;
+    right: 0px;
+    margin: 0;
+  }
+  header .profile-image {
+    display: none;
+  }
+  .publish-post {
+    padding: 0 10px;
+  }
+  .profile-card {
+    width: 200px;
+    height: 150px;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    top: 90px;
+    left: 0;
+  }
+  .profile-image {
+    position: relative;
+    top: 0;
+  }
+  .networking {
+    width: 100%;
+  }
+  .button-toggler {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .Posts {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 /*# sourceMappingURL=Home.css.map */

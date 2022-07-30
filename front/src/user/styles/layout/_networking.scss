@@ -1,5 +1,10 @@
 .networking {
     position: absolute;
+    overflow-y: scroll;
+    scrollbar-base-color: #F4F4F4;
+    scrollbar-color: $color-primary;
+    scrollbar-width: 5px;
+    scrollbar-gutter: auto;
     top: $header-height;
     right: 0;
     width: 100vw - $members-width;
@@ -54,6 +59,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        margin-top: 10px;
     }
 
     .publish-image {
@@ -102,41 +108,31 @@
         padding: 15px;
         height: fit-content;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
     &_value {
         min-height: 50px;
         width: 100%;
-        word-wrap: break-word;        
+        word-wrap: break-word;
+        padding-bottom: 10px;       
     }
 
     &_image__container {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        width: 100px;
-        border-radius: 0 10px 0 0;
+        position: relative;
+        max-height: 250px;
+        width: auto;
         z-index: 2;
-
+        
         .publication_image {
             height: 100%;
+            max-height: 250px;
             width: 100%;
-            background-image: url("../assets/photo-1509909756405-be0199881695.webp");
-            background-position: 0% 0;
-            background-repeat: no-repeat;
-            background-size: cover;
             opacity: 0.6;
             z-index: 3;
-            
-            &::after {
-                content: "";
-                display: block;
-                z-index: 5;
-                background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0, 0, 0, 0) 50%);
-                height: 100%;
-                width: 100%;
-            }
+            border-radius: 10px;
         }
         
     }
@@ -151,6 +147,6 @@ $user-height : 50px;
     background-color: $color-secondary;
     border-radius: 0 0 10px 10px;
     text-align: end;
-    padding-right: 20px;
+    padding: 10px 20px;
     font-size: 20px;
 }

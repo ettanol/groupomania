@@ -118,8 +118,9 @@ const Networking = () => {
                             }}>Modifier</button>
                             <button type="button" className="delete-button"
                             onClick={(e) => {
+                                if(window.confirm("Êtes-vous certain de retirer cette publication?")){
                                 e.target.closest('.publication').remove()
-                                deletePost(post)
+                                deletePost(post)}
                             }}>Supprimer</button>
                         </div>                          
                     : null

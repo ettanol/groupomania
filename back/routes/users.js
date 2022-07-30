@@ -11,5 +11,6 @@ router.post('/logout', auth, userController.logout)
 router.put('/user/:email', auth, multer, userController.updateProfile)
 router.get('/user', auth, userController.getAllUsers)
 router.get('/user/:email', auth, userController.getUserAccount)
+router.delete('/user/:_id', auth, userController.deleteAccount)
 
 module.exports = router
