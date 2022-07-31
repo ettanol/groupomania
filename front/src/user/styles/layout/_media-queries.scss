@@ -1,14 +1,17 @@
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
     header {
         display: flex;
         justify-content: space-around;
+        height: 70px;
         padding-left: 100px;
 
         .groupomania-logo{
             margin: 0;
             top: 0;
             position: relative;
-            height: 70px;
+            width: 100%;
+            max-width: 450px;
+            height: auto;
         }
 
         .profile-image{
@@ -34,7 +37,8 @@
         z-index: 40;
 
         .member {
-            padding: 20px 0;
+            padding: 0;
+            margin: 0;
             width: 100%;
             height: fit-content;
             display: flex;
@@ -152,8 +156,8 @@
         width: 200px;
         height: 150px;
         justify-content: flex-end;
-        top: 90px;
         left: 0;
+        margin: 0 10px;
     }
 
         .profile-image {
@@ -163,9 +167,12 @@
 
     .networking{
         width: 100%;
+        padding: 20px;
     }
 
     .button-toggler {
+        position: absolute;
+        top: 25px;
         display: flex;
         justify-content: space-between;
         flex-direction: column;

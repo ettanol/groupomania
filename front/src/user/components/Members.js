@@ -52,7 +52,7 @@ const Members = () => {
         headers: {
             authorization: userInfo.token
         }})
-        .then(res => alert(res))
+        .then(res => console.log(res))
         .catch(err => alert(err))
     }
 

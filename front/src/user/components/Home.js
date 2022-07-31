@@ -18,6 +18,7 @@ const Home = () => {
     const [profession, setProfession] = useState('')
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    let error = ""
 
     const login = (email, password) => {
         axios.post('http://localhost:5000/api/auth/login',
@@ -31,10 +32,10 @@ const Home = () => {
             localStorage.setItem('userInfo', userInfo)
             window.location = '/posts'
           }})
-        .catch(err => console.error(err))
+        .catch(err => alert(err.response.data.error))
       }
 
-    const register = (firstName, lastName, profession,  email, password) => {
+    const register = () => {
     axios.post('http://localhost:5000/api/auth/signup',
     {   
         firstName: firstName,
@@ -46,7 +47,10 @@ const Home = () => {
     .then(res => {
         login(email, password)
     })
-    .catch(err => console.error(err))
+    .catch(err => {
+        if(err.response.data.error){alert(err.response.data.error)}
+        else if(err.response.data[0].message){err.response.data.forEach(error => alert(error.message))}
+    })
     }
 
   return (
@@ -86,9 +90,8 @@ const Home = () => {
                 { isSignUpOpen ?
                 <form className='groupomania-form' onSubmit={e => {
                     e.preventDefault()
-                    // setEmail(`${firstName}.${lastName}@groupomania.fr`)
-                    setEmail("admin@groupomania.fr")
-                    register(firstName, lastName, profession, email, password)
+                    setEmail(`${firstName}.${lastName}@groupomania.fr`)
+                    register()
                 }}>
                     <label htmlFor="firstName"></label>
                     <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'

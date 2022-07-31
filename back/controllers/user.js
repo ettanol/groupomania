@@ -185,7 +185,7 @@ exports.getUserAccount = async (req, res, next) => {//get the specific user from
 
 exports.deleteAccount = async(req, res, next) => {
     User.findOne({_id: req.params._id})
-    .then(user =>{if(user.profileImageUrl !== '' || user.profileImageUrl !== "user.png"){
+    .then(user =>{if(user.profileImageUrl !== '' && user.profileImageUrl !== `${req.protocol}://${req.get('host')}/images/user.png`){
         const filename = user.profileImageUrl.split('/images/')[1]
         if (fs.existsSync(`images/${filename}`)){
             fs.unlink(`images/${filename}`, (err) => {

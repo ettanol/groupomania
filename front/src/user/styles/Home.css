@@ -498,7 +498,8 @@ header .profile-card {
 
 .Members {
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   width: 25vw;
   min-height: 100vh;
   display: -webkit-box;
@@ -580,8 +581,8 @@ header .profile-card {
 
 .member .modal-member {
   position: absolute;
-  top: -70px;
-  right: 70px;
+  top: -20px;
+  margin-right: 20px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -922,20 +923,23 @@ header .profile-card {
   overflow-x: hidden;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
   header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+    height: 70px;
     padding-left: 100px;
   }
   header .groupomania-logo {
     margin: 0;
     top: 0;
     position: relative;
-    height: 70px;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
   }
   header .profile-image {
     position: relative;
@@ -959,7 +963,8 @@ header .profile-card {
     z-index: 40;
   }
   .Members .member {
-    padding: 20px 0;
+    padding: 0;
+    margin: 0;
     width: 100%;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -1080,8 +1085,8 @@ header .profile-card {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
-    top: 90px;
     left: 0;
+    margin: 0 10px;
   }
   .profile-image {
     position: relative;
@@ -1089,8 +1094,11 @@ header .profile-card {
   }
   .networking {
     width: 100%;
+    padding: 20px;
   }
   .button-toggler {
+    position: absolute;
+    top: 25px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

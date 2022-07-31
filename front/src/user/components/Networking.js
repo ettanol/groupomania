@@ -86,13 +86,12 @@ const Networking = () => {
             headers: {
                 authorization: userInfo.token
             }})
-            .then(() => console.log("post supprimé") )
+            .then(() => alert("post supprimé") )
             .catch(error => console.log(error))
     }
         
     const displayPosts = (posts) => {
         setPostsListCreated(false)
-        console.log(posts)
         setPosts(posts)
         if(isLoaded){  
         const postsList = posts.map( post => {

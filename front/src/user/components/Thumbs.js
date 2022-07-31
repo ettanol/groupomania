@@ -35,7 +35,7 @@ const Thumbs = ({ post, likes, dislikes}) => {
             authorization: userInfo.token
         }
     })
-    .then((res) => console.log(res.data))
+    .then((res) => res.data.message)
     .catch(error =>console.log(error))
 }
     
