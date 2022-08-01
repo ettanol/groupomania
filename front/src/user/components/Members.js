@@ -3,6 +3,7 @@ import axios from 'axios'
 import { FaWindowClose } from 'react-icons/fa'
 import { UserContext } from "../Context/User"
 import Profile from "./Profile"
+// import getAllMembers from './Request'
 
 let userInfoString = localStorage.getItem('userInfo')
 let userInfo = JSON.parse(userInfoString)
@@ -10,7 +11,6 @@ let userInfo = JSON.parse(userInfoString)
 const Members = () => {
   const { user } = useContext(UserContext)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const [member, setMember] = useState([])
   const [members, setMembers] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [showUserInfo, setShowUserInfo] = useState("")
@@ -76,7 +76,7 @@ const Members = () => {
       }
 
     return (
-      <>
+      isLoaded && <>
         <div className='button-toggler' onClick={() => {if(showMembers){setShowMembers(false)} else {setShowMembers(true)}}}>
           <div className='button-toggler__bar'></div>
           <div className='button-toggler__bar'></div>
@@ -92,15 +92,14 @@ const Members = () => {
           <ul>
               {members.map(member => member._id !== user._id && (
                   <li className='member' key={member._id} onMouseEnter={() => {
-                    setMember(member)
                     setShowUserInfo(member._id)
                   }} onMouseLeave={() => {setShowUserInfo("")}}>
-                    {showUserInfo !== "" && showUser(member)}
                     <p className='member-name'>{member.firstName} {member.lastName}</p>
                     <div className='member-profile'>
                       <img className='member-profile-image' alt='profile' src={member.image}/>
                       <div className='member-connected' style={{backgroundColor : member.isConnected ? "green" : "red" }}></div>
                     </div>
+                    {showUserInfo !== "" && showUser(member)}
                   </li>
               ))
             }

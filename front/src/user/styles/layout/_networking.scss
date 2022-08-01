@@ -1,10 +1,5 @@
 .networking {
     position: absolute;
-    overflow-y: scroll;
-    scrollbar-base-color: #F4F4F4;
-    scrollbar-color: $color-primary;
-    scrollbar-width: 5px;
-    scrollbar-gutter: auto;
     top: $header-height;
     right: 0;
     width: 100vw - $members-width;

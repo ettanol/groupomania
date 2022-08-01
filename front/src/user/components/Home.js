@@ -1,13 +1,8 @@
-import { useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import logo from '../assets/icon-left-font.png'
-import React from 'react'
 import axios from 'axios'
-// import  login from './Request'
-// import register from './Request'
 
 import '../styles/Home.css'
-
-// const axios = require('axios').default
 
 const Home = () => {
     const [isSignInOpen, setSignInOpen] = useState(false)
@@ -18,7 +13,11 @@ const Home = () => {
     const [profession, setProfession] = useState('')
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    let error = ""
+
+    useEffect(() => {
+        setEmail(`${firstName}.${lastName}@groupomania.fr`)
+    }, [lastName])
+    
 
     const login = (email, password) => {
         axios.post('http://localhost:5000/api/auth/login',
@@ -35,7 +34,7 @@ const Home = () => {
         .catch(err => alert(err.response.data.error))
       }
 
-    const register = () => {
+    const register = (firstName, lastName, profession, email, password)  => {
     axios.post('http://localhost:5000/api/auth/signup',
     {   
         firstName: firstName,
@@ -90,7 +89,6 @@ const Home = () => {
                 { isSignUpOpen ?
                 <form className='groupomania-form' onSubmit={e => {
                     e.preventDefault()
-                    setEmail(`${firstName}.${lastName}@groupomania.fr`)
                     register()
                 }}>
                     <label htmlFor="firstName"></label>

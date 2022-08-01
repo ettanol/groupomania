@@ -1,16 +1,10 @@
 import React ,{ useState, useEffect, useContext } from "react"
 import axios from "axios"
-// import {
-//     getUserAccount,
-//     getAllPosts,
-//     addPost
-// } from './Request'
 
 import Modal from "./Modal"
 import Thumbs from "./Thumbs"
 import Form from './Form'
 import { UserContext } from "../Context/User"
-// let socket = new WebSocket("ws://javascript.info")
 
 const Networking = () => {
     const { user } = useContext(UserContext)
@@ -54,7 +48,7 @@ const Networking = () => {
                 authorization: userInfo.token
             }})
             .then(res => {
-                console.log(res)
+                console.log(res.data)
             })
             .catch(error => console.log(error))
     }

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect } from "react"
+import React, {useState, useContext} from "react"
 import axios from "axios"
 
 import big_logo from '../assets/icon-left-font.png'
@@ -8,11 +8,6 @@ import Profile from "./Profile"
 const Header = () => {
   const { user } = useContext(UserContext)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const [modify, setModify] = useState(false)
-  const [profileSelected, setProfileSelected] = useState(false)
-  const [src, setSrc] = useState(user.profileImageUrl)
-  const [newPassword, setNewPassword] = useState("")
-
   let userInfoString = localStorage.getItem('userInfo')
   let userInfo = JSON.parse(userInfoString)
 
@@ -52,11 +47,11 @@ const Header = () => {
   return (
     <header>
       <img src={big_logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
-        {!modify && <img className="profile-image" onClick={() =>{
+        {<img className="profile-image" onClick={() =>{
         setIsProfileOpen(isProfileOpen ? false : true)
-      }} alt="profil utilisateur" src={src}/>}
+      }} alt="profil utilisateur" src={user.profileImageUrl}/>}
         {
-        isProfileOpen && <Profile logout={logout} updateProfile={updateProfile} modify={modify}/>
+        isProfileOpen && <Profile logout={logout} updateProfile={updateProfile}/>
         }
     </header>
   )

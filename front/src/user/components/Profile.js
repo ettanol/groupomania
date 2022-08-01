@@ -1,10 +1,9 @@
 import React, {useContext, useState} from 'react'
 import { UserContext } from "../Context/User"
 
-const Profile = ({logout, updateProfile, modify}) => {
+const Profile = ({logout, updateProfile}) => {
   const { user } = useContext(UserContext)
-  const [modifyProfile, setModifyProfile] = useState(modify)
-  const [imageModal, setImageModal] = useState(false)
+  const [modifyProfile, setModifyProfile] = useState(false)
   const [profileSelected, setProfileSelected] = useState(false)
   const [image, setImage] = useState({})
   const [src, setSrc] = useState(user.profileImageUrl)
@@ -19,7 +18,7 @@ const Profile = ({logout, updateProfile, modify}) => {
         }}>
           <button type="button" onClick={() => {setModifyProfile(false)}} className="back_button">Retour</button>
           <label htmlFor="profile-image" className="profile-image" style={{backgroundImage: `url(${src})`}}/>
-          <input type="file" id="profile-image" accept=".png, .jpg, .jpeg, .gif" onClick={() => setImageModal(true)}
+          <input type="file" id="profile-image" accept=".png, .jpg, .jpeg, .gif"
               onChange={async e => {
                 if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
                   setProfileSelected(true)

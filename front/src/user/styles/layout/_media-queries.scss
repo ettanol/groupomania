@@ -2,6 +2,7 @@
     header {
         display: flex;
         justify-content: space-around;
+        margin-top: 10px;
         height: 70px;
         padding-left: 100px;
 
@@ -72,10 +73,11 @@
         }
 
         .modal-member {
-            left: 90%;
-            top: -20px;
+            // left: 90%;
+            // top: -30px;
             height: fit-content;
             padding: 20px;
+            transform: translate3d(300px, 0px, 10px);
 
             .member-name {
                 display: block;
