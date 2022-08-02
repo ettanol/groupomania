@@ -8,23 +8,24 @@ exports.addPost = async (req, res, next) => {
     if(PostObject.value.includes("<" || "javascript" || "script")
     ) {
         return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added
+    } else {
+        let timeOfUpload = Date.now().toString()
+        const post = new Post({ // creates a new object
+            user: PostObject.user,
+            value: PostObject.value,
+            timeOfUpload: timeOfUpload,
+            imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
+            likes: 0,
+            dislikes: 0,
+            usersLiked: [],
+            usersDisliked: [],
+        })
+        post.save() //saves the new object to the DB
+        .then(() => res.status(201).json({
+            post
+        }))
+        .catch(error => res.status(400).json({error}))
     }
-    let timeOfUpload = Date.now().toString()
-    const post = new Post({ // creates a new object
-        user: PostObject.user,
-        value: PostObject.value,
-        timeOfUpload: timeOfUpload,
-        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
-        likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersDisliked: [],
-    })
-    post.save() //saves the new object to the DB
-    .then(() => res.status(201).json({
-        post
-    }))
-    .catch(error => res.status(400).json({error}))
 }
 
 exports.updatePost = async (req, res, next)=> {

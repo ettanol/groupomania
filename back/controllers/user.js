@@ -21,25 +21,32 @@ exports.signup = async (req, res, next) => {
     if(passwordSchema.validate(req.body.password)){
         await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
         .then(hash => { //get the hash and put it in the user object
+            let regex = /^([a-zA-Z]{1,20}( |-|'|\.)? ?){1,4}/g
             let firstLetter = (name) => {return (name[0].toUpperCase())}
             let firstName = firstLetter(req.body.firstName) + req.body.firstName.slice(1,)
             let lastName = firstLetter(req.body.lastName) + req.body.lastName.slice(1,)
-        const user = new User({
-            firstName: firstName,
-            lastName: lastName,
-            profession: req.body.profession,
-            email: req.body.email,
-            profileImageUrl : `${req.protocol}://${req.get('host')}/images/user.png`,
-            isAdmin: false,
-            isConnected : true,
-            password: hash,
-            numberOfAttempts: 0,
-            numberOfBlocks: 0,
-            timeOfBlock: 0,
-        })
-        user.save() //update to DB
-        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => res.status(400).json({ error : "Utilisateur déjà existant"}))
+            let profession = firstLetter(req.body.profession) + req.body.profession.slice(1,)
+            console.log(regex.test(firstName))
+            console.log(regex.test(firstName))
+            console.log(regex.test(profession))
+            if(regex.test(firstName) && regex.test(lastName) && regex.test(profession)){
+                const user = new User({
+                firstName: firstName,
+                lastName: lastName,
+                profession: profession,
+                email: req.body.email,
+                profileImageUrl : `${req.protocol}://${req.get('host')}/images/user.png`,
+                isAdmin: false,
+                isConnected : true,
+                password: hash,
+                numberOfAttempts: 0,
+                numberOfBlocks: 0,
+                timeOfBlock: 0,
+                })
+                user.save() //update to DB
+                .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+                .catch(error => res.status(400).json({ error : "Utilisateur déjà existant"}))
+            }
         })
     } else {
         res.status(403).json(passwordSchema.validate(req.body.password, {details: true})) //returns where the password was unsafe
@@ -153,7 +160,7 @@ exports.updateProfile = async (req, res, next) => {
         .has().not().spaces() // Should not have spaces
         .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
         let hashedPassword = ""
-        if(req.body.password && passwordSchema.validate(req.body.password)){
+        if(req.body.password!== "" && passwordSchema.validate(req.body.password)){
             await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
             .then(hash => { //get the hash and put it in the user object
                 return hashedPassword = hash

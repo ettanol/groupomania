@@ -1,10 +1,11 @@
 $header-height: 100px;
 header {
     position: relative;
+    margin-left: 25%;
     top: 0;
     left: 0;
     height: $header-height;
-    width: 100%;
+    width: auto;
     display: flex;
     align-items: center;
     z-index: 5;
@@ -19,12 +20,12 @@ header {
 }
 
 .profile {
-    $image-height : 75px;
+    $image-height : 50px;
     $margin : 30px;
     $card-width : 225px;
     $card-height: 300px;
     &-image {
-        position: absolute;
+        // position: absolute;
         top: $margin+ 10px;
         right: ($card-width / 2) + $margin - $image-height / 2;
         border-radius: 50%;
@@ -36,7 +37,7 @@ header {
 
     &-card {
         position: relative;
-        top: $margin;
+        top: $image-height + $margin;
         right: $margin;
         z-index: 50;
         height: fit-content;
@@ -48,7 +49,7 @@ header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1.5*$image-height 10px 10px 10px;
+        padding: 10px;
     }
     
     &-name {
@@ -82,10 +83,7 @@ header {
 
         label{ 
             &.profile-image {
-                position: absolute;
                 z-index: 70;
-                right: $card-width/ 2 - $card-height / 8;
-                top: 10px;
             }
         }
 

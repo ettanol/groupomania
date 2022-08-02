@@ -349,10 +349,11 @@ input[type="file"] {
 
 header {
   position: relative;
+  margin-left: 25%;
   top: 0;
   left: 0;
   height: 100px;
-  width: 100%;
+  width: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -371,19 +372,18 @@ header .profile-card {
 }
 
 .profile-image {
-  position: absolute;
   top: 40px;
-  right: 105px;
+  right: 117.5px;
   border-radius: 50%;
-  height: 75px;
-  width: 75px;
+  height: 50px;
+  width: 50px;
   background-color: #bbb;
   z-index: 60;
 }
 
 .profile-card {
   position: relative;
-  top: 30px;
+  top: 80px;
   right: 30px;
   z-index: 50;
   height: -webkit-fit-content;
@@ -405,7 +405,7 @@ header .profile-card {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 112.5px 10px 10px 10px;
+  padding: 10px;
 }
 
 .profile-name {
@@ -448,10 +448,7 @@ header .profile-card {
 }
 
 .profile-modification label.profile-image {
-  position: absolute;
   z-index: 70;
-  right: 75px;
-  top: 10px;
 }
 
 .profile-modification .back_button {
@@ -932,6 +929,7 @@ header .profile-card {
     display: flex;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+    margin-left: 0;
     margin-top: 10px;
     height: 70px;
     padding-left: 100px;
@@ -955,7 +953,7 @@ header .profile-card {
     background-color: #bbb;
   }
   header .profile-card {
-    top: 10px;
+    top: 85px;
   }
   .Members {
     min-width: 100px;
@@ -1003,6 +1001,7 @@ header .profile-card {
     height: -moz-fit-content;
     height: fit-content;
     padding: 10px;
+    top: 0;
   }
   .Members .modal-member {
     height: -webkit-fit-content;
