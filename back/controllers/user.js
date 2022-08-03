@@ -18,17 +18,14 @@ exports.signup = async (req, res, next) => {
     .has().digits(2, 'le mot de passe doit contenir au moins deux chiffres') // Must have at least 2 digits
     .has().not().spaces() // Should not have spaces
     .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
-    if(passwordSchema.validate(req.body.password)){
+    if(req.body.password !== "" && passwordSchema.validate(req.body.password)){
         await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
         .then(hash => { //get the hash and put it in the user object
-            let regex = /^([a-zA-Z]{1,20}( |-|'|\.)? ?){1,4}/g
+            let regex = /([a-zA-Z]{1,20}( |-|'|\.)? ?){1,4}/
             let firstLetter = (name) => {return (name[0].toUpperCase())}
             let firstName = firstLetter(req.body.firstName) + req.body.firstName.slice(1,)
             let lastName = firstLetter(req.body.lastName) + req.body.lastName.slice(1,)
             let profession = firstLetter(req.body.profession) + req.body.profession.slice(1,)
-            console.log(regex.test(firstName))
-            console.log(regex.test(firstName))
-            console.log(regex.test(profession))
             if(regex.test(firstName) && regex.test(lastName) && regex.test(profession)){
                 const user = new User({
                 firstName: firstName,
@@ -144,36 +141,44 @@ exports.logout= async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
     User.findOne({ email: req.params.email}) //gets the Post that will be modified from DB
     .then(async user => {
-        if(user.imageUrl !== ''){
-            const filename = user.profileImageUrl.split('/images/')[1]
-            if (fs.existsSync(`images/${filename}`) && req.file && filename !== "user.png"){ //if the file already exists and a file is added in the request
-                fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
+        if(req.file){
+            if(user.imageUrl !== ''){
+                const filename = user.profileImageUrl.split('/images/')[1]
+                if (fs.existsSync(`images/${filename}`) && req.file && filename !== "user.png"){ //if the file already exists and a file is added in the request
+                    fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
+                }
             }
-        }    
-        const passwordSchema = new passwordValidator()
-        passwordSchema
-        .is().min(8, 'le mot de passe doit contenir 8 caractères minimum') // Minimum length 8
-        .is().max(100, 'le mot de passe doit contenir 100 caractères maximum') // Maximum length 100
-        .has().uppercase(1, 'le mot de passe doit contenir au moins une majuscule') // Must have uppercase letters
-        .has().lowercase(1, 'le mot de passe doit contenir au moins une minuscule') // Must have lowercase letters
-        .has().digits(2, 'le mot de passe doit contenir au moins deux chiffres') // Must have at least 2 digits
-        .has().not().spaces() // Should not have spaces
-        .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
-        let hashedPassword = ""
-        if(req.body.password!== "" && passwordSchema.validate(req.body.password)){
-            await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
-            .then(hash => { //get the hash and put it in the user object
-                return hashedPassword = hash
-            })
-            .catch(error => res.status(400).json({ error }))
         }
-        const UserObject = req.file ? { //if a file is added
-            password: hashedPassword,
-            profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
-        } : { password: hashedPassword } //else just get the modified info from request
-        User.updateOne({ email: req.params.email}, { ...UserObject}) //updates DB
-        .then(() => res.status(200).json({message: 'profil modifiée'}))
-        .catch(error => res.status(400).json({ error }))
+        let hashedPassword = ""
+        if(req.body.password){
+            const passwordSchema = new passwordValidator()
+            passwordSchema
+            .is().min(8, 'le mot de passe doit contenir 8 caractères minimum') // Minimum length 8
+            .is().max(100, 'le mot de passe doit contenir 100 caractères maximum') // Maximum length 100
+            .has().uppercase(1, 'le mot de passe doit contenir au moins une majuscule') // Must have uppercase letters
+            .has().lowercase(1, 'le mot de passe doit contenir au moins une minuscule') // Must have lowercase letters
+            .has().digits(2, 'le mot de passe doit contenir au moins deux chiffres') // Must have at least 2 digits
+            .has().not().spaces() // Should not have spaces
+            .is().not().oneOf(['Passw0rd', 'Password123', 'Motdepasse', '12345678', '123456789']) // Blacklist these values
+            if(passwordSchema.validate(req.body.password)){
+                await bcrypt.hash(req.body.password, parseInt(process.env.saltRounds)) //creates a hash for the password
+                .then(hash => { //get the hash and put it in the user object
+                    return hashedPassword = hash
+                })
+                .catch(error => res.status(400).json({ error }))
+            }
+        }
+        const UserObject = { //if a file is added
+            password: req.body.password && hashedPassword,
+            profileImageUrl: req.file && `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
+        } 
+        if(req.body.password || req.file){
+            User.updateOne({ email: req.params.email}, { ...UserObject}) //updates DB
+            .then(() => res.status(200).json({message: 'profil modifiée'}))
+            .catch(error => res.status(400).json({ error }))
+        } else {
+            return res.status(403).json({message: "formulaire vide"})
+        }
     })
     .catch(error => res.status(500).json({error}))
 }

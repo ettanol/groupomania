@@ -82,9 +82,7 @@ const Members = () => {
           <div className='button-toggler__bar'></div>
           <div className='button-toggler__bar'></div>
         </div>
-        <div className="Members" style={!window.matchMedia("(max-width: 465px)").matches || showMembers? {
-          transform: "translateX(0%)", visibility:"visible"} : {transform: "translateX(-100%)",
-      visibility: "hidden"}}>
+        <div className={showMembers ? "Members show_members" : "Members"}>
         {showMembers && <img className="profile-image" onClick={() =>{
         setIsProfileOpen(isProfileOpen ? false : true)
       }} alt="profil utilisateur" src={user.profileImageUrl}/>}

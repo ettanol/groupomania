@@ -11,6 +11,11 @@ body {
   overflow-x: hidden;
 }
 
+img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   background-color: #F4F4F4;
@@ -365,6 +370,8 @@ header {
 
 header img {
   margin: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 header .profile-card {
@@ -406,6 +413,7 @@ header .profile-card {
       -ms-flex-align: center;
           align-items: center;
   padding: 10px;
+  text-align: center;
 }
 
 .profile-name {
@@ -427,7 +435,6 @@ header .profile-card {
   top: 10px;
   right: 75px;
   background-position: 50% 50%;
-  background-size: cover;
 }
 
 .profile-modification {
@@ -449,6 +456,8 @@ header .profile-card {
 
 .profile-modification label.profile-image {
   z-index: 70;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .profile-modification .back_button {
@@ -461,6 +470,10 @@ header .profile-card {
   font-size: 12px;
   padding: 5px;
   border-radius: 5px;
+}
+
+.profile-modification #password {
+  padding-left: 5px;
 }
 
 .profile-modify {
@@ -517,6 +530,14 @@ header .profile-card {
   top: 0;
   z-index: 10;
   padding: 200px 15px;
+}
+
+.Members .profile-image {
+  display: none;
+}
+
+.Members .profile-card {
+  display: none;
 }
 
 .member {
@@ -844,6 +865,7 @@ header .profile-card {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding: 50px 0;
 }
 
 .connexion-form .sign-in-form, .connexion-form .sign-up-form {
@@ -895,9 +917,11 @@ header .profile-card {
 
 .connexion-form button {
   height: 100px;
-  width: 55%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
   font-size: 3rem;
-  padding: 5px;
 }
 
 .connexion-form .submit-button {
@@ -907,7 +931,10 @@ header .profile-card {
   text-align: center;
   vertical-align: middle;
   height: 50px;
-  width: 40%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
   font-size: 30px;
 }
 
@@ -923,6 +950,23 @@ header .profile-card {
 }
 
 @media screen and (max-width: 768px) {
+  .connexion-form {
+    width: 100%;
+    padding: 50px 0;
+  }
+  .connexion-form .sign-in-form {
+    padding: 0;
+  }
+  .connexion-form .groupomania-form__input {
+    width: 80%;
+  }
+  .groupomania-showcase {
+    width: 30vw;
+  }
+  .groupomania-showcase__image {
+    width: 30vw;
+    background-position: 43% 50%;
+  }
   header {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -990,6 +1034,10 @@ header .profile-card {
   .Members .profile-image {
     left: 0;
     margin: 10px auto;
+    display: none;
+  }
+  .Members .profile-card {
+    display: none;
   }
   .Members .member-connected {
     right: 0%;
@@ -1075,20 +1123,69 @@ header .profile-card {
     right: 0px;
     margin: 0;
   }
+  .groupomania-showcase {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .groupomania-showcase__image {
+    display: none;
+  }
+  .connexion-form {
+    width: 100vw;
+    padding: 50px 20px;
+  }
+  .connexion-form .sign-in-form {
+    padding: 0;
+  }
+  .connexion-form button {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 10px;
+  }
   header .profile-image {
     display: none;
   }
-  .publish-post {
-    padding: 0 10px;
+  header .profile-card {
+    display: none;
   }
-  .profile-card {
+  .Members {
+    padding-top: 75px;
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  .Members .profile-image {
+    display: block;
+    width: 75px;
+    height: 75px;
+    margin-bottom: 20px;
+  }
+  .Members .profile-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     width: 200px;
-    height: 150px;
+    padding: 5px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
     left: 0;
     margin: 0 10px;
+  }
+  .Members.show_members {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  .publish-post {
+    padding: 0 10px;
   }
   .profile-image {
     position: relative;

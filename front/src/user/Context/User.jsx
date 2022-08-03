@@ -28,7 +28,12 @@ const UserProvider = ({ children }) => {
           })
           .then(user => {
               setIsLoaded(true)
-              setUser(user.data)
+              setUser({
+                _id: user.data._id,
+                isAdmin: user.data.isAdmin,
+                profileImageUrl : user.data.profileImageUrl,
+                isConnected: user.data.isConnected,
+            })
           })
           .catch(error => console.log(error))
     }

@@ -12,6 +12,7 @@ header {
 
     img {
         margin: auto;
+        object-fit: cover;
     }
 
     .profile-card {
@@ -25,7 +26,6 @@ header {
     $card-width : 225px;
     $card-height: 300px;
     &-image {
-        // position: absolute;
         top: $margin+ 10px;
         right: ($card-width / 2) + $margin - $image-height / 2;
         border-radius: 50%;
@@ -50,6 +50,7 @@ header {
         flex-direction: column;
         align-items: center;
         padding: 10px;
+        text-align: center;
     }
     
     &-name {
@@ -71,7 +72,6 @@ header {
         top: 10px;
         right: $card-width/ 2 - $card-height / 8;
         background-position: 50% 50%;
-        background-size: cover;
     }
     
     &-modification {
@@ -84,6 +84,7 @@ header {
         label{ 
             &.profile-image {
                 z-index: 70;
+                object-fit: cover;
             }
         }
 
@@ -97,6 +98,10 @@ header {
             font-size: 12px;
             padding: 5px;
             border-radius: 5px;
+        }
+
+        #password {
+            padding-left: 5px
         }
     }
 

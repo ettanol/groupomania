@@ -27,7 +27,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
     const addPost = () => {
         let formData = new FormData()
         imageSelected && formData.append('image', image, src)
-        const completeName = user.firstName + ' ' + user.lastName
+        const completeName = userInfo.firstName + ' ' + userInfo.lastName
         formData.append('user', completeName)
         formData.append('value', input)
         if(input !== "") {
@@ -74,6 +74,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
                                 className="modal-close"
                                 onClick={() => {
                                     setImageSelected(false)
+                                    setSrc("")
                                     setImage({})
                                 }}
                             />
@@ -93,6 +94,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
                         setSrc(URL.createObjectURL(e.target.files[0]))
                     } else {
                         setImageSelected(false)
+                        setSrc("")
                         setImage({})
                     }
                 }}/>

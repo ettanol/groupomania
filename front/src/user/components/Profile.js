@@ -1,19 +1,26 @@
 import React, {useContext, useState} from 'react'
 import { UserContext } from "../Context/User"
+import {logout, updateProfile} from './Request'
 
-const Profile = ({logout, updateProfile}) => {
+const Profile = () => {
   const { user } = useContext(UserContext)
   const [modifyProfile, setModifyProfile] = useState(false)
   const [profileSelected, setProfileSelected] = useState(false)
   const [image, setImage] = useState({})
   const [src, setSrc] = useState(user.profileImageUrl)
   const [newPassword, setNewPassword] = useState("")
+
+  let userInfoString = localStorage.getItem('userInfo')
+  let userInfo = JSON.parse(userInfoString)
+
+  let email = userInfo.email
+  let token = userInfo.token
   return (
       <div className="profile-card">
         {
         modifyProfile ? 
         <form className="profile-modification" onSubmit={() => {
-          updateProfile(image, newPassword, profileSelected)
+          updateProfile(image, newPassword, profileSelected, email, token)
           setModifyProfile(false)
         }}>
           <button type="button" onClick={() => {setModifyProfile(false)}} className="back_button">Retour</button>
@@ -35,13 +42,13 @@ const Profile = ({logout, updateProfile}) => {
         </form>
           : 
           <>
-          <h1 className="profile-name">{user.firstName} {user.lastName}</h1>
-          <p className="profile-profession">{user.profession}</p>
+          <h1 className="profile-name">{userInfo.firstName} {userInfo.lastName}</h1>
+          <p className="profile-profession">{userInfo.profession}</p>
           <button type="button" className="profile-modify" onClick={() => {
             setModifyProfile(true)
           }}>Modifier</button>
           <button type="button" className="profile-logout" onClick={() => {
-            logout()
+            logout(email, token)
             localStorage.clear()
           }}>Déconnexion</button>
           </>

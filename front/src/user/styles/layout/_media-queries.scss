@@ -1,4 +1,26 @@
 @media screen and (max-width: 768px) {
+    .connexion-form {
+        width: 100%;
+        padding: 50px 0;
+
+        .sign-in-form {
+            padding: 0;
+        }
+
+        .groupomania-form__input {
+            width: 80%;
+        }
+    }
+
+    .groupomania-showcase{
+        width: 30vw;
+
+        &__image{
+            width: 30vw;
+            background-position: 43% 50%;
+        }
+    }
+
     header {
         display: flex;
         justify-content: space-around;
@@ -15,6 +37,7 @@
             max-width: 450px;
             height: auto;
         }
+
 
         .profile-image{
             position: relative;
@@ -60,6 +83,11 @@
         .profile-image {
             left: 0;
             margin: 10px auto;
+            display: none;
+        }
+
+        .profile-card{
+            display: none;
         }
 
         .member-connected {
@@ -145,23 +173,70 @@
         margin: 0;
     }
 
+    .groupomania-showcase{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50vw;
+        height: fit-content;
+    }
+
+    .groupomania-showcase__image{
+        display: none;
+    }
+
+    .connexion-form {
+        width: 100vw;
+        padding: 50px 20px;
+
+        .sign-in-form {
+            padding: 0;
+        }
+
+        button {
+            width: fit-content;
+            padding: 10px;
+        }
+    }
+
+
     header {
         .profile-image {
             display: none;
+        }
+
+        .profile-card{
+            display: none;
+        }
+    }
+
+    .Members {
+        padding-top: 75px ;
+        transform: translateX(-100%);
+        .profile-image{
+            display: block;
+            width: 75px;
+            height: 75px;
+            margin-bottom: 20px;
+        }
+
+        .profile-card {
+            display: flex;
+            width: 200px;
+            padding: 5px;
+            height: fit-content;
+            justify-content: flex-end;
+            left: 0;
+            margin: 0 10px;
+        }
+
+        &.show_members {
+            transform: translateX(0%);
         }
     }
 
     .publish-post {
         padding: 0 10px;
-    }
-
-    
-    .profile-card {
-        width: 200px;
-        height: 150px;
-        justify-content: flex-end;
-        left: 0;
-        margin: 0 10px;
     }
 
         .profile-image {

@@ -66,7 +66,7 @@ const Home = () => {
                     login(email, password)}}>
                         <label htmlFor="email"></label>
                         <input type="text" name='email' id='email' placeholder='prénom.nom@groupomania.fr' className='groupomania-form__input'
-                        onChange={e => setEmail(e.target.value)} required pattern="/^[-\p{L}0-9#!%$‘&+*–/=?^_`.{|}~]+@{1}[a-z]{1,15}\.{1}[a-z]{2,5}(\.[a-z]{2,5})?$/gu" title='Veuillez écrire une adresse mail correcte'></input>
+                        onChange={e => setEmail(e.target.value)} required pattern="[-\p{L}0-9#!%$‘&+*–/=?^_`.{|}~]+@{1}[a-z]{1,15}\.{1}[a-z]{2,5}(\.[a-z]{2,5})?" title='Veuillez écrire une adresse mail correcte'></input>
                         <label htmlFor="password"></label>
                         <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)} required></input>
                         <button type="submit" className="submit-button">Envoyer</button>
@@ -93,10 +93,25 @@ const Home = () => {
                 }}>
                     <label htmlFor="firstName"></label>
                     <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'
-                    onChange={e => setFirstName(e.target.value)} value={firstName} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
+                    onChange={e => {
+                        if(e.target.value !== ""){
+                            let firstName = e.target.value[0].toUpperCase() + e.target.value.slice(1,)
+                            setFirstName(firstName)
+                        } else {
+                            setFirstName("")
+                        }
+                    }} value={firstName} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
                     <label htmlFor="lastName"></label>
                     <input type="text" name='lastName' id='lastName' placeholder='nom' className='groupomania-form__input'
-                    onChange={e => setLastName(e.target.value)} value={lastName} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
+                    onChange={e => {
+                        if(e.target.value !== ""){
+                            let lastName = e.target.value[0].toUpperCase() + e.target.value.slice(1,)
+                            setLastName(lastName)
+                        } else {
+                            setLastName("")
+                        }
+                            
+                            }} value={lastName} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
                     <input type="text" name='profession' id='profession' placeholder='profession' className='groupomania-form__input'
                     onChange={e => setProfession(e.target.value)} value={profession} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
                     <label htmlFor="password"></label>

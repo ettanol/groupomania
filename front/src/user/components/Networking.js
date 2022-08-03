@@ -89,7 +89,7 @@ const Networking = () => {
         setPosts(posts)
         if(isLoaded){  
         const postsList = posts.map( post => {
-            let fullUserName = user.firstName + ' ' + user.lastName 
+            let fullUserName = userInfo.firstName + ' ' + userInfo.lastName 
             return (
                 <div className="publication" key={post._id}>
                     <div className="publication_container">
