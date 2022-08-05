@@ -513,8 +513,6 @@ header .profile-card {
 
 .Members {
   position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
   width: 25vw;
   min-height: 100vh;
   display: -webkit-box;
@@ -1023,11 +1021,13 @@ header .profile-card {
             flex-direction: column;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+    z-index: 10;
   }
   .Members .member-name {
     display: none;
   }
   .Members .member-profile {
+    z-index: 10;
     left: 0;
     margin: 10px auto;
   }

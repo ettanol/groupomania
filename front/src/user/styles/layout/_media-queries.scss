@@ -69,13 +69,15 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+            z-index: 10;
         }
-
+        
         .member-name {
             display: none;
         }
-
+        
         .member-profile {
+            z-index: 10;
             left: 0;
             margin: 10px auto;
         }
@@ -103,8 +105,6 @@
         }
 
         .modal-member {
-            // left: 90%;
-            // top: -30px;
             height: fit-content;
             padding: 20px;
             transform: translate3d(300px, 0px, 10px);

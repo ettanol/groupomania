@@ -2,8 +2,6 @@ $members-width: 25vw;
 
 .Members {
     position: fixed;
-    overflow-y: auto;
-    overflow-x: hidden;
     width: $members-width;
     min-height: 100vh;
     display: flex;
