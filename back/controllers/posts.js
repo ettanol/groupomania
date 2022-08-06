@@ -33,7 +33,7 @@ exports.updatePost = async (req, res, next)=> {
     .then(post => {
         if(post.imageUrl !== ''){
             const filename = post.imageUrl.split('/images/')[1]
-            if (fs.existsSync(`images/${filename}`) && req.file){ //if the file already exists and a file is added in the request
+            if (fs.existsSync(`images/${filename}`) && req.file || (fs.existsSync(`images/${filename}`) && req.body.image === "[object Object]")){ //if the file already exists and a file is added in the request
                 fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
             }
         }        
@@ -41,7 +41,10 @@ exports.updatePost = async (req, res, next)=> {
         { //if a file is added
             ...req.body,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
-        } : { ...req.body} //else just get the modified info from request
+        } : { 
+            ...req.body,
+            imageUrl: ""
+        } //else just get the modified info from request
         if(PostObject.value.includes("<" || "javascript" || "script")
     ) {
         return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added

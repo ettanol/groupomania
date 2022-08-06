@@ -16,15 +16,14 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                 </div>
                 <div className='modal-publish-image'>
                     {
-                        modalSelected || src !== "" ? <img className='publish-image' alt="post" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/>
-                        : <img className="publish-image" alt="remplacement" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/>
+                        modalSelected || src !== "" ? <img className='publish-image' alt="post" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/> : null
                     }
                     {
                         isMouseInside && <FaWindowClose className = "modal-close" onClick={() => 
                             {
                                 setModalSelected(false)
                                 setSrc("")
-                                setModifiedPost({...modifiedPost, image: null})
+                                setModifiedPost({...modifiedPost, image: {}})
                             }}/>
                     }
                 </div>
@@ -37,6 +36,7 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                                     setSrc(URL.createObjectURL(e.target.files[0]))
                                     setModifiedPost({...modifiedPost, image: e.target.files[0]})
                                 } else {
+                                    e.target.value = ""
                                     setModalSelected(false)
                                     setSrc("")
                                 }

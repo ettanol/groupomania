@@ -24,7 +24,11 @@ const Profile = () => {
           updateProfile(image, newPassword, profileSelected, email, token)
           setModifyProfile(false)
         }}>
-          <button type="button" onClick={() => {setModifyProfile(false)}} className="back_button">Retour</button>
+          <button type="button" onClick={() => {
+            setModifyProfile(false)
+            setSrc(user.profileImageUrl)
+            setNewPassword("")
+            }} className="back_button">Retour</button>
           <label htmlFor="profile-image" className="profile-image">
             <img class="profile-image" alt="profil utilisateur" src={src}/>
             <FaPencilAlt className="indicator" style={{color: "red"}}/>

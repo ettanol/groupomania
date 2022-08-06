@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Proptypes from 'prop-types'
 import { FaWindowClose } from 'react-icons/fa'
-import { UserContext } from "../Context/User"
 
 const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
-    const { user } = useContext(UserContext)
     const [input, setInput] = useState("")
     const [image, setImage] = useState({})
     const [src, setSrc] = useState("")

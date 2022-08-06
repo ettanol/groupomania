@@ -55,7 +55,9 @@ const Networking = () => {
 
     const updatePost = (post) => {
         let formData = new FormData()
-        if(post.image){ formData.append('image', post.image)}
+        // if(post.image){ 
+            formData.append('image', post.image)
+        // }
         formData.append('value', post.value)
         axios
         .put(`http://localhost:5000/api/posts/${post._id}`,
