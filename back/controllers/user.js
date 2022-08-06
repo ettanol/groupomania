@@ -23,9 +23,9 @@ exports.signup = async (req, res, next) => {
         .then(hash => { //get the hash and put it in the user object
             let regex = /([a-zA-Z]{1,20}( |-|'|\.)? ?){1,4}/
             let firstLetter = (name) => {return (name[0].toUpperCase())}
-            let firstName = firstLetter(req.body.firstName) + req.body.firstName.slice(1,)
-            let lastName = firstLetter(req.body.lastName) + req.body.lastName.slice(1,)
-            let profession = firstLetter(req.body.profession) + req.body.profession.slice(1,)
+            let firstName = firstLetter(req.body.firstName) + req.body.firstName.slice(1,).toLowerCase()
+            let lastName = firstLetter(req.body.lastName) + req.body.lastName.slice(1,).toLowerCase()
+            let profession = firstLetter(req.body.profession) + req.body.profession.slice(1,).toLowerCase()
             if(regex.test(firstName) && regex.test(lastName) && regex.test(profession)){
                 const user = new User({
                 firstName: firstName,

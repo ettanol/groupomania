@@ -31,7 +31,7 @@ const Home = () => {
             localStorage.setItem('userInfo', userInfo)
             window.location = '/posts'
           }})
-        .catch(err => alert(err.response.data.error))
+        .catch(err => err && alert(err.response.data.error))
       }
 
     const register = ()  => {

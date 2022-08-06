@@ -54,6 +54,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
             e.preventDefault()
             addPost()
             setInput("")
+            setImageSelected(false)
         }}>
         <div className="form-input">
             <textarea type="text" className="publish-text__area" name="post" placeholder="Une idée à partager ?" maxLength="250" onChange={e => {

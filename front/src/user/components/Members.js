@@ -95,7 +95,7 @@ const Members = () => {
                     <p className='member-name'>{member.firstName} {member.lastName}</p>
                     <div className='member-profile'>
                       <img className='member-profile-image' alt='profile' src={member.image}/>
-                      <div className='member-connected' style={{backgroundColor : member.isConnected ? "green" : "red" }}></div>
+                      <div className='indicator' style={{backgroundColor : member.isConnected ? "green" : "red" }}></div>
                     </div>
                       {showUserInfo !== "" && showUser(member)}
                   </li>

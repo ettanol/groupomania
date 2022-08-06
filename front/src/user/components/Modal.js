@@ -16,7 +16,7 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                 </div>
                 <div className='modal-publish-image'>
                     {
-                        modalSelected ? <img className='publish-image' alt="post" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/>
+                        modalSelected || src !== "" ? <img className='publish-image' alt="post" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/>
                         : <img className="publish-image" alt="remplacement" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/>
                     }
                     {
@@ -24,6 +24,7 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                             {
                                 setModalSelected(false)
                                 setSrc("")
+                                setModifiedPost({...modifiedPost, image: null})
                             }}/>
                     }
                 </div>

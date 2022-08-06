@@ -121,12 +121,11 @@
             }
             
             .modal-close {
+                width: 20px;
+                height: 20px;
                 position: absolute;
                 top: 20px;
                 right: 20px;
-                background-color: $color-primary;
-                height: 10px;
-                width: auto;
                 z-index: 40;
             }
         }

@@ -31,7 +31,7 @@ const UserProvider = ({ children }) => {
               setUser({
                 _id: user.data._id,
                 isAdmin: user.data.isAdmin,
-                profileImageUrl : user.data.profileImageUrl,
+                profileImageUrl : user.data.profileImageUrl !== "" ? user.data.profileImageUrl : "http://localhost:5000/images/user.png",
                 isConnected: user.data.isConnected,
             })
           })

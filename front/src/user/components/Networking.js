@@ -94,9 +94,11 @@ const Networking = () => {
                 <div className="publication" key={post._id}>
                     <div className="publication_container">
                         <div className="publication_value">{post.value}</div>
+                        {post.imageUrl && post.imageUrl !== "" && 
                         <div className="publication_image__container">
                             <img src={post.imageUrl} className="publication_image" alt="publication"/>
                         </div>
+                        }
                     </div>
                     <div className="user">{post.user}</div>
                     <Thumbs post={post} likes={post.likes} dislikes={post.dislikes}/>

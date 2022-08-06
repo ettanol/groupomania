@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react'
 import { UserContext } from "../Context/User"
 import {logout, updateProfile} from './Request'
+import { FaPencilAlt } from 'react-icons/fa'
 
 const Profile = () => {
   const { user } = useContext(UserContext)
@@ -24,7 +25,10 @@ const Profile = () => {
           setModifyProfile(false)
         }}>
           <button type="button" onClick={() => {setModifyProfile(false)}} className="back_button">Retour</button>
-          <label htmlFor="profile-image" className="profile-image" style={{backgroundImage: `url(${src})`}}/>
+          <label htmlFor="profile-image" className="profile-image">
+            <img class="profile-image" alt="profil utilisateur" src={src}/>
+            <FaPencilAlt className="indicator" style={{color: "red"}}/>
+          </label>
           <input type="file" id="profile-image" accept=".png, .jpg, .jpeg, .gif"
               onChange={async e => {
                 if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"

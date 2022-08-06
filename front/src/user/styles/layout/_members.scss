@@ -2,6 +2,7 @@ $members-width: 25vw;
 
 .Members {
     position: fixed;
+    overflow-y: scroll;
     width: $members-width;
     min-height: 100vh;
     display: flex;
@@ -40,16 +41,6 @@ $members-width: 25vw;
         width: 80%;
     }
 
-    &-connected {
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        right: -5px;
-        top: 30px;
-        z-index: 70;
-    }
-
     &-profession {
         color: $color-secondary;
         font-size: 24px;
@@ -74,6 +65,7 @@ $members-width: 25vw;
         width: 50px;
         border-radius: 50%;
         top: -5px;
+        border: 2px solid #f4f4f4 ;
     }    
     
     .modal-member {
