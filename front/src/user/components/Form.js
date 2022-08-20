@@ -85,7 +85,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
         </div>
         <div className="form-buttons">
             <label htmlFor="image_button" className="image_button">Ajouter une image</label>
-            <input type="file" id="image_button" accept=".png, .jpg, .jpeg, .gif" 
+            <input type="file" id="image_button" accept=".png, .jpg, .jpeg, .gif, .webp" 
                 onChange={async e => {
                     if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
                         setImageSelected(true)

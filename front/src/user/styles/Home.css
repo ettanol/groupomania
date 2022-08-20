@@ -388,8 +388,12 @@ header .profile-card {
   position: absolute;
 }
 
+header .profile-card .profile-image {
+  margin-right: 0;
+}
+
 .profile-image {
-  margin-right: 7em;
+  margin-right: 7.3em;
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -614,7 +618,7 @@ header .profile-card {
 .member .modal-member {
   position: absolute;
   top: -20px;
-  margin-right: 20px;
+  margin: 0px 20px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;

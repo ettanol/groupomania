@@ -29,7 +29,7 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                 </div>
                 <div className="form-buttons">
                         <label htmlFor="modal_image_button" className="image_button">Ajouter une image</label>
-                        <input type="file" id="modal_image_button" accept=".png, .jpg, .jpeg, .gif" 
+                        <input type="file" id="modal_image_button" accept=".png, .jpg, .jpeg, .gif, .webp" 
                             onChange={async e => {
                                 let src = ""
                                 if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"

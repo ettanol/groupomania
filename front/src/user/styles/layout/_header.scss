@@ -17,6 +17,10 @@ header {
 
     .profile-card {
         position: absolute;
+        
+        .profile-image {
+            margin-right: 0;
+        }
     }
 }
 
@@ -26,7 +30,7 @@ header {
     $card-width : 225px;
     $card-height: 300px;
     &-image {
-        margin-right: 7em;
+        margin-right: 7.3em;
         border-radius: 50%;
         height: $image-height;
         width: $image-height;
