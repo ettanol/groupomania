@@ -20,11 +20,10 @@ const Networking = () => {
 
     useEffect( () => {
         fetchPosts()
-        displayPosts(posts)
     }, [])
 
     useEffect (() => {
-        displayPosts(posts)
+        isLoaded && displayPosts(posts)
     }, [posts])
 
     const fetchPosts = () => {
@@ -55,9 +54,7 @@ const Networking = () => {
 
     const updatePost = (post) => {
         let formData = new FormData()
-        // if(post.image){ 
-            formData.append('image', post.image)
-        // }
+        formData.append('image', post.image)
         formData.append('value', post.value)
         axios
         .put(`http://localhost:5000/api/posts/${post._id}`,
@@ -65,7 +62,7 @@ const Networking = () => {
             {headers: {
                 authorization: userInfo.token
             }})
-            .then(post => console.log(post))
+            .then(res => console.log(res))
             .catch(error => console.log(error))
     }
 
@@ -88,7 +85,6 @@ const Networking = () => {
         
     const displayPosts = (posts) => {
         setPostsListCreated(false)
-        setPosts(posts)
         if(isLoaded){  
         const postsList = posts.map( post => {
             let fullUserName = userInfo.firstName + ' ' + userInfo.lastName 
@@ -149,7 +145,7 @@ const Networking = () => {
         if (index !== -1){
             posts[index] = post //modify the post with the new post
             setPosts(posts)
-            updatePost(post) //update the db
+            updatePost(post) //updates the db
         }
     }
 

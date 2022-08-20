@@ -14,6 +14,9 @@ const storage = multer.diskStorage({
         const name = file.originalname.split(' ').join('_')
         const ext = MIME_TYPES[file.mimetype]
         callback(null, name + Date.now() + '.' + ext)
+    },
+    limits: {
+        fileSize: 2000000,
     }
 })
 

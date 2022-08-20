@@ -389,6 +389,7 @@ header .profile-card {
 }
 
 .profile-image {
+  margin-right: 7em;
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -532,7 +533,6 @@ header .profile-card {
 
 .Members {
   position: fixed;
-  overflow-y: scroll;
   width: 25vw;
   min-height: 100vh;
   display: -webkit-box;

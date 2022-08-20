@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import { FaWindowClose } from 'react-icons/fa'
 
 const Modal = ({ post, setShowModal, onEditPost }) => {
@@ -14,16 +14,16 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                 <div className="modal-modify">
                     <textarea className="publication-value" onChange={(e)=> setModifiedPost({...modifiedPost, value: e.target.value})}>{modifiedPost.value}</textarea>
                 </div>
-                <div className='modal-publish-image'>
+                <div className='modal-publish-image' onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}>
                     {
-                        modalSelected || src !== "" ? <img className='publish-image' alt="post" src={src} onMouseEnter={() => setIsMouseInside(true)} onMouseLeave={() => setIsMouseInside(false)}/> : null
+                        modalSelected || src !== "" ? <img className='publish-image' alt="post" src={src} /> : null
                     }
                     {
                         isMouseInside && <FaWindowClose className = "modal-close" onClick={() => 
                             {
                                 setModalSelected(false)
                                 setSrc("")
-                                setModifiedPost({...modifiedPost, image: {}})
+                                setModifiedPost({...modifiedPost, imageUrl: ""})
                             }}/>
                     }
                 </div>
@@ -31,10 +31,12 @@ const Modal = ({ post, setShowModal, onEditPost }) => {
                         <label htmlFor="modal_image_button" className="image_button">Ajouter une image</label>
                         <input type="file" id="modal_image_button" accept=".png, .jpg, .jpeg, .gif" 
                             onChange={async e => {
+                                let src = ""
                                 if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
                                     setModalSelected(true)
-                                    setSrc(URL.createObjectURL(e.target.files[0]))
-                                    setModifiedPost({...modifiedPost, image: e.target.files[0]})
+                                    src = URL.createObjectURL(e.target.files[0])
+                                    setSrc(src)
+                                    setModifiedPost({...modifiedPost, image: e.target.files[0], imageUrl: src})
                                 } else {
                                     e.target.value = ""
                                     setModalSelected(false)
