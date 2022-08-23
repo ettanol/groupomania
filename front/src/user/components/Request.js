@@ -50,7 +50,7 @@ const logout = (email, token) => {
   .then(() => {
       window.location = '/'
   })
-  .catch(err => console.error(err))
+  .catch(alert("vous n'avez pas pu être déconnecté"))
 }
 
 const updateProfile = (image, password, profileSelected, email, token) => {
@@ -64,10 +64,11 @@ const updateProfile = (image, password, profileSelected, email, token) => {
       authorization: token
     }
   })
-  .then(res => {
-      console.log(res)
-  })
-  .catch(err => console.error(err))
+  .then(alert ("Profil modifié"))
+  .catch(err => {
+    if(err.response.data.error){alert(err.response.data.error)}
+        else if(err.response.data[0].message){err.response.data.forEach(error => alert(error.message))}
+    })
 }
 
 export {

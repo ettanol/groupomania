@@ -33,7 +33,7 @@ const Profile = () => {
             <img class="profile-image" alt="profil utilisateur" src={src}/>
             <FaPencilAlt className="indicator" style={{color: "red"}}/>
           </label>
-          <input type="file" id="profile-image" accept=".png, .jpg, .jpeg, .gif"
+          <input type="file" id="profile-image" accept=".png, .jpg, .jpeg"
               onChange={async e => {
                 if(e.target.files.length === 1){ //get the length in case user clicks on image then "cancel"
                   setProfileSelected(true)
