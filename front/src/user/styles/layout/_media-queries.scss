@@ -52,14 +52,54 @@
 
         .profile-card {
             top: 85px;
+
+            label img {
+                top: -10px;
+            }
         }
     }
 
     .Members {
+        position: fixed;
         min-width: 100px;
         width: fit-content;
-        padding: 100px 0 0 0;
+        min-height: 100vh;
+        height: 100%;
+        padding: 50px 0 0 0;
         z-index: 40;
+
+        &:hover {
+            width: 300px;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .member {
+                flex-direction: row;
+            }
+
+            .member-profile {
+                margin: 10px 0;
+            }
+
+            .member-name {
+                display: inline-block;
+            }
+
+            .modal-member {
+                transform: translate3d(-50px, 0, 10px);
+            }
+        }
+
+        ul {
+            height: 400px;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        & .show_members {
+            width: fit-content;
+        }
 
         .member {
             padding: 0;
@@ -70,6 +110,13 @@
             flex-direction: column;
             justify-content: space-around;
             z-index: 10;
+
+            .member-profile-image {
+                height: 35px;
+                min-height: 35px;
+                width: 35px;
+                max-width: 35px;
+            }
         }
         
         .member-name {
@@ -79,7 +126,7 @@
         .member-profile {
             z-index: 10;
             left: 0;
-            margin: 10px auto;
+            margin: 10px 0;
         }
         
         .profile-image {
@@ -87,17 +134,14 @@
             margin: 10px auto;
             display: none;
         }
-
-        .profile-card{
-            display: none;
-        }
-
+        
         .member-connected {
             right: 0%;
             top: 30px;
         }
-
+        
         .profile-card {
+            display: none;
             text-align: center;
             height: fit-content;
             padding: 10px;
@@ -107,7 +151,7 @@
         .modal-member {
             height: fit-content;
             padding: 20px;
-            transform: translate3d(300px, 0px, 10px);
+            transform: translate3d(180px, 0px, 10px);
 
             .member-name {
                 display: block;
@@ -211,8 +255,15 @@
     }
 
     .Members {
+        width: 100vw;
         padding-top: 75px ;
         transform: translateX(-100%);
+
+        ul {
+            height: 400px;
+            overflow-y: auto;
+        }
+
         .profile-image{
             display: block;
             width: 75px;
@@ -227,12 +278,48 @@
             height: fit-content;
             justify-content: flex-end;
             left: 0;
-            margin: 0 10px;
+            margin: 0 auto;
+
+            label img {
+                top: -10px;
+            }
+        }
+
+        .member {
+            padding: 0px 5%;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+
+            &-name{
+                display: inline-block;
+                width: 50%;
+                text-overflow: ellipsis;
+            }
+
+            &-profile {
+                margin: 2% 0px;
+            }
+
+            &-profile-image {
+                justify-self: flex-start;
+            }
+        }
+
+        .modal-member {
+            padding: 2%;
+            transform: translate3d(0px, 0px, 10px);
+            min-width: 170px;
         }
 
         &.show_members {
             transform: translateX(0%);
         }
+    }
+
+    .profile-modification label .indicator{
+        top: 50px;
     }
 
     .publish-post {
@@ -247,11 +334,15 @@
     .networking{
         width: 100%;
         padding: 20px;
+
+        .thumbs {
+            width: 80px;
+        }
     }
 
     .button-toggler {
         position: absolute;
-        top: 25px;
+        top: 35px;
         display: flex;
         justify-content: space-between;
         flex-direction: column;

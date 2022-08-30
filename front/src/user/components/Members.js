@@ -77,7 +77,7 @@ const Members = () => {
 
     return (
       isLoaded && <>
-        <div className='button-toggler' onClick={() => {if(showMembers){setShowMembers(false)} else {setShowMembers(true)}}}>
+        <div className='button-toggler' style={{position: showMembers && "fixed"}} onClick={() => {if(showMembers){setShowMembers(false)} else {setShowMembers(true)}}}>
           <div className='button-toggler__bar'></div>
           <div className='button-toggler__bar'></div>
           <div className='button-toggler__bar'></div>
