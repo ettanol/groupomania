@@ -12,3 +12,6 @@ Sur la gauche apparaît la liste des collègues inscrits. Pour l'instant, seul c
 Pour toute modification que vous ne pourrez pas effectuer, vous devrez faire une reqûete à l'administrateur. Ce sera également à lui de supprimer les comptes si malheureusement certaines personnes quittent l'entreprise. 
 
 J'attend vos premiers retours sur cette version 1.0 avec impatience. 
+
+
+NB: Pour installer cette première version, vous devrez ouvrir les dossiers dans l'invité de commande de votre choix. Il faudra ensuite écrire "cd front" puis "npm start". Des informations sur l'installation apparaîtront et au bout de quelques secondes, un onglet sur le navigateur s'ouvrira automatiquement. 
