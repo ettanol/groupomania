@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header>
       <img src={big_logo} className="groupomania-logo" alt="logo de l'entreprise Groupomania"/>
-        {<img className="profile-image" onClick={() =>{
+        {<img className="profile-image" onClick={() =>{ //the user clicks on the image profile to reveal his infos
         setIsProfileOpen(isProfileOpen ? false : true)
       }} alt="profil utilisateur" src={user.profileImageUrl}/>}
         {

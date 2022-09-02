@@ -107,7 +107,6 @@ exports.login= async (req, res, next) => {
                         lastName: user.lastName,
                         email: user.email,
                         profession: user.profession,
-                        userId : user._id,
                         token: JWT.sign( // create a token which expires every 24h
                         { userId: user._id},
                         process.env.JWT_SECRET,

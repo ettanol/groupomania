@@ -19,7 +19,7 @@ const Profile = () => {
   return (
       <div className="profile-card">
         {
-        modifyProfile ? 
+        modifyProfile ? //put up the form to modify infos
         <form className="profile-modification" onSubmit={() => {
           updateProfile(image, newPassword, profileSelected, email, token)
           setModifyProfile(false)

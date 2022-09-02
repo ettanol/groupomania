@@ -3,7 +3,6 @@ import axios from 'axios'
 import { FaWindowClose } from 'react-icons/fa'
 import { UserContext } from "../Context/User"
 import Profile from "./Profile"
-// import getAllMembers from './Request'
 
 let userInfoString = localStorage.getItem('userInfo')
 let userInfo = JSON.parse(userInfoString)
@@ -20,7 +19,7 @@ const Members = () => {
     getAllMembers()
   }, [])  
 
-  const getAllMembers = () => {
+  const getAllMembers = () => { //get a list of all members
     setIsLoaded(false)
     axios
     .get('http://localhost:5000/api/auth/user', {
@@ -31,7 +30,7 @@ const Members = () => {
       setIsLoaded(true)
       let members = []
       let memberInfo = {}
-      membersList.data.forEach(member => {
+      membersList.data.forEach(member => { //get each member info 
         memberInfo = {firstName: member.firstName, 
                       lastName: member.lastName,
                       isConnected: member.isConnected,
@@ -39,7 +38,7 @@ const Members = () => {
                       image: member.profileImageUrl,
                       _id: member._id,
                     }
-        members.push(memberInfo)
+        members.push(memberInfo) //add all infos for each member
         return members
       })
       setMembers(members)
@@ -47,7 +46,7 @@ const Members = () => {
     .catch(error => console.log(error))
     }
 
-    const deleteMember = (member) => {
+    const deleteMember = (member) => { //admin can delete members
       axios.delete(`http://localhost:5000/api/auth/user/${member._id}`, {
         headers: {
             authorization: userInfo.token
@@ -62,7 +61,7 @@ const Members = () => {
           <div className='modal-member'> 
             <p className='member-name'>{member.firstName} {member.lastName}</p>
             <p className='member-profession'>{member.profession}</p>
-            {showUserInfo && user.isAdmin &&  
+            {showUserInfo && user.isAdmin &&  //if the user is admin
               <FaWindowClose
                   className="modal-close"
                   onClick={(e) => {if(window.confirm("Êtes-vous certain de retirer cet utilisateur?")){
@@ -75,7 +74,7 @@ const Members = () => {
         )}
       }
 
-    return (
+    return (//button toggler for mobile, make the list of members appear
       isLoaded && <>
         <div className='button-toggler' style={{position: showMembers && "fixed"}} onClick={() => {if(showMembers){setShowMembers(false)} else {setShowMembers(true)}}}>
           <div className='button-toggler__bar'></div>

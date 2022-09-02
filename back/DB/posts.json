@@ -1,0 +1,43 @@
+[{
+  "_id": {
+    "$oid": "62cd39d6e85aab46c6aaf4f0"
+  },
+  "value": "Bienvenue sur votre espace de partage.",
+  "timeOfUpload": "1",
+  "imageUrl": "https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  "likes": 4,
+  "dislikes": 0,
+  "usersLiked": [
+    "",
+    "62d16938c480548f69f873d9",
+    "62d195924b3e9899fb4e52f9",
+    "62d95391a58734d595ba75d8",
+    null,
+    null,
+    null
+  ],
+  "usersDisliked": [
+    ""
+  ],
+  "user": "Daffy Duck",
+  "__v": 284
+},{
+  "_id": {
+    "$oid": "62e25095e845770eae00c23b"
+  },
+  "user": "Kevin Malone",
+  "value": "Je suis vraiment content de pouvoir discuter avec vous.",
+  "timeOfUpload": "1658998933775",
+  "imageUrl": "http://localhost:5000/images/kevin_malone.gif1659773047942.undefined",
+  "likes": 4,
+  "dislikes": 0,
+  "usersLiked": [
+    "62d95391a58734d595ba75d8",
+    "62d195924b3e9899fb4e52f9",
+    "62ed2dcb63ce0698bf3fe6d3",
+    null,
+    null
+  ],
+  "usersDisliked": [],
+  "__v": 31
+}]

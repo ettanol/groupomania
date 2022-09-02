@@ -1,0 +1,81 @@
+[{
+  "_id": {
+    "$oid": "62d195924b3e9899fb4e52f9"
+  },
+  "firstName": "Kevin",
+  "lastName": "Malone",
+  "profession": "Comptable",
+  "email": "Kevin.Malone@groupomania.fr",
+  "isConnected": true,
+  "password": "$2b$10$5yFiDGatLFxbiE4BdYOeEOqInU8jZxk5XIM7pDk3WqCLXQnvHM.OG",
+  "numberOfAttempts": 0,
+  "numberOfBlocks": 0,
+  "timeOfBlock": 0,
+  "__v": 0,
+  "profileImageUrl": "http://localhost:5000/images/Kevin_Malone.jpg1661156923296.jpg",
+  "isAdmin": false
+},{
+  "_id": {
+    "$oid": "62de4db3cd5917292aaef176"
+  },
+  "firstName": "Michael",
+  "lastName": "Scott",
+  "profession": "Gestionnaire régional",
+  "email": "Michael.Scott@groupomania.fr",
+  "profileImageUrl": "http://localhost:5000/images/Michael_Scott.jpg1659771113389.jpg",
+  "isConnected": false,
+  "password": "$2b$10$m0EU8uerJUI3tQoJv8wBKu/i1xgKZ2AxYpax.pbGbIo8V1jiWuG8e",
+  "numberOfAttempts": 0,
+  "numberOfBlocks": 0,
+  "timeOfBlock": 0,
+  "__v": 0,
+  "isAdmin": false
+},{
+  "_id": {
+    "$oid": "62de4e21cd5917292aaef1a8"
+  },
+  "firstName": "Jim",
+  "lastName": "Halpert",
+  "profession": "Vendeur",
+  "email": "Jim.Halpert@groupomania.fr",
+  "profileImageUrl": "http://localhost:5000/images/Jim_Halpert.jpg1659772259496.jpg",
+  "isConnected": false,
+  "password": "$2b$10$F7LshmkSJFPoEnGamdOhOugHOsnVhtFoPFQWxPMrzOZltUiFE7Lsa",
+  "numberOfAttempts": 0,
+  "numberOfBlocks": 0,
+  "timeOfBlock": 0,
+  "__v": 0,
+  "isAdmin": false
+},{
+  "_id": {
+    "$oid": "62de4ec5cd5917292aaef1da"
+  },
+  "firstName": "Pam",
+  "lastName": "Beesly",
+  "profession": "Secrétaire",
+  "email": "Pam.Beesly@groupomania.fr",
+  "profileImageUrl": "http://localhost:5000/images/Pam_Beesley.jpg1659772699700.jpg",
+  "isConnected": false,
+  "password": "$2b$10$UYa.FT6.blR42kd3ComA9uvE5FG1huNzoN4YuE1XpMXHItmv/Hl06",
+  "numberOfAttempts": 0,
+  "numberOfBlocks": 0,
+  "timeOfBlock": 0,
+  "__v": 0,
+  "isAdmin": false
+},{
+  "_id": {
+    "$oid": "62e5055f5aa8bbf50b256fa0"
+  },
+  "firstName": "Admin",
+  "lastName": "Groupomania",
+  "profession": "Administrateur",
+  "email": "admin@groupomania.fr",
+  "isAdmin": true,
+  "profileImageUrl": "http://localhost:5000/images/admin.jpg1661763936705.jpg",
+  "isConnected": false,
+  "password": "$2b$10$kgtygfM5SP2o.Ml4V9wgHOr9LWlzH2IFnAUhzpryIPRavd6APFJbS",
+  "numberOfAttempts": 0,
+  "numberOfBlocks": 0,
+  "timeOfBlock": 0,
+  "__v": 0
+}]

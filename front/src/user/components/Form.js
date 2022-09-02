@@ -24,7 +24,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
     
     const addPost = () => {
         let formData = new FormData()
-        imageSelected && formData.append('image', image, src)
+        imageSelected && formData.append('image', image, src) //adds the image if selected
         const completeName = userInfo.firstName + ' ' + userInfo.lastName
         formData.append('user', completeName)
         formData.append('value', input)
@@ -36,7 +36,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
                 }}
                 )
                 .then(res => {
-                postsList.push(res.data.post)
+                postsList.push(res.data.post) //add the post to the post list
                 setPosts(postsList)
                 setSrc(src)
             })
@@ -58,7 +58,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
             <textarea type="text" className="publish-text__area" name="post" placeholder="Une idée à partager ?" maxLength="250" onChange={e => {
                 setInput(e.target.value)
                 }} value={input}/>
-                {imageSelected ? ( 
+                {imageSelected ? ( //if an image is selected, show the image, else show a space for the potential image
                     <div
                         onMouseEnter={() => setIsMouseInside(true)}
                         onMouseLeave={() => setIsMouseInside(false)}
@@ -102,12 +102,6 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
         </div>
     </form>
     )
-}
-
-Form.propTypes = {
-    isLoaded : Proptypes.bool,
-    postsList: Proptypes.array,
-    posts: Proptypes.array,
 }
 
 export default Form

@@ -255,7 +255,7 @@
     }
 
     .Members {
-        width: 100vw;
+        min-width: 100vw;
         padding-top: 75px ;
         transform: translateX(-100%);
 
@@ -307,11 +307,14 @@
             }
         }
 
-        .modal-member {
-            padding: 2%;
-            transform: translate3d(0px, 0px, 10px);
-            min-width: 170px;
+        &:hover {
+            .modal-member {
+                padding: 2%;
+                transform: translate3d(0px, 0px, 10px);
+                min-width: 170px;
+            }
         }
+
 
         &.show_members {
             transform: translateX(0%);

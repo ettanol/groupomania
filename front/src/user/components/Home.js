@@ -15,27 +15,27 @@ const Home = () => {
     const [password, setPassword] = useState("")
 
     useEffect(() => {
-        setEmail(`${firstName}.${lastName}@groupomania.fr`)
+        setEmail(`${firstName}.${lastName}@groupomania.fr`) //sets the email for the register request
     }, [lastName])
     
 
     const login = (email, password) => {
-        axios.post('http://localhost:5000/api/auth/login',
+        axios.post('http://localhost:5000/api/auth/login', //sends email and password to the server
         {
             email: email,
             password: password
         })
         .then(res => {
           if(res.status === 200) {
-            let userInfo = JSON.stringify(res.data)
-            localStorage.setItem('userInfo', userInfo)
-            window.location = '/posts'
+            let userInfo = JSON.stringify(res.data) //gets the user info from the server
+            localStorage.setItem('userInfo', userInfo) //keep some user info in localstorage
+            window.location = '/posts' //if everything is okay, go to the posts page
           }})
-        .catch(err => err && alert(err.response.data.error))
+        .catch(err => err && alert(err.response.data.error)) //get the error and display it on the client side
       }
 
     const register = ()  => {
-    axios.post('http://localhost:5000/api/auth/signup',
+    axios.post('http://localhost:5000/api/auth/signup', //sends the infos to the server
     {   
         firstName: firstName,
         lastName: lastName,
@@ -44,11 +44,11 @@ const Home = () => {
         password: password
     })
     .then(res => {
-        login(email, password)
+        login(email, password) //once the account is added to the server, login the user
     })
     .catch(err => {
-        if(err.response.data.error){alert(err.response.data.error)}
-        else if(err.response.data[0].message){err.response.data.forEach(error => alert(error.message))}
+        if(err.response.data.error){alert(err.response.data.error)} //if there's an error from the server
+        else if(err.response.data[0].message){err.response.data.forEach(error => alert(error.message))} //if the user added an unsafe password
     })
     }
 
@@ -60,7 +60,7 @@ const Home = () => {
         </div>
         <div className="connexion-form">
             <div className='sign-in-form'>
-                { isSignInOpen ?
+                { isSignInOpen ? // if user clicks on sign in > open the form; else, show the button "sign in"
                 <form className='groupomania-form' onSubmit={e =>{ 
                     e.preventDefault()
                     login(email, password)}}>
@@ -86,7 +86,7 @@ const Home = () => {
                 }
             </div>
             <div className='sign-in-form'>
-                { isSignUpOpen ?
+                { isSignUpOpen ? // if user clicks on sign up > open the form; else, show the button "sign up"
                 <form className='groupomania-form' onSubmit={e => {
                     e.preventDefault()
                     register()

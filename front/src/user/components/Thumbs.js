@@ -19,7 +19,7 @@ const Thumbs = ({ post, likes, dislikes}) => {
     }, [likeClicked, dislikeClicked])
 
     const likeFn = (post, likeClicked, dislikeClicked) => {
-    let likeValue = 0
+    let likeValue = 0 //the like value depends on where the user clicks  
     if(likeClicked){
         likeValue = 1
     } 
@@ -43,16 +43,16 @@ const Thumbs = ({ post, likes, dislikes}) => {
     return (
         <div className="thumbs">
             <FaThumbsUp className="thumbs_up" onClick={() => {
-                likeClicked === false ? setLikeClicked(true) : setLikeClicked(false)
-                likeClicked ? setLike(like -1) : setLike(like + 1)
-                dislikeClicked && setDislike(dislike -1)
+                likeClicked === false ? setLikeClicked(true) : setLikeClicked(false) //if the user havn't yet clicked on the thumbs up button
+                likeClicked ? setLike(like -1) : setLike(like + 1) //change the number of likes
+                dislikeClicked && setDislike(dislike -1) //if the user clicked on dislike before, change the dislike value
                 dislikeClicked && setDislikeClicked(false)
             }} style={{color : likeClicked ? 'green' : '#777'}}/>
             <span>{like}</span>
             <FaThumbsDown className="thumbs_down" onClick={() => {
-                dislikeClicked === false ? setDislikeClicked(true) : setDislikeClicked(false)
-                dislikeClicked ? setDislike(dislike - 1) : setDislike(dislike + 1)
-                likeClicked && setLike(like -1)
+                dislikeClicked === false ? setDislikeClicked(true) : setDislikeClicked(false) //if the user havn't yet clicked on the thumbs down button
+                dislikeClicked ? setDislike(dislike - 1) : setDislike(dislike + 1) //change the number of dislikes
+                likeClicked && setLike(like -1) //if the user clicked on like before, change the like value
                 likeClicked && setLikeClicked(false)
             }} style={{color : dislikeClicked ? 'red' : '#777'}}/>
             <span>{dislike}</span>
