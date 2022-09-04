@@ -32,7 +32,7 @@ const Home = () => {
             window.location = '/posts' //if everything is okay, go to the posts page
           }})
         .catch(err => err && alert(err.response.data.error)) //get the error and display it on the client side
-      }
+    }
 
     const register = ()  => {
     axios.post('http://localhost:5000/api/auth/signup', //sends the infos to the server
@@ -95,23 +95,23 @@ const Home = () => {
                     <input type="text" name='firstName' id='firstName' placeholder='prénom' className='groupomania-form__input'
                     onChange={e => {
                         if(e.target.value !== ""){
-                            let firstName = e.target.value[0].toUpperCase() + e.target.value.slice(1,)
+                            let firstName = e.target.value[0].toUpperCase() + e.target.value.slice(1,).toLowerCase()
                             setFirstName(firstName)
                         } else {
                             setFirstName("")
                         }
-                    }} value={firstName} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
+                    }} value={firstName} required pattern="^([A-Z]{1}[a-z]{1,20}(-|'|\.)?){1,4}" title='Veuillez vérifier cette information'></input>
                     <label htmlFor="lastName"></label>
                     <input type="text" name='lastName' id='lastName' placeholder='nom' className='groupomania-form__input'
                     onChange={e => {
                         if(e.target.value !== ""){
-                            let lastName = e.target.value[0].toUpperCase() + e.target.value.slice(1,)
+                            let lastName = e.target.value[0].toUpperCase() + e.target.value.slice(1,).toLowerCase()
                             setLastName(lastName)
                         } else {
                             setLastName("")
                         }
                             
-                            }} value={lastName} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
+                            }} value={lastName} required pattern="^([A-Z]{1}[a-z]{1,20}(-|'|\.)?){1,4}" title='Veuillez vérifier cette information'></input>
                     <input type="text" name='profession' id='profession' placeholder='profession' className='groupomania-form__input'
                     onChange={e => setProfession(e.target.value)} value={profession} required pattern="^([\p{L}]{1,20}( |-|'|\.)? ?){1,4}" title='Veuillez vérifier cette information'></input>
                     <label htmlFor="password"></label>

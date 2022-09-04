@@ -31,7 +31,7 @@ exports.signup = async (req, res, next) => {
                 firstName: firstName,
                 lastName: lastName,
                 profession: profession,
-                email: req.body.email,
+                email: `${firstName}.${lastName}@groupomania.fr`,
                 profileImageUrl : `${req.protocol}://${req.get('host')}/images/user.png`,
                 isAdmin: false,
                 isConnected : true,
