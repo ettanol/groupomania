@@ -61,17 +61,19 @@ exports.updatePost = async (req, res, next)=> {
 exports.deletePost = async (req, res, next) => {
     Post.findOne({ _id: req.params.id}) //checks the DB for specific object
     .then(post => {
-        if(post.imageUrl !== ''){
-            const filename = post.imageUrl.split('/images/')[1]
-            if (fs.existsSync(`images/${filename}`)){
-                fs.unlink(`images/${filename}`, (err) => {
-                    if (err) throw err;
-                })
+        if(post.userId === req.body.userId || post.userId === "62e5055f5aa8bbf50b256fa0"){
+            if(post.imageUrl !== ''){
+                const filename = post.imageUrl.split('/images/')[1]
+                if (fs.existsSync(`images/${filename}`)){
+                    fs.unlink(`images/${filename}`, (err) => {
+                        if (err) throw err;
+                    })
+                }
             }
+            Post.deleteOne({ _id: req.params.id}) //deletes the object from DB
+            .then(()=> res.status(200).json({ message: 'Post supprimée!' }))
+            .catch(error => res.status(400).json(new Error))
         }
-        Post.deleteOne({ _id: req.params.id}) //deletes the object from DB
-        .then(()=> res.status(200).json({ message: 'Post supprimée!' }))
-        .catch(error => res.status(400).json(new Error))
     })
     .catch(error => res.status(500).json({error}))
 }
@@ -115,21 +117,21 @@ exports.likeOnePost = async (req, res, next) => {
             user == usersLiked ? post.likes-- : post.dislikes--
         }
 
-        if(like && [like] == -1){ //prevent user from adding a dislike and a like at the same time
+        if(like && like === -1){ //prevent user from adding a dislike and a like at the same time
             if(userId !== undefined && !usersDisliked.includes(userId)){ 
             add(usersDisliked)
             } 
             if (userId !== undefined && usersLiked.includes(userId)){
                 remove(usersLiked)
             }
-        } else if(like && [like] == 0) { //checks if the arrays usersLiked and usersDisliked include the user
+        } else if(like === 0) { //checks if the arrays usersLiked and usersDisliked include the user
             if(userId !== undefined && usersDisliked.includes(userId)) {
                 remove(usersDisliked) 
             } 
             if (userId !== undefined && usersLiked.includes(userId)){
                 remove(usersLiked)
             }
-        } else if(like && [like] == 1){ //prevent user from adding a dislike and a like at the same time
+        } else if(like && like === 1){ //prevent user from adding a dislike and a like at the same time
             if(userId !== undefined && usersDisliked.includes(userId)){
                 remove(usersDisliked)
             }

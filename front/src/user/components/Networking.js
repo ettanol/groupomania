@@ -78,9 +78,9 @@ const Networking = () => {
         axios
         .delete(`http://localhost:5000/api/posts/${post._id}`,
         {
-            userId : user._id
-        },
-        {
+            data: {
+                userId: user._id
+            },
             headers: {
                 authorization: userInfo.token
             }})
