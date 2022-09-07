@@ -102,17 +102,32 @@ exports.login= async (req, res, next) => {
                     timeOfBlock = 0
                     user.isConnected = true
                     databaseUpdate(user, attempts, blocks, timeOfBlock)
-                    res.status(200).json({ //if the password is correct
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email,
-                        profession: user.profession,
-                        token: JWT.sign( // create a token which expires every 24h
-                        { userId: user._id},
-                        process.env.JWT_SECRET,
-                        { expiresIn: '24h'}
-                        )
-                    })
+                    if(user.isAdmin){
+                        res.status(200).json({
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                            profession: user.profession,
+                            token: JWT.sign( // create a token which expires every 24h
+                            { userId: user._id, isAdmin: true},
+                            process.env.JWT_SECRET,
+                            { expiresIn: '24h'}
+                            )
+                        })
+                    }
+                    else {
+                        res.status(200).json({ //if the password is correct
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                            profession: user.profession,
+                            token: JWT.sign( // create a token which expires every 24h
+                            { userId: user._id},
+                            process.env.JWT_SECRET,
+                            { expiresIn: '24h'}
+                            )
+                        })
+                    }
                 }
             } else {
                 return res.status(401).json({error: `Veuillez attendre ${minutesBlocked / 60000} minutes avant un nouvel essai`})
@@ -195,18 +210,23 @@ exports.getUserAccount = async (req, res, next) => {//get the specific user from
 }
 
 exports.deleteAccount = async(req, res, next) => {
-    User.findOne({_id: req.params._id})
-    .then(user =>{if(user.profileImageUrl !== '' && user.profileImageUrl !== `${req.protocol}://${req.get('host')}/images/user.png`){
-        const filename = user.profileImageUrl.split('/images/')[1]
-        if (fs.existsSync(`images/${filename}`)){
-            fs.unlink(`images/${filename}`, (err) => {
-                if (err) throw err;
-            })
-        }
+    if(req.body.userId === "62e5055f5aa8bbf50b256fa0"){
+        User.findOne({_id: req.params._id})
+        .then(user =>{
+            if(req.body.userId ){
+                if(user.profileImageUrl !== '' && user.profileImageUrl !== `${req.protocol}://${req.get('host')}/images/user.png`){
+                const filename = user.profileImageUrl.split('/images/')[1]
+                if (fs.existsSync(`images/${filename}`)){
+                    fs.unlink(`images/${filename}`, (err) => {
+                        if (err) throw err;
+                    })
+                }
+                }
+            }
+        User.deleteOne({ _id: req.params._id}) //deletes the object from DB
+        .then(()=> res.status(200).json({ message: 'Utilisateur supprimé!' }))
+        .catch(error => res.status(400).json(new Error))
+        })
+        .catch(error => res.status(404).json({error}))
     }
-    User.deleteOne({ _id: req.params._id}) //deletes the object from DB
-    .then(()=> res.status(200).json({ message: 'Utilisateur supprimé!' }))
-    .catch(error => res.status(400).json(new Error))
-    })
-    .catch(error => res.status(404).json({error}))
 }

@@ -1,6 +1,7 @@
 const Post = require('../models/posts')
 const fs = require('fs')
 const posts = require('../models/posts')
+const user = require('../models/user')
 
 exports.addPost = async (req, res, next) => {
     let PostObject = req.body //get the req sent from the front
@@ -12,6 +13,7 @@ exports.addPost = async (req, res, next) => {
         let timeOfUpload = Date.now().toString()
         const post = new Post({ // creates a new object
             user: PostObject.user,
+            userId: PostObject.userId,
             value: PostObject.value,
             timeOfUpload: timeOfUpload,
             imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
@@ -31,27 +33,28 @@ exports.addPost = async (req, res, next) => {
 exports.updatePost = async (req, res, next)=> {
     Post.findOne({ _id: req.params.id}) //gets the Post that will be modified from DB
     .then(post => {
-        if(post.imageUrl !== ''){
-            const filename = post.imageUrl.split('/images/')[1]
-            if (fs.existsSync(`images/${filename}`) && req.file || (fs.existsSync(`images/${filename}`) && req.body.image === "[object Object]")){ //if the file already exists and a file is added in the request
-                fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
+        if(post.userId === req.body.userId || post.userId === "62e5055f5aa8bbf50b256fa0"){
+            if(post.imageUrl !== ''){
+                const filename = post.imageUrl.split('/images/')[1]
+                if (fs.existsSync(`images/${filename}`) && req.file || (fs.existsSync(`images/${filename}`) && req.body.image === "[object Object]")){ //if the file already exists and a file is added in the request
+                    fs.unlink(`images/${filename}`, err => {if(err) { throw err}}) //deletes the file from the server
+                }
+            }        
+            const PostObject = req.file ? 
+            { //if a file is added
+                ...req.body,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
+            } : { 
+                ...req.body,
+                imageUrl: ""
+            } //else just get the modified info from request
+            if(PostObject.value.includes("<" || "javascript" || "script")) {
+            return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added
             }
-        }        
-        const PostObject = req.file ? 
-        { //if a file is added
-            ...req.body,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
-        } : { 
-            ...req.body,
-            imageUrl: ""
-        } //else just get the modified info from request
-        if(PostObject.value.includes("<" || "javascript" || "script")
-    ) {
-        return res.status(403).json({error: "Requête refusée"}) //to protect from scripts being added
-    }
-        Post.updateOne({ _id: req.params.id}, { ...PostObject, _id: req.params.id}) //updates DB
-        .then(() => res.status(200).json({message: 'Post modifiée'}))
-        .catch(error => res.status(400).json({ error }))
+            Post.updateOne({ _id: req.params.id}, { ...PostObject, _id: req.params.id}) //updates DB
+            .then(() => res.status(200).json({message: 'Post modifiée'}))
+            .catch(error => res.status(400).json({ error }))
+        }
     })
 }
 
@@ -90,8 +93,17 @@ exports.likeOnePost = async (req, res, next) => {
     let userId = req.body.userId
     Post.findOne({ _id: req.params.id}) //gets the specific object from DB
     .then(post => {
+        post.usersLiked = post.usersLiked.reduce((previousValue, currentValue) => {
+            if(currentValue !== null && currentValue !== "") {previousValue.push(currentValue)} 
+            return previousValue
+        }, [])
+        post.usersDisliked = post.usersDisliked.reduce((previousValue, currentValue) => {
+            if(currentValue !== null && currentValue !== "" && currentValue !== undefined) {previousValue.push(currentValue)} return previousValue
+        }, [])
         let usersLiked = post.usersLiked
         let usersDisliked = post.usersDisliked
+        post.likes = usersLiked.length
+        post.dislikes = usersDisliked.length
 
         let add = (user) => { //adds the user to DB and adds a like or dislike to DB
             user.push(userId)
@@ -103,25 +115,25 @@ exports.likeOnePost = async (req, res, next) => {
             user == usersLiked ? post.likes-- : post.dislikes--
         }
 
-        if([like] == -1){ //prevent user from adding a dislike and a like at the same time
-            if(!usersDisliked.includes(userId)){ 
+        if(like && [like] == -1){ //prevent user from adding a dislike and a like at the same time
+            if(userId !== undefined && !usersDisliked.includes(userId)){ 
             add(usersDisliked)
             } 
-            if (usersLiked.includes(userId)){
+            if (userId !== undefined && usersLiked.includes(userId)){
                 remove(usersLiked)
             }
-        } else if([like] == 0) { //checks if the arrays usersLiked and usersDisliked include the user
-            if(usersDisliked.includes(userId)) {
+        } else if(like && [like] == 0) { //checks if the arrays usersLiked and usersDisliked include the user
+            if(userId !== undefined && usersDisliked.includes(userId)) {
                 remove(usersDisliked) 
             } 
-            if (usersLiked.includes(userId)){
+            if (userId !== undefined && usersLiked.includes(userId)){
                 remove(usersLiked)
             }
-        } else { //prevent user from adding a dislike and a like at the same time
-            if(usersDisliked.includes(userId)){
+        } else if(like && [like] == 1){ //prevent user from adding a dislike and a like at the same time
+            if(userId !== undefined && usersDisliked.includes(userId)){
                 remove(usersDisliked)
             }
-            if (!usersLiked.includes(userId)){
+            if (userId !== undefined && !usersLiked.includes(userId)){
                 add(usersLiked)
             }
         }

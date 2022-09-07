@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
-import Proptypes from 'prop-types'
 import { FaWindowClose } from 'react-icons/fa'
+import { UserContext } from "../Context/User"
 
 const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
+    const { user } = useContext(UserContext)
+
     const [input, setInput] = useState("")
     const [image, setImage] = useState({})
     const [src, setSrc] = useState("")
@@ -27,6 +29,7 @@ const Form = ({ postsList, fetchPosts, displayPosts, ShowPosts  }) => {
         imageSelected && formData.append('image', image, src) //adds the image if selected
         const completeName = userInfo.firstName + ' ' + userInfo.lastName
         formData.append('user', completeName)
+        formData.append('userId', user._id)
         formData.append('value', input)
         if(input !== "") {
             axios

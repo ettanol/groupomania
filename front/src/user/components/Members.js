@@ -47,7 +47,9 @@ const Members = () => {
     }
 
     const deleteMember = (member) => { //admin can delete members
-      axios.delete(`http://localhost:5000/api/auth/user/${member._id}`, {
+      axios.delete(`http://localhost:5000/api/auth/user/${member._id}`,
+      {userId: user._id},
+      {
         headers: {
             authorization: userInfo.token
         }})
@@ -61,7 +63,7 @@ const Members = () => {
           <div className='modal-member'> 
             <p className='member-name'>{member.firstName} {member.lastName}</p>
             <p className='member-profession'>{member.profession}</p>
-            {showUserInfo && user.isAdmin &&  //if the user is admin
+            {showUserInfo && user.isAdmin &&  //if the user is the admin
               <FaWindowClose
                   className="modal-close"
                   onClick={(e) => {if(window.confirm("Êtes-vous certain de retirer cet utilisateur?")){

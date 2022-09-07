@@ -28,7 +28,7 @@ const Thumbs = ({ post, likes, dislikes}) => {
     }
     axios.post(`http://localhost:5000/api/posts/like/${post._id}`,
     {
-        userId: userInfo.userId,
+        userId: user._id,
         like: likeValue,
     },{
         headers: {
@@ -52,7 +52,7 @@ const Thumbs = ({ post, likes, dislikes}) => {
             <FaThumbsDown className="thumbs_down" onClick={() => {
                 dislikeClicked === false ? setDislikeClicked(true) : setDislikeClicked(false) //if the user havn't yet clicked on the thumbs down button
                 dislikeClicked ? setDislike(dislike - 1) : setDislike(dislike + 1) //change the number of dislikes
-                likeClicked && setLike(like -1) //if the user clicked on like before, change the like value
+                likeClicked && setLike(like -1) //if the user clicked on like before, change the dislike value
                 likeClicked && setLikeClicked(false)
             }} style={{color : dislikeClicked ? 'red' : '#777'}}/>
             <span>{dislike}</span>

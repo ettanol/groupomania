@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const postSchema = mongoose.Schema({
     user: {type: String},
+    userId: {type: String},
     value: {type: String, required: true},
     timeOfUpload: {type: String},
     imageUrl: {type: String},

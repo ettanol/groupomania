@@ -56,6 +56,7 @@ const Networking = () => {
         let formData = new FormData()
         formData.append('image', post.image) //formData to send files
         formData.append('value', post.value) //adds infos to be sent for the post
+        formData.append('userId', user._id)
         axios
         .put(`http://localhost:5000/api/posts/${post._id}`,
             formData,
@@ -75,7 +76,11 @@ const Networking = () => {
         }, [])
         setPosts(postsLeft)
         axios
-        .delete(`http://localhost:5000/api/posts/${post._id}`, {
+        .delete(`http://localhost:5000/api/posts/${post._id}`,
+        {
+            userId : user._id
+        },
+        {
             headers: {
                 authorization: userInfo.token
             }})
