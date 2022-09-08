@@ -163,7 +163,6 @@ exports.updateProfile = async (req, res, next) => {
                 }
             }
         }
-        let hashedPassword = ""
         if(req.body.password){
             const passwordSchema = new passwordValidator()
             passwordSchema
@@ -181,9 +180,12 @@ exports.updateProfile = async (req, res, next) => {
                 })
                 .catch(error => res.status(400).json({ error }))
             }
+            else {
+                return res.status(403).json(passwordSchema.validate(req.body.password, {details: true})) //returns where the password was unsafe
+            }
         }
         const UserObject = { //if a file is added
-            password: req.body.password && hashedPassword,
+            password: hashedPassword && hashedPassword,
             profileImageUrl: req.file && `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //get the req and the infos of the file
         } 
         if(req.body.password || req.file){
@@ -225,7 +227,7 @@ exports.deleteAccount = async(req, res, next) => {
             }
         User.deleteOne({ _id: req.params._id}) //deletes the object from DB
         .then(()=> res.status(200).json({ message: 'Utilisateur supprimé!' }))
-        .catch(error => res.status(400).json(new Error))
+        .catch(error => res.status(400).json({error}))
         })
         .catch(error => res.status(404).json({error}))
     }

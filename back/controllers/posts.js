@@ -61,7 +61,7 @@ exports.updatePost = async (req, res, next)=> {
 exports.deletePost = async (req, res, next) => {
     Post.findOne({ _id: req.params.id}) //checks the DB for specific object
     .then(post => {
-        if(post.userId === req.body.userId || post.userId === "62e5055f5aa8bbf50b256fa0"){
+        if(post.userId === req.body.userId || req.body.userId === "62e5055f5aa8bbf50b256fa0"){
             if(post.imageUrl !== ''){
                 const filename = post.imageUrl.split('/images/')[1]
                 if (fs.existsSync(`images/${filename}`)){

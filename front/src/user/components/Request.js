@@ -31,7 +31,7 @@ const updateProfile = (image, password, profileSelected, email, token) => {
       authorization: token
     }
   })
-  .then(alert ("Profil modifié"))
+  .then(res => alert(res.data.message))
   .catch(err => {
     if(err.response.data.error){alert(err.response.data.error)}
         else if(err.response.data[0].message){err.response.data.forEach(error => alert(error.message))}

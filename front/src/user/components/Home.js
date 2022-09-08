@@ -26,11 +26,10 @@ const Home = () => {
             password: password
         })
         .then(res => {
-          if(res.status === 200) {
             let userInfo = JSON.stringify(res.data) //gets the user info from the server
             localStorage.setItem('userInfo', userInfo) //keep some user info in localstorage
             window.location = '/posts' //if everything is okay, go to the posts page
-          }})
+          })
         .catch(err => err && alert(err.response.data.error)) //get the error and display it on the client side
     }
 
@@ -65,7 +64,7 @@ const Home = () => {
                     e.preventDefault()
                     login(email, password)}}>
                         <label htmlFor="email"></label>
-                        <input type="text" name='email' id='email' placeholder='prénom.nom@groupomania.fr' className='groupomania-form__input'
+                        <input type="text" name='email' id='email' placeholder='Prénom.Nom@groupomania.fr' className='groupomania-form__input'
                         onChange={e => setEmail(e.target.value)} required pattern="[-\p{L}0-9#!%$‘&+*–/=?^_`.{|}~]+@{1}[a-z]{1,15}\.{1}[a-z]{2,5}(\.[a-z]{2,5})?" title='Veuillez écrire une adresse mail correcte'></input>
                         <label htmlFor="password"></label>
                         <input type="password" name='password' id='password' placeholder='mot de passe' className='groupomania-form__input' onChange={e => setPassword(e.target.value)} required></input>

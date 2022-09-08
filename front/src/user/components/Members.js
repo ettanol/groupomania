@@ -48,12 +48,14 @@ const Members = () => {
 
     const deleteMember = (member) => { //admin can delete members
       axios.delete(`http://localhost:5000/api/auth/user/${member._id}`,
-      {userId: user._id},
       {
+        data: {
+            userId: user._id
+        },
         headers: {
             authorization: userInfo.token
         }})
-        .then(res => console.log(res))
+        .then(res => alert(res.data.message))
         .catch(err => alert(err))
     }
 
