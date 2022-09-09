@@ -14,4 +14,4 @@ Pour toute modification que vous ne pourrez pas effectuer, vous devrez faire une
 J'attend vos premiers retours sur cette version 1.0 avec impatience. 
 
 
-NB: Pour installer cette première version, vous devrez ouvrir les dossiers dans l'invité de commande de votre choix. Il faudra ensuite écrire "cd front" puis "npm start". Des informations sur l'installation apparaîtront et au bout de quelques secondes, un onglet sur le navigateur s'ouvrira automatiquement. 
+NB: Pour installer cette première version, vous devrez ouvrir le dossier Groupomania dans l'invité de commande de votre choix. Il faudra ensuite écrire "cd front" puis "npm start". Des informations sur l'installation apparaîtront et au bout de quelques secondes, un onglet sur le navigateur s'ouvrira automatiquement. 
