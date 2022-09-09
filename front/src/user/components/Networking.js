@@ -156,7 +156,7 @@ const Networking = () => {
 
     return (
         <div className="networking">
-        <Form postsList={posts} isLoaded={isLoaded} fetchPosts={fetchPosts} displayPosts={displayPosts} ShowPosts={ShowPosts}/>
+        <Form postsList={posts} fetchPosts={fetchPosts} displayPosts={displayPosts} ShowPosts={ShowPosts}/>
         {showModal && <Modal post={post} setShowModal={setShowModal} onEditPost={onEditPost}/>} 
         <Publications />
     </div>
