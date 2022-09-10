@@ -16,3 +16,5 @@ J'attend vos premiers retours sur cette version 1.0 avec impatience.
 
 NB: Pour installer cette première version, vous devrez ouvrir le dossier Groupomania dans l'invité de commande de votre choix. Il faudra ensuite écrire "cd front" puis "npm start". Des informations sur l'installation apparaîtront et au bout de quelques secondes, un onglet sur le navigateur s'ouvrira automatiquement.
 Pour lancer le serveur, écrivez "cd back" depuis le dossier Groupomania puis "npm run dev". La connexion se lance, puis le serveur s'ouvre. Vous pouvez désormais accéder pleinement à l'application.
+
+PS : le fichier .env a été intégré dans le dossier back afin de vous permettre d'installer l'application dans sa totalité. Je modifierai de nouveau ce fichier en local bientôt. 
